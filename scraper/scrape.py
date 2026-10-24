@@ -231,9 +231,26 @@ def main():
     now = datetime.now(IST).isoformat(timespec="minutes")
     sources_out, events_out, changes = [], [], list(old.get("changes", []))[:40]
 
-    only = sys.argv[1:]  # optional: scrape.py jee-main bitsat
+    only = sys.argv[1:] or os.environ.get("ADMITZVIEW_ONLY", "").split()  # optional: limit to some sources
+    todo = [src for src in cfg["sources"] if not only or src["id"] in only]
+
+    def fetch(src):  # different sites are read at the same time; each site still gets one request every 2 s
+        try:
+            evs = read_source(src, w0, w1)
+            return ai_tidy(src, evs)
+        except Exception as ex:
+            return ex
+
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = dict(zip([s["id"] for s in todo], pool.map(fetch, todo)))
+
     for src in cfg["sources"]:
-        if only and src["id"] not in only:
+        if src["id"] not in results:  # not read this time: keep what we had
+            prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), None)
+            if prev_src:
+                sources_out.append(prev_src)
+                events_out += [e for e in old.get("events", []) if e.get("via", e["source"]) == src["id"]]
             continue
         print(f"-> {src['name']}")
         s = {k: src[k] for k in ("id", "name", "authority", "stream", "url")}
@@ -242,8 +259,10 @@ def main():
                 s[k] = src[k]
         s["kind"] = src.get("kind", "exam")
         try:
-            evs = read_source(src, w0, w1)
-            evs, used_ai = ai_tidy(src, evs)
+            res = results[src["id"]]
+            if isinstance(res, Exception):
+                raise res
+            evs, used_ai = res
             if src.get("split"):
                 moved = []
                 for e in evs:
