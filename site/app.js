@@ -42,7 +42,11 @@ const srcOf = id => DATA.sources.find(s => s.id === id) || { name: id, authority
 const evEnd = e => e.end || e.start;
 const rangeText = e => e.end ? `${fmt(e.start)} – ${fmt(e.end)}` : fmt(e.start);
 const COURSE_PROG = { Commerce: ["B.Com"], Management: ["BBA"], Arts: ["BA"], Science: ["B.Sc", "BCA"], Engineering: ["B.Tech"], Law: ["Law"], Design: ["Design"] };
-const forCourse = e => !e.programme || !S.f.course || !COURSE_PROG[S.f.course] || COURSE_PROG[S.f.course].includes(e.programme);
+const forCourse = e => {
+  if (!e.programme || !S.f.course.length) return true;
+  const ok = S.f.course.flatMap(c => COURSE_PROG[c] || []);
+  return !ok.length || S.f.course.some(c => !COURSE_PROG[c]) || ok.includes(e.programme);
+};
 const ownFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today && forCourse(e));
 /* a college that admits through a shared exam (IPMAT, JIPMAT, CUET...) gets that exam's dates, marked "via" */
 const upcomingFor = id => {
@@ -91,12 +95,15 @@ function clashes(events) {
 
 /* ---------- screen 1: find ---------- */
 function matches(s) {
-  const f = S.f, c = COURSES.find(x => x.id === f.course);
+  const f = S.f;
   if (s.hidden) return false;
-  if (c && c.id && ![c.id, ...(c.also || [])].some(x => (s.stream || []).includes(x))) return false;
+  if (f.course.length) {
+    const want = f.course.flatMap(id => { const c = COURSES.find(x => x.id === id); return c ? [c.id, ...(c.also || [])] : []; });
+    if (!want.some(x => (s.stream || []).includes(x))) return false;
+  }
   const places = s.campuses && s.campuses.length ? s.campuses : [{ city: s.city, state: s.state }];
-  if (f.state && s.state !== "All India" && !places.some(p => p.state === f.state)) return false;
-  if (f.city && s.city && !places.some(p => p.city === f.city)) return false;
+  if (f.state.length && s.state !== "All India" && !places.some(p => f.state.includes(p.state))) return false;
+  if (f.city.length && s.city && !places.some(p => f.city.includes(p.city))) return false;
   if (f.q && !(s.name + " " + s.authority).toLowerCase().includes(f.q.toLowerCase())) return false;
   return true;
 }
@@ -119,10 +126,17 @@ function tray() {
     <div class="chips">${S.sel.map(id => `<button class="chipx" data-toggle="${id}" aria-label="Remove ${esc(srcOf(id).name)}">${esc(srcOf(id).name)}<span>×</span></button>`).join("")}</div>
   </aside>`;
 }
+function multi(key, label, opts, all) {
+  const sel = S.f[key], names = opts.filter(([v]) => sel.includes(v)).map(o => o[1]);
+  const summary = !names.length ? all : names.length <= 2 ? names.join(", ") : `${names.slice(0, 2).join(", ")} +${names.length - 2}`;
+  return `<div class="field"><span>${label}</span><details class="ms" data-ms="${key}" ${S.openMs === key ? "open" : ""}><summary>${esc(summary)}</summary>
+    <div class="opts">${opts.length ? opts.map(([v, l]) => `<label class="opt"><input type="checkbox" data-f="${key}" value="${esc(v)}" ${sel.includes(v) ? "checked" : ""}><span>${esc(l)}</span></label>`).join("") : `<p class="fine">Pick a state first</p>`}
+    ${sel.length ? `<button class="link clr" data-clear="${key}">Clear</button>` : ""}</div></details></div>`;
+}
 function viewFind() {
   const places = DATA.sources.filter(s => !s.hidden).flatMap(s => s.campuses && s.campuses.length ? s.campuses : [{ city: s.city, state: s.state }]);
   const states = [...new Set(places.filter(p => p.state && p.state !== "All India").map(p => p.state))].sort();
-  const cities = [...new Set(places.filter(p => p.city && (!S.f.state || p.state === S.f.state)).map(p => p.city))].sort();
+  const cities = [...new Set(places.filter(p => p.city && (!S.f.state.length || S.f.state.includes(p.state))).map(p => p.city))].sort();
   const list = DATA.sources.filter(matches);
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section>
@@ -130,9 +144,9 @@ function viewFind() {
     <p class="lede">Choose your course and city, add up to ${CONFIG.max} colleges and exams, and see their deadlines side by side, read from official websites every morning.</p>
     <p class="warnline"><b>Early preview.</b> Our robot can miss or misread dates. Always confirm on each college's official website before you rely on a date.</p>
     <div class="filters">
-      <label class="field">Course<select id="fCourse">${COURSES.map(c => `<option value="${c.id}" ${S.f.course === c.id ? "selected" : ""}>${c.label}</option>`).join("")}</select></label>
-      <label class="field">State<select id="fState"><option value="">All states</option>${states.map(s => `<option ${S.f.state === s ? "selected" : ""}>${esc(s)}</option>`).join("")}</select></label>
-      <label class="field">City<select id="fCity"><option value="">All cities</option>${cities.map(c => `<option ${S.f.city === c ? "selected" : ""}>${esc(c)}</option>`).join("")}</select></label>
+      ${multi("course", "Course", COURSES.filter(c => c.id).map(c => [c.id, c.label]), "All courses")}
+      ${multi("state", "State", states.map(x => [x, x]), "All states")}
+      ${multi("city", "City", cities.map(x => [x, x]), "All cities")}
       <label class="field q">Search<input id="fQ" placeholder="College or exam name" value="${esc(S.f.q || "")}" autocomplete="off"></label>
     </div>
     ${colleges.length ? `<div class="rhead"><h2 class="h3">Colleges (${colleges.length})</h2></div><div class="results">${colleges.map(itemRow).join("")}</div>` : ""}
@@ -313,7 +327,8 @@ document.addEventListener("click", async ev => {
   const card = ev.target.closest("[data-card]");
   if (card && !ev.target.closest("button,a")) { toggle(card.dataset.card); return; }
   const t = ev.target.closest("button,[data-close]"); if (!t) return;
-  if (t.dataset.toggle) { ev.stopPropagation(); toggle(t.dataset.toggle); }
+  if (t.dataset.clear) { S.f[t.dataset.clear] = []; S.openMs = null; save(); render(); }
+  else if (t.dataset.toggle) { ev.stopPropagation(); toggle(t.dataset.toggle); }
   else if (t.dataset.go) go(t.dataset.go);
   else if (t.dataset.ev) { S.open = t.dataset.ev; render(); }
   else if (t.dataset.day) { S.open = "day:" + t.dataset.day; render(); }
@@ -323,9 +338,14 @@ document.addEventListener("click", async ev => {
   else if (t.id === "copyCal") { const u = calUrls().https; try { await navigator.clipboard.writeText(u); toast("Calendar link copied"); } catch { toast(u); } }
 });
 document.addEventListener("change", e => {
-  const map = { fCourse: "course", fState: "state", fCity: "city" }, k = map[e.target.id]; if (!k) return;
-  S.f[k] = e.target.value; if (k === "state") S.f.city = ""; save(); render();
+  const k = e.target.dataset?.f; if (!k) return;
+  const v = e.target.value, arr = S.f[k];
+  e.target.checked ? arr.includes(v) || arr.push(v) : arr.splice(arr.indexOf(v), 1);
+  if (k === "state") { const ok = new Set(DATA.sources.flatMap(s => s.campuses || [{ city: s.city, state: s.state }]).filter(p => !S.f.state.length || S.f.state.includes(p.state)).map(p => p.city)); S.f.city = S.f.city.filter(c => ok.has(c)); }
+  S.openMs = k; save(); render();
 });
+document.addEventListener("toggle", e => { const d = e.target; if (d.matches?.("details.ms")) { if (d.open) { S.openMs = d.dataset.ms; document.querySelectorAll("details.ms[open]").forEach(o => o !== d && (o.open = false)); } else if (S.openMs === d.dataset.ms) S.openMs = null; } }, true);
+document.addEventListener("click", e => { if (!e.target.closest("details.ms") && document.querySelector("details.ms[open]")) { S.openMs = null; document.querySelectorAll("details.ms[open]").forEach(o => o.open = false); } }, true);
 document.addEventListener("input", e => {
   if (e.target.id !== "fQ") return;
   S.f.q = e.target.value; const pos = e.target.selectionStart; render();
@@ -355,7 +375,8 @@ async function boot() {
   }
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
-  S = { sel, f: Object.assign({ course: "", state: "", city: "", q: "" }, store.get("f", {})), view: sel.length ? "view" : "find", tab: store.get("tab", "calendar") === "timeline" ? "calendar" : store.get("tab", "calendar"), open: null };
+  S = { sel, f: (() => { const f = Object.assign({ course: [], state: [], city: [], q: "" }, store.get("f", {}));
+      ["course", "state", "city"].forEach(k => { if (!Array.isArray(f[k])) f[k] = f[k] ? [f[k]] : []; }); return f; })(), openMs: null, view: sel.length ? "view" : "find", tab: store.get("tab", "calendar") === "timeline" ? "calendar" : store.get("tab", "calendar"), open: null };
   render();
 }
 boot();
