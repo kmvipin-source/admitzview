@@ -23,7 +23,7 @@ export async function onRequestGet({ request, env }) {
   for (const e of data.events) {
     if (!ids.has(e.source) || data.sample) continue;
     const title = `${name(e.source)}: ${e.title}${e.tentative ? " (tentative)" : ""}`;
-    const desc = `${e.evidence}\n\nOfficial source: ${e.url}\nRead automatically by AdmitzView. Always confirm on the official website.`;
+    const desc = `${e.evidence}\n\nOfficial source: ${e.url}\nINDICATIVE ONLY - accuracy not guaranteed. Read automatically by AdmitzView. Always confirm on the official website before you act.`;
     lines.push("BEGIN:VEVENT", `UID:${e.id}@admitzview`, `DTSTAMP:${stamp}`,
       `DTSTART;VALUE=DATE:${ymd(e.start)}`, `DTEND;VALUE=DATE:${ymd(nextDay(e.end || e.start))}`,
       fold(`SUMMARY:${esc(title)}`), fold(`DESCRIPTION:${esc(desc)}`), fold(`URL:${e.url}`), "TRANSP:TRANSPARENT");
