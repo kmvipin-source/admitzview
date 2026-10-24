@@ -70,6 +70,7 @@ LINK_RX = re.compile(r"admission|important[- _]?dates|key[- _]?dates|selection|s
 SKIP_RX = re.compile(r"\bpg\b|post ?graduate|ph\.?d|\bmba\b|login|sign ?in|facebook|twitter|instagram|youtube|linkedin|whatsapp|mailto:|tel:|javascript:|\.(jpe?g|png|gif|zip|docx?|xlsx?)(\?|$)", re.I)
 PRIORITY_RX = re.compile(r"important[- _]?dates|key[- _]?dates|selection[- _]?process|schedule|2027", re.I)
 MAX_PAGES = 10
+STRICT = os.environ.get("ADMITZVIEW_STRICT", "1") != "0"  # on by default
 
 
 def site_of(url):
@@ -117,7 +118,13 @@ def parse_html(url, body):
 def read_source(src, w0, w1):
     """Read the source page, any listed pages, and same-site admission/date pages up to two clicks deep."""
     home = site_of(src["url"])
-    queue = [(src["url"], 0)] + [(p, 0) for p in src.get("pages", [])]
+    if STRICT:
+        # Strict mode: read ONLY the source's known official admission-dates pages. No homepages, no news, no crawling.
+        if not src.get("pages"):
+            raise LookupError("no official dates page known yet")
+        queue = [(p, 2) for p in src["pages"]]
+    else:
+        queue = [(src["url"], 0)] + [(p, 0) for p in src.get("pages", [])]
     seen, pdfs, events, pages_read = set(), [], [], 0
     while queue and pages_read < MAX_PAGES:
         url, depth = queue.pop(0)
@@ -127,11 +134,11 @@ def read_source(src, w0, w1):
         try:
             ctype, body = get(url)
         except PermissionError:
-            if depth == 0 and url == src["url"]:
+            if (depth == 0 and url == src["url"]) or (STRICT and len(src.get("pages", [])) == 1):
                 raise
             continue
         except Exception as ex:
-            if depth == 0 and url == src["url"]:
+            if (depth == 0 and url == src["url"]) or (STRICT and len(src.get("pages", [])) == 1):
                 raise
             print(f"  skipped {url}: {ex}")
             continue
@@ -259,7 +266,8 @@ def main():
             prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), None)
             if prev_src:
                 sources_out.append(prev_src)
-                events_out += [e for e in old.get("events", []) if e.get("via", e["source"]) == src["id"]]
+                if not STRICT:  # strict mode never re-shows dates from older, looser runs
+                    events_out += [e for e in old.get("events", []) if e.get("via", e["source"]) == src["id"]]
             continue
         print(f"-> {src['name']}")
         s = {k: src[k] for k in ("id", "name", "authority", "stream", "url")}
@@ -300,9 +308,10 @@ def main():
                 events_out.append(e)
         except Exception as ex:
             print(f"  could not read: {ex}")
-            reason = "Site asks bots not to read it" if isinstance(ex, PermissionError) else "Couldn't read the official site today"
+            reason = ("No official dates page set up yet" if isinstance(ex, LookupError)
+                      else "Site asks bots not to read it" if isinstance(ex, PermissionError) else "Couldn't read the official site today")
             s.update(status="failed", checked=now, reason=reason)
-            stale = [dict(e, stale=True) for e in old.get("events", [])
+            stale = [] if isinstance(ex, LookupError) else [dict(e, stale=True) for e in old.get("events", [])
                      if e.get("via", e["source"]) == src["id"]]
             events_out += stale
             prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), {})
