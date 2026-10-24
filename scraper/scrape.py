@@ -28,7 +28,7 @@ UA = "AdmitzViewBot/1.0 (free student exam-date helper; reads public notices onc
 IST = timezone(timedelta(hours=5, minutes=30))
 PDF_HINT = re.compile(r"(information\s*bulletin|brochure|notice|notification|schedule|important\s*dates|prospectus|press\s*release|public\s*notice)", re.I)
 MAX_PDFS = 3
-MAX_BYTES = 8_000_000
+MAX_BYTES = 25_000_000
 
 session = requests.Session()
 session.headers["User-Agent"] = UA
@@ -63,7 +63,7 @@ def get(url):
 def pdf_text(data):
     from pypdf import PdfReader
     reader = PdfReader(io.BytesIO(data))
-    return "\n".join((p.extract_text() or "") for p in reader.pages[:25])
+    return "\n".join((p.extract_text() or "") for p in reader.pages[:40])
 
 
 def page_text_and_pdfs(url):
@@ -123,8 +123,11 @@ def ai_tidy(src, events):
                   "response_format": {"type": "json_object"}},
             timeout=60,
         )
-        r.raise_for_status()
-        keep = json.loads(r.json()["choices"][0]["message"]["content"]).get("keep", [])
+        if r.status_code != 200:
+            raise RuntimeError(f"HTTP {r.status_code}: {r.text[:200]}")
+        content = r.json()["choices"][0]["message"]["content"] or ""
+        content = re.sub(r"^```(?:json)?|```$", "", content.strip()).strip()
+        keep = json.loads(content).get("keep", [])
     except Exception as ex:
         print(f"  AI step skipped ({ex}); using rule-based results")
         return events, False
@@ -163,10 +166,23 @@ def main():
             continue
         print(f"-> {src['name']}")
         s = {k: src[k] for k in ("id", "name", "authority", "stream", "url")}
+        for k in ("hidden", "city"):
+            if k in src:
+                s[k] = src[k]
         s["kind"] = src.get("kind", "exam")
         try:
             evs = read_source(src, w0, w1)
             evs, used_ai = ai_tidy(src, evs)
+            if src.get("split"):
+                moved = []
+                for e in evs:
+                    low = e["evidence"].lower()
+                    target = next((t for k, t in src["split"].items() if k in low), None)
+                    if target:
+                        e = dict(e, source=target, via=src["id"])
+                        e["id"] = target + "-" + e["id"]
+                        moved.append(e)
+                evs = moved
             s.update(status="ok", checked=now, found=len(evs), ai=used_ai)
             for e in evs:
                 e.pop("keyword", None)
@@ -176,18 +192,19 @@ def main():
                 slot = old_by_slot.get((e["source"], e["cat"], e["title"]))
                 if not prev and slot and (slot["start"], slot.get("end")) != (e["start"], e.get("end")):
                     e["changed_from"] = slot["start"] + (" to " + slot["end"] if slot.get("end") else "")
-                    changes.insert(0, {"when": now, "source": src["id"], "title": e["title"],
+                    changes.insert(0, {"when": now, "source": e["source"], "title": e["title"],
                                        "from": e["changed_from"], "to": e["start"] + (" to " + e["end"] if e.get("end") else ""),
                                        "url": e["url"]})
                 elif not prev and old_events:
-                    changes.insert(0, {"when": now, "source": src["id"], "title": e["title"], "from": None,
+                    changes.insert(0, {"when": now, "source": e["source"], "title": e["title"], "from": None,
                                        "to": e["start"] + (" to " + e["end"] if e.get("end") else ""), "url": e["url"]})
                 events_out.append(e)
         except Exception as ex:
             print(f"  could not read: {ex}")
             reason = "Site asks bots not to read it" if isinstance(ex, PermissionError) else "Couldn't read the official site today"
             s.update(status="failed", checked=now, reason=reason)
-            stale = [dict(e, stale=True) for e in old.get("events", []) if e["source"] == src["id"]]
+            stale = [dict(e, stale=True) for e in old.get("events", [])
+                     if e.get("via", e["source"]) == src["id"]]
             events_out += stale
             prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), {})
             s["last_ok"] = prev_src.get("checked") if prev_src.get("status") == "ok" else prev_src.get("last_ok")
