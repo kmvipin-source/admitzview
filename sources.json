@@ -1,30 +1,421 @@
 {
-  "cycle": "2027",
-  "window": { "from": "2026-09-01", "to": "2027-10-31" },
-  "sources": [
-    { "id": "jee-main",  "name": "JEE Main",            "authority": "National Testing Agency",         "stream": ["Engineering"],             "url": "https://jeemain.nta.nic.in/" },
-    { "id": "jee-adv",   "name": "JEE Advanced",        "authority": "IITs (organising IIT)",           "stream": ["Engineering"],             "url": "https://jeeadv.ac.in/" },
-    { "id": "josaa",     "name": "JoSAA Counselling",   "authority": "Joint Seat Allocation Authority", "stream": ["Engineering"],             "url": "https://josaa.nic.in/", "kind": "counselling" },
-    { "id": "bitsat",    "name": "BITSAT",              "authority": "BITS Pilani",                     "stream": ["Engineering"],             "url": "https://www.bitsadmission.com/" },
-    { "id": "viteee",    "name": "VITEEE",              "authority": "VIT",                             "stream": ["Engineering"],             "url": "https://viteee.vit.ac.in/" },
-    { "id": "srmjeee",   "name": "SRMJEEE",             "authority": "SRM Institute",                   "stream": ["Engineering"],             "url": "https://www.srmist.edu.in/admission-india/" },
-    { "id": "met",       "name": "MET (Manipal)",       "authority": "Manipal Academy",                 "stream": ["Engineering"],             "url": "https://manipal.edu/mu/admission.html" },
-    { "id": "comedk",    "name": "COMEDK UGET",         "authority": "COMEDK",                          "stream": ["Engineering"],             "url": "https://www.comedk.org/" },
-    { "id": "kcet",      "name": "KCET",                "authority": "Karnataka Examinations Authority","stream": ["Engineering", "Medical"],  "url": "https://cetonline.karnataka.gov.in/kea/" },
-    { "id": "keam",      "name": "KEAM",                "authority": "CEE Kerala",                      "stream": ["Engineering", "Medical"],  "url": "https://cee.kerala.gov.in/" },
-    { "id": "mht-cet",   "name": "MHT CET",             "authority": "State CET Cell, Maharashtra",     "stream": ["Engineering"],             "url": "https://cetcell.mahacet.org/" },
-    { "id": "wbjee",     "name": "WBJEE",               "authority": "WBJEE Board",                     "stream": ["Engineering"],             "url": "https://wbjeeb.nic.in/" },
-    { "id": "ap-eapcet", "name": "AP EAPCET",           "authority": "APSCHE",                          "stream": ["Engineering"],             "url": "https://cets.apsche.ap.gov.in/" },
-    { "id": "ts-eapcet", "name": "TS EAPCET",           "authority": "TSCHE",                           "stream": ["Engineering"],             "url": "https://eapcet.tsche.ac.in/" },
-    { "id": "neet-ug",   "name": "NEET UG",             "authority": "National Testing Agency",         "stream": ["Medical"],                 "url": "https://neet.nta.nic.in/" },
-    { "id": "mcc",       "name": "MCC NEET Counselling","authority": "Medical Counselling Committee",   "stream": ["Medical"],                 "url": "https://mcc.nic.in/", "kind": "counselling" },
-    { "id": "cuet-ug",   "name": "CUET UG",             "authority": "National Testing Agency",         "stream": ["Arts", "Science", "Commerce", "Management"], "url": "https://cuet.nta.nic.in/" },
-    { "id": "ipmat",     "name": "IPMAT (IIM Indore)",  "authority": "IIM Indore",                      "stream": ["Management"],              "url": "https://www.iimidr.ac.in/" },
-    { "id": "clat",      "name": "CLAT",                "authority": "Consortium of NLUs",              "stream": ["Law"],                     "url": "https://consortiumofnlus.ac.in/" },
-    { "id": "ailet",     "name": "AILET",               "authority": "NLU Delhi",                       "stream": ["Law"],                     "url": "https://nationallawuniversitydelhi.in/" },
-    { "id": "nata",      "name": "NATA",                "authority": "Council of Architecture",         "stream": ["Architecture", "Design"],  "url": "https://www.nata.in/" },
-    { "id": "uceed",     "name": "UCEED",               "authority": "IIT Bombay",                      "stream": ["Design"],                  "url": "https://www.uceed.iitb.ac.in/" },
-    { "id": "nid-dat",   "name": "NID DAT",             "authority": "National Institute of Design",    "stream": ["Design"],                  "url": "https://admissions.nid.edu/" },
-    { "id": "nift",      "name": "NIFT Entrance",       "authority": "NIFT",                            "stream": ["Design"],                  "url": "https://www.nift.ac.in/" }
-  ]
+ "cycle": "2027",
+ "window": {
+  "from": "2026-09-01",
+  "to": "2027-10-31"
+ },
+ "sources": [
+  {
+   "id": "nta",
+   "name": "NTA exam calendar",
+   "authority": "National Testing Agency",
+   "stream": [],
+   "url": "https://nta.ac.in/",
+   "hidden": true,
+   "split": {
+    "jee": "jee-main",
+    "neet": "neet-ug",
+    "cuet": "cuet-ug"
+   }
+  },
+  {
+   "id": "jee-main",
+   "name": "JEE Main",
+   "authority": "National Testing Agency",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://jeemain.nta.nic.in/"
+  },
+  {
+   "id": "jee-adv",
+   "name": "JEE Advanced",
+   "authority": "IITs (organising IIT)",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://jeeadv.ac.in/"
+  },
+  {
+   "id": "josaa",
+   "name": "JoSAA Counselling",
+   "authority": "Joint Seat Allocation Authority",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://josaa.nic.in/",
+   "kind": "counselling"
+  },
+  {
+   "id": "bitsat",
+   "name": "BITSAT",
+   "authority": "BITS Pilani",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://www.bitsadmission.com/"
+  },
+  {
+   "id": "viteee",
+   "name": "VITEEE",
+   "authority": "VIT",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://viteee.vit.ac.in/"
+  },
+  {
+   "id": "srmjeee",
+   "name": "SRMJEEE",
+   "authority": "SRM Institute",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://www.srmist.edu.in/admission-india/"
+  },
+  {
+   "id": "met",
+   "name": "MET (Manipal)",
+   "authority": "Manipal Academy",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://manipal.edu/mu/admission.html"
+  },
+  {
+   "id": "comedk",
+   "name": "COMEDK UGET",
+   "authority": "COMEDK",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://www.comedk.org/"
+  },
+  {
+   "id": "kcet",
+   "name": "KCET",
+   "authority": "Karnataka Examinations Authority",
+   "stream": [
+    "Engineering",
+    "Medical"
+   ],
+   "url": "https://cetonline.karnataka.gov.in/kea/"
+  },
+  {
+   "id": "keam",
+   "name": "KEAM",
+   "authority": "CEE Kerala",
+   "stream": [
+    "Engineering",
+    "Medical"
+   ],
+   "url": "https://cee.kerala.gov.in/"
+  },
+  {
+   "id": "mht-cet",
+   "name": "MHT CET",
+   "authority": "State CET Cell, Maharashtra",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://cetcell.mahacet.org/"
+  },
+  {
+   "id": "wbjee",
+   "name": "WBJEE",
+   "authority": "WBJEE Board",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://wbjeeb.nic.in/"
+  },
+  {
+   "id": "ap-eapcet",
+   "name": "AP EAPCET",
+   "authority": "APSCHE",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://cets.apsche.ap.gov.in/"
+  },
+  {
+   "id": "ts-eapcet",
+   "name": "TS EAPCET",
+   "authority": "TSCHE",
+   "stream": [
+    "Engineering"
+   ],
+   "url": "https://eapcet.tsche.ac.in/"
+  },
+  {
+   "id": "neet-ug",
+   "name": "NEET UG",
+   "authority": "National Testing Agency",
+   "stream": [
+    "Medical"
+   ],
+   "url": "https://neet.nta.nic.in/"
+  },
+  {
+   "id": "mcc",
+   "name": "MCC NEET Counselling",
+   "authority": "Medical Counselling Committee",
+   "stream": [
+    "Medical"
+   ],
+   "url": "https://mcc.nic.in/",
+   "kind": "counselling"
+  },
+  {
+   "id": "cuet-ug",
+   "name": "CUET UG",
+   "authority": "National Testing Agency",
+   "stream": [
+    "Arts",
+    "Science",
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://cuet.nta.nic.in/"
+  },
+  {
+   "id": "ipmat",
+   "name": "IPMAT (IIM Indore)",
+   "authority": "IIM Indore",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimidr.ac.in/"
+  },
+  {
+   "id": "clat",
+   "name": "CLAT",
+   "authority": "Consortium of NLUs",
+   "stream": [
+    "Law"
+   ],
+   "url": "https://consortiumofnlus.ac.in/"
+  },
+  {
+   "id": "ailet",
+   "name": "AILET",
+   "authority": "NLU Delhi",
+   "stream": [
+    "Law"
+   ],
+   "url": "https://nationallawuniversitydelhi.in/"
+  },
+  {
+   "id": "nata",
+   "name": "NATA",
+   "authority": "Council of Architecture",
+   "stream": [
+    "Architecture",
+    "Design"
+   ],
+   "url": "https://www.nata.in/"
+  },
+  {
+   "id": "uceed",
+   "name": "UCEED",
+   "authority": "IIT Bombay",
+   "stream": [
+    "Design"
+   ],
+   "url": "https://www.uceed.iitb.ac.in/"
+  },
+  {
+   "id": "nid-dat",
+   "name": "NID DAT",
+   "authority": "National Institute of Design",
+   "stream": [
+    "Design"
+   ],
+   "url": "https://admissions.nid.edu/"
+  },
+  {
+   "id": "nift",
+   "name": "NIFT Entrance",
+   "authority": "NIFT",
+   "stream": [
+    "Design"
+   ],
+   "url": "https://www.nift.ac.in/"
+  },
+  {
+   "id": "christ",
+   "name": "Christ University",
+   "authority": "Christ (Deemed to be University)",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Arts",
+    "Science",
+    "Law"
+   ],
+   "url": "https://christuniversity.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "sju",
+   "name": "St Joseph's University",
+   "authority": "St Joseph's University",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://admissions.sju.edu.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "sjcc",
+   "name": "St Joseph's College of Commerce",
+   "authority": "SJCC (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.sjcc.edu.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "mcc-blr",
+   "name": "Mount Carmel College",
+   "authority": "Mount Carmel College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://mccblr.edu.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "jain",
+   "name": "Jain University (JET)",
+   "authority": "Jain (Deemed-to-be University)",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Engineering"
+   ],
+   "url": "https://www.jainuniversity.ac.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "kristu",
+   "name": "Kristu Jayanti College",
+   "authority": "Kristu Jayanti College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://kristujayanti.edu.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "jyoti",
+   "name": "Jyoti Nivas College",
+   "authority": "Jyoti Nivas College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://www.jyotinivas.org/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "msrcasc",
+   "name": "MS Ramaiah College (Arts, Science & Commerce)",
+   "authority": "MSRCASC",
+   "stream": [
+    "Commerce",
+    "Science"
+   ],
+   "url": "https://www.msrcasc.edu.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "pes",
+   "name": "PES University",
+   "authority": "PES University",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Engineering"
+   ],
+   "url": "https://pes.edu/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "presidency",
+   "name": "Presidency College",
+   "authority": "Presidency College, Bengaluru",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://presidencycollege.ac.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "gcu",
+   "name": "Garden City University",
+   "authority": "Garden City University",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Science"
+   ],
+   "url": "https://www.gcu.ac.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "surana",
+   "name": "Surana College",
+   "authority": "Surana College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.suranacollege.edu.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "bu",
+   "name": "Bangalore University",
+   "authority": "Bangalore University",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://bangaloreuniversity.karnataka.gov.in/",
+   "city": "Bengaluru"
+  },
+  {
+   "id": "npat",
+   "name": "NMIMS NPAT",
+   "authority": "NMIMS",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.nmims.edu/"
+  },
+  {
+   "id": "set",
+   "name": "Symbiosis SET",
+   "authority": "Symbiosis International University",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Law"
+   ],
+   "url": "https://www.set-test.org/"
+  }
+ ]
 }
