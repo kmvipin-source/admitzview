@@ -45,6 +45,12 @@ Programme Name: Master of Commerce (M.Com.) | Last Date to Apply: 06 January 202
     assert {e["start"] for e in ev if e["cat"] == "exam"} == {"2027-01-14", "2027-01-16"}
 
 
+def test_long_rows_and_ug_pg():
+    row = "Date: Entrance Test Programmes December 11, 2026 To December 13, 2026 | Time: As per your E-Admit card | Particulars: Personal interview (PI) | Venue: " + " | ".join(["Campus"] * 120)
+    assert [(e["cat"], e["start"], e["end"]) for e in extract(row, "c", W0, W1)] == [("exam", "2026-12-11", "2026-12-13")]
+    assert extract("UG & PG applications: last date 25 November 2026", "c", W0, W1)
+
+
 def test_junk_is_dropped():
     junk = """PG (MBA & MCA) Inauguration for the Academic Year 2026–27 will be held on 29 October 2026.
     The Annual Sports Day will be held on 12 December 2026.

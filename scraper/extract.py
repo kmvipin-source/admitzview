@@ -117,8 +117,8 @@ def sentences(text):
     text = re.sub(r"[ \t ]+", " ", text)
     for chunk in re.split(r"(?<=[.;!?])\s+|\n+", text):
         chunk = chunk.strip()
-        if 12 <= len(chunk) <= 600:
-            yield chunk
+        if len(chunk) >= 12:
+            yield chunk[:600]  # long table rows (venue lists) are cut, not dropped
 
 
 NOISE = re.compile(r"as per (your )?e?-?\s?admit card|refer (to )?(the )?admit card", re.I)
@@ -181,7 +181,7 @@ def extract(text, source_id, window_from, window_to):
         if NOT_ADMISSION.search(sent):
             continue  # events, fests, semester exams, recruitment: not admission steps
         prog = programme_of(sent)
-        if PG.search(sent) and not prog:
+        if PG.search(sent) and not prog and not re.search(r"\bUG\b|under ?graduate|bachelor", sent, re.I):
             continue  # postgraduate rows are not for this tool
         cells = sent.split(" | ") if " | " in sent else [sent]
         row_cat, row_kw = classify(sent)
@@ -215,6 +215,10 @@ def extract(text, source_id, window_from, window_to):
                 ev["title"] = "Application last date"
             elif cat == "app" and b == a and any(w in low for w in ["open", "start", "commence", "begin", "available"]):
                 ev["title"] = "Application opens"
+            if re.search(r"non[- ]?(entrance test|et\b)", low):
+                ev["title"] += " (programmes without entrance test)"
+            elif re.search(r"entrance test programmes|\(et\)", low) and cat != "exam":
+                ev["title"] += " (programmes with entrance test)"
             if prog:
                 ev["title"] = f"{prog}: {ev['title']}"
             key = (cat, ev["start"], ev["end"], prog)
