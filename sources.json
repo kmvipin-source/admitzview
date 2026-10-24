@@ -16,7 +16,8 @@
     "jee": "jee-main",
     "neet": "neet-ug",
     "cuet": "cuet-ug"
-   }
+   },
+   "state": "All India"
   },
   {
    "id": "jee-main",
@@ -25,7 +26,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://jeemain.nta.nic.in/"
+   "url": "https://jeemain.nta.nic.in/",
+   "state": "All India"
   },
   {
    "id": "jee-adv",
@@ -34,7 +36,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://jeeadv.ac.in/"
+   "url": "https://jeeadv.ac.in/",
+   "state": "All India"
   },
   {
    "id": "josaa",
@@ -44,7 +47,8 @@
     "Engineering"
    ],
    "url": "https://josaa.nic.in/",
-   "kind": "counselling"
+   "kind": "counselling",
+   "state": "All India"
   },
   {
    "id": "bitsat",
@@ -53,7 +57,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://www.bitsadmission.com/"
+   "url": "https://www.bitsadmission.com/",
+   "state": "All India"
   },
   {
    "id": "viteee",
@@ -62,7 +67,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://viteee.vit.ac.in/"
+   "url": "https://viteee.vit.ac.in/",
+   "state": "All India"
   },
   {
    "id": "srmjeee",
@@ -71,7 +77,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://www.srmist.edu.in/admission-india/"
+   "url": "https://www.srmist.edu.in/admission-india/",
+   "state": "All India"
   },
   {
    "id": "met",
@@ -80,7 +87,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://manipal.edu/mu/admission.html"
+   "url": "https://manipal.edu/mu/admission.html",
+   "state": "All India"
   },
   {
    "id": "comedk",
@@ -89,7 +97,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://www.comedk.org/"
+   "url": "https://www.comedk.org/",
+   "state": "Karnataka"
   },
   {
    "id": "kcet",
@@ -99,7 +108,8 @@
     "Engineering",
     "Medical"
    ],
-   "url": "https://cetonline.karnataka.gov.in/kea/"
+   "url": "https://cetonline.karnataka.gov.in/kea/",
+   "state": "Karnataka"
   },
   {
    "id": "keam",
@@ -109,7 +119,8 @@
     "Engineering",
     "Medical"
    ],
-   "url": "https://cee.kerala.gov.in/"
+   "url": "https://cee.kerala.gov.in/",
+   "state": "Kerala"
   },
   {
    "id": "mht-cet",
@@ -118,7 +129,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://cetcell.mahacet.org/"
+   "url": "https://cetcell.mahacet.org/",
+   "state": "Maharashtra"
   },
   {
    "id": "wbjee",
@@ -127,7 +139,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://wbjeeb.nic.in/"
+   "url": "https://wbjeeb.nic.in/",
+   "state": "West Bengal"
   },
   {
    "id": "ap-eapcet",
@@ -136,7 +149,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://cets.apsche.ap.gov.in/"
+   "url": "https://cets.apsche.ap.gov.in/",
+   "state": "Andhra Pradesh"
   },
   {
    "id": "ts-eapcet",
@@ -145,7 +159,8 @@
    "stream": [
     "Engineering"
    ],
-   "url": "https://eapcet.tsche.ac.in/"
+   "url": "https://eapcet.tsche.ac.in/",
+   "state": "Telangana"
   },
   {
    "id": "neet-ug",
@@ -154,7 +169,8 @@
    "stream": [
     "Medical"
    ],
-   "url": "https://neet.nta.nic.in/"
+   "url": "https://neet.nta.nic.in/",
+   "state": "All India"
   },
   {
    "id": "mcc",
@@ -164,7 +180,8 @@
     "Medical"
    ],
    "url": "https://mcc.nic.in/",
-   "kind": "counselling"
+   "kind": "counselling",
+   "state": "All India"
   },
   {
    "id": "cuet-ug",
@@ -176,7 +193,8 @@
     "Commerce",
     "Management"
    ],
-   "url": "https://cuet.nta.nic.in/"
+   "url": "https://cuet.nta.nic.in/",
+   "state": "All India"
   },
   {
    "id": "ipmat",
@@ -185,7 +203,8 @@
    "stream": [
     "Management"
    ],
-   "url": "https://www.iimidr.ac.in/"
+   "url": "https://www.iimidr.ac.in/",
+   "state": "All India"
   },
   {
    "id": "clat",
@@ -194,7 +213,8 @@
    "stream": [
     "Law"
    ],
-   "url": "https://consortiumofnlus.ac.in/"
+   "url": "https://consortiumofnlus.ac.in/",
+   "state": "All India"
   },
   {
    "id": "ailet",
@@ -203,7 +223,8 @@
    "stream": [
     "Law"
    ],
-   "url": "https://nationallawuniversitydelhi.in/"
+   "url": "https://nationallawuniversitydelhi.in/",
+   "state": "All India"
   },
   {
    "id": "nata",
@@ -213,7 +234,8 @@
     "Architecture",
     "Design"
    ],
-   "url": "https://www.nata.in/"
+   "url": "https://www.nata.in/",
+   "state": "All India"
   },
   {
    "id": "uceed",
@@ -222,7 +244,8 @@
    "stream": [
     "Design"
    ],
-   "url": "https://www.uceed.iitb.ac.in/"
+   "url": "https://www.uceed.iitb.ac.in/",
+   "state": "All India"
   },
   {
    "id": "nid-dat",
@@ -231,7 +254,8 @@
    "stream": [
     "Design"
    ],
-   "url": "https://admissions.nid.edu/"
+   "url": "https://admissions.nid.edu/",
+   "state": "All India"
   },
   {
    "id": "nift",
@@ -240,7 +264,8 @@
    "stream": [
     "Design"
    ],
-   "url": "https://www.nift.ac.in/"
+   "url": "https://www.nift.ac.in/",
+   "state": "All India"
   },
   {
    "id": "christ",
@@ -255,7 +280,8 @@
    ],
    "url": "https://christuniversity.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "sju",
@@ -268,7 +294,8 @@
    ],
    "url": "https://admissions.sju.edu.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "sjcc",
@@ -280,7 +307,8 @@
    ],
    "url": "https://www.sjcc.edu.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "mcc-blr",
@@ -293,7 +321,8 @@
    ],
    "url": "https://mccblr.edu.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "jain",
@@ -306,7 +335,8 @@
    ],
    "url": "https://www.jainuniversity.ac.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "kristu",
@@ -319,7 +349,8 @@
    ],
    "url": "https://kristujayanti.edu.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "jyoti",
@@ -332,7 +363,8 @@
    ],
    "url": "https://www.jyotinivas.org/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "msrcasc",
@@ -344,7 +376,8 @@
    ],
    "url": "https://www.msrcasc.edu.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "pes",
@@ -357,7 +390,8 @@
    ],
    "url": "https://pes.edu/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "presidency",
@@ -369,7 +403,8 @@
    ],
    "url": "https://presidencycollege.ac.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "gcu",
@@ -382,7 +417,8 @@
    ],
    "url": "https://www.gcu.ac.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "surana",
@@ -394,7 +430,8 @@
    ],
    "url": "https://www.suranacollege.edu.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "bu",
@@ -407,7 +444,8 @@
    ],
    "url": "https://bangaloreuniversity.karnataka.gov.in/",
    "city": "Bengaluru",
-   "kind": "college"
+   "kind": "college",
+   "state": "Karnataka"
   },
   {
    "id": "npat",
@@ -417,7 +455,8 @@
     "Commerce",
     "Management"
    ],
-   "url": "https://www.nmims.edu/"
+   "url": "https://www.nmims.edu/",
+   "state": "All India"
   },
   {
    "id": "set",
@@ -428,7 +467,8 @@
     "Management",
     "Law"
    ],
-   "url": "https://www.set-test.org/"
+   "url": "https://www.set-test.org/",
+   "state": "All India"
   }
  ]
 }
