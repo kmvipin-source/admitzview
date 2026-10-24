@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-25T08:00+05:30",
+ "generated": "2026-10-25T00:02+05:30",
  "cycle": "2027",
- "sample": true,
+ "sample": false,
  "sources": [
   {
    "id": "jee-main",
@@ -12,9 +12,10 @@
    ],
    "url": "https://jeemain.nta.nic.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 5
+   "status": "failed",
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "jee-adv",
@@ -25,9 +26,10 @@
    ],
    "url": "https://jeeadv.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "josaa",
@@ -38,9 +40,10 @@
    ],
    "url": "https://josaa.nic.in/",
    "kind": "counselling",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "bitsat",
@@ -51,9 +54,10 @@
    ],
    "url": "https://www.bitsadmission.com/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 2
+   "status": "failed",
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "viteee",
@@ -64,9 +68,10 @@
    ],
    "url": "https://viteee.vit.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 2
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "srmjeee",
@@ -78,9 +83,9 @@
    "url": "https://www.srmist.edu.in/admission-india/",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0,
-   "reason": "Couldn't read the official site today"
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "met",
@@ -91,9 +96,10 @@
    ],
    "url": "https://manipal.edu/mu/admission.html",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "comedk",
@@ -104,9 +110,10 @@
    ],
    "url": "https://www.comedk.org/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 2
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "kcet",
@@ -118,9 +125,10 @@
    ],
    "url": "https://cetonline.karnataka.gov.in/kea/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 2
+   "status": "failed",
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "keam",
@@ -132,9 +140,10 @@
    ],
    "url": "https://cee.kerala.gov.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 1
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "mht-cet",
@@ -145,9 +154,10 @@
    ],
    "url": "https://cetcell.mahacet.org/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "wbjee",
@@ -158,9 +168,10 @@
    ],
    "url": "https://wbjeeb.nic.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "ap-eapcet",
@@ -171,9 +182,10 @@
    ],
    "url": "https://cets.apsche.ap.gov.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "ts-eapcet",
@@ -184,9 +196,10 @@
    ],
    "url": "https://eapcet.tsche.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "failed",
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "neet-ug",
@@ -197,9 +210,10 @@
    ],
    "url": "https://neet.nta.nic.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 1
+   "status": "failed",
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "mcc",
@@ -210,9 +224,10 @@
    ],
    "url": "https://mcc.nic.in/",
    "kind": "counselling",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "failed",
+   "checked": "2026-10-25T00:02+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   },
   {
    "id": "cuet-ug",
@@ -226,9 +241,10 @@
    ],
    "url": "https://cuet.nta.nic.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 1
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "ipmat",
@@ -239,9 +255,10 @@
    ],
    "url": "https://www.iimidr.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "clat",
@@ -252,9 +269,10 @@
    ],
    "url": "https://consortiumofnlus.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 2
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 1,
+   "ai": false
   },
   {
    "id": "ailet",
@@ -265,9 +283,10 @@
    ],
    "url": "https://nationallawuniversitydelhi.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "nata",
@@ -279,9 +298,10 @@
    ],
    "url": "https://www.nata.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 1
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "uceed",
@@ -292,9 +312,10 @@
    ],
    "url": "https://www.uceed.iitb.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 1
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   },
   {
    "id": "nid-dat",
@@ -305,9 +326,10 @@
    ],
    "url": "https://admissions.nid.edu/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 1
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 2,
+   "ai": false
   },
   {
    "id": "nift",
@@ -318,316 +340,55 @@
    ],
    "url": "https://www.nift.ac.in/",
    "kind": "exam",
-   "status": "sample",
-   "checked": "2026-10-25T08:00+05:30",
-   "found": 0
+   "status": "ok",
+   "checked": "2026-10-25T00:02+05:30",
+   "found": 0,
+   "ai": false
   }
  ],
  "events": [
   {
-   "id": "jee-main-app-2026-10-31",
-   "source": "jee-main",
+   "source": "clat",
    "cat": "app",
-   "title": "Session 1 registration",
+   "title": "Application last date",
    "start": "2026-10-31",
-   "end": "2026-11-27",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Session 1 registration \u2014 2026-10-31 to 2026-11-27.",
-   "url": "https://jeemain.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "jee-main-correct-2026-12-02",
-   "source": "jee-main",
-   "cat": "correct",
-   "title": "Correction window",
-   "start": "2026-12-02",
-   "end": "2026-12-04",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Correction window \u2014 2026-12-02 to 2026-12-04.",
-   "url": "https://jeemain.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "jee-main-admit-2027-01-16",
-   "source": "jee-main",
-   "cat": "admit",
-   "title": "Admit card release",
-   "start": "2027-01-16",
    "end": null,
    "time": null,
    "tentative": false,
-   "evidence": "SAMPLE TEXT: Admit card release \u2014 2027-01-16.",
-   "url": "https://jeemain.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
+   "evidence": "remain open until 31st October, 2026, which is the last date for submission of applications.",
+   "id": "47c22df31b-2026-10-31",
+   "url": "https://consortiumofnlus.ac.in/clat-2027/notifications/Press_Release_CLAT_2027.pdf",
+   "first_seen": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:02+05:30"
   },
   {
-   "id": "jee-main-exam-2027-01-22",
-   "source": "jee-main",
-   "cat": "exam",
-   "title": "Session 1 exam",
-   "start": "2027-01-22",
-   "end": "2027-01-31",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Session 1 exam \u2014 2027-01-22 to 2027-01-31.",
-   "url": "https://jeemain.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "jee-main-result-2027-02-12",
-   "source": "jee-main",
-   "cat": "result",
-   "title": "Session 1 result",
-   "start": "2027-02-12",
-   "end": null,
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Session 1 result \u2014 2027-02-12.",
-   "url": "https://jeemain.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "bitsat-app-2026-12-15",
-   "source": "bitsat",
-   "cat": "app",
-   "title": "Registration opens",
-   "start": "2026-12-15",
-   "end": null,
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Registration opens \u2014 2026-12-15.",
-   "url": "https://www.bitsadmission.com/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "bitsat-app-2027-02-20",
-   "source": "bitsat",
-   "cat": "app",
-   "title": "Registration closes",
-   "start": "2027-02-20",
-   "end": null,
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Registration closes \u2014 2027-02-20.",
-   "url": "https://www.bitsadmission.com/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30",
-   "changed_from": "2027-02-12"
-  },
-  {
-   "id": "viteee-app-2027-01-28",
-   "source": "viteee",
-   "cat": "app",
-   "title": "Application closes",
-   "start": "2027-01-28",
-   "end": null,
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Application closes \u2014 2027-01-28.",
-   "url": "https://viteee.vit.ac.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "viteee-exam-2027-01-29",
-   "source": "viteee",
-   "cat": "exam",
-   "title": "VITEEE exam",
-   "start": "2027-01-29",
-   "end": "2027-02-03",
-   "time": null,
-   "tentative": true,
-   "evidence": "SAMPLE TEXT: VITEEE exam \u2014 2027-01-29 to 2027-02-03.",
-   "url": "https://viteee.vit.ac.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "comedk-app-2026-12-10",
-   "source": "comedk",
-   "cat": "app",
-   "title": "Registration window",
-   "start": "2026-12-10",
-   "end": "2027-01-15",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Registration window \u2014 2026-12-10 to 2027-01-15.",
-   "url": "https://www.comedk.org/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "comedk-exam-2027-01-24",
-   "source": "comedk",
-   "cat": "exam",
-   "title": "UGET exam",
-   "start": "2027-01-24",
-   "end": null,
-   "time": "09:00-12:00",
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: UGET exam \u2014 2027-01-24.",
-   "url": "https://www.comedk.org/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "kcet-app-2026-12-01",
-   "source": "kcet",
-   "cat": "app",
-   "title": "Online application",
-   "start": "2026-12-01",
-   "end": "2027-01-10",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Online application \u2014 2026-12-01 to 2027-01-10.",
-   "url": "https://cetonline.karnataka.gov.in/kea/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "kcet-fee-2027-01-24",
-   "source": "kcet",
-   "cat": "fee",
-   "title": "Fee payment last date",
-   "start": "2027-01-24",
-   "end": null,
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Fee payment last date \u2014 2027-01-24.",
-   "url": "https://cetonline.karnataka.gov.in/kea/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "keam-app-2026-11-20",
-   "source": "keam",
+   "source": "nid-dat",
    "cat": "app",
    "title": "Application",
-   "start": "2026-11-20",
-   "end": "2026-12-20",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Application \u2014 2026-11-20 to 2026-12-20.",
-   "url": "https://cee.kerala.gov.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "neet-ug-app-2026-12-05",
-   "source": "neet-ug",
-   "cat": "app",
-   "title": "Registration",
-   "start": "2026-12-05",
-   "end": "2027-01-05",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Registration \u2014 2026-12-05 to 2027-01-05.",
-   "url": "https://neet.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "cuet-ug-app-2027-01-10",
-   "source": "cuet-ug",
-   "cat": "app",
-   "title": "Registration",
-   "start": "2027-01-10",
-   "end": "2027-02-08",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Registration \u2014 2027-01-10 to 2027-02-08.",
-   "url": "https://cuet.nta.nic.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "clat-exam-2026-12-06",
-   "source": "clat",
-   "cat": "exam",
-   "title": "CLAT exam",
-   "start": "2026-12-06",
-   "end": null,
-   "time": "14:00-16:00",
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: CLAT exam \u2014 2026-12-06.",
-   "url": "https://consortiumofnlus.ac.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "clat-result-2026-12-16",
-   "source": "clat",
-   "cat": "result",
-   "title": "Result",
-   "start": "2026-12-16",
+   "start": "2026-09-15",
    "end": null,
    "time": null,
    "tentative": false,
-   "evidence": "SAMPLE TEXT: Result \u2014 2026-12-16.",
-   "url": "https://consortiumofnlus.ac.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "nata-app-2027-01-05",
-   "source": "nata",
-   "cat": "app",
-   "title": "Registration",
-   "start": "2027-01-05",
-   "end": "2027-02-28",
-   "time": null,
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: Registration \u2014 2027-01-05 to 2027-02-28.",
-   "url": "https://www.nata.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "uceed-exam-2027-01-17",
-   "source": "uceed",
-   "cat": "exam",
-   "title": "UCEED exam",
-   "start": "2027-01-17",
-   "end": null,
-   "time": "09:00-12:00",
-   "tentative": false,
-   "evidence": "SAMPLE TEXT: UCEED exam \u2014 2027-01-17.",
-   "url": "https://www.uceed.iitb.ac.in/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
-  },
-  {
-   "id": "nid-dat-exam-2027-01-17",
-   "source": "nid-dat",
-   "cat": "exam",
-   "title": "DAT prelims",
-   "start": "2027-01-17",
-   "end": null,
-   "time": null,
-   "tentative": true,
-   "evidence": "SAMPLE TEXT: DAT prelims \u2014 2027-01-17.",
+   "evidence": "- As on 15 September 2026, an amendment has been made to the \"Window to edit the application form\".",
+   "id": "d38c3248ae-2026-09-15",
    "url": "https://admissions.nid.edu/",
-   "checked": "2026-10-25T08:00+05:30",
-   "first_seen": "2026-10-20T08:00+05:30"
+   "first_seen": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:02+05:30"
+  },
+  {
+   "source": "nid-dat",
+   "cat": "app",
+   "title": "Application",
+   "start": "2026-10-03",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "evidence": "- As on 3 October 2026, an amendment has been made regarding the revised date for filling up the application form, the window to edit the application form and the Doctoral Research Test.",
+   "id": "d38c3248ae-2026-10-03",
+   "url": "https://admissions.nid.edu/",
+   "first_seen": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:02+05:30"
   }
  ],
- "changes": [
-  {
-   "when": "2026-10-24T08:00+05:30",
-   "source": "bitsat",
-   "title": "Registration closes",
-   "from": "2027-02-12",
-   "to": "2027-02-20",
-   "url": "https://www.bitsadmission.com/"
-  }
- ]
+ "changes": []
 }
