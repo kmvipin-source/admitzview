@@ -21,6 +21,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from extract import extract
+import verify
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "site", "data.json")
@@ -71,6 +72,8 @@ SKIP_RX = re.compile(r"\bpg\b|post ?graduate|ph\.?d|\bmba\b|login|sign ?in|faceb
 PRIORITY_RX = re.compile(r"important[- _]?dates|key[- _]?dates|selection[- _]?process|schedule|2027", re.I)
 MAX_PAGES = 10
 STRICT = os.environ.get("ADMITZVIEW_STRICT", "1") != "0"  # on by default
+CYCLE = os.environ.get("ADMITZVIEW_CYCLE", "2027")
+FINGERPRINTS = {}
 
 
 def site_of(url):
@@ -156,6 +159,20 @@ def read_source(src, w0, w1):
         if src.get("require"):  # e.g. IIMs: only keep dates clearly about the IPM/BBA programme
             req = re.compile(src["require"], re.I)
             found = [e for e in found if req.search(e["evidence"]) or req.search(url)]  # sentence or page address must name the programme
+        if STRICT:
+            FINGERPRINTS.setdefault(src["id"], []).append(verify.fingerprint(text))
+            if found and not re.search(CYCLE, text):
+                print(f"  {url}: no mention of the {CYCLE} cycle on the page; dates ignored")
+                found = []
+            if found:
+                ai, info = verify.ai_dates(src, text, CYCLE)
+                if ai is None:
+                    print(f"  AI cross-check unavailable ({info}); keeping {len(found)} dates from the official dates page, marked single-reader")
+                    found = [dict(e, verified="1 reader (official dates page)") for e in found]
+                else:
+                    kept = verify.agree(found, ai)
+                    print(f"  AI ({info}) found {len(ai)} dates; {len(kept)} of {len(found)} rule dates confirmed by both readers")
+                    found = kept
         events += [dict(e, url=url) for e in found]
         if depth >= 2:
             continue
@@ -179,7 +196,10 @@ def read_source(src, w0, w1):
             events += [dict(e, url=p) for e in extract(pdf_text(body), src["id"], w0, w1)]
         except Exception as ex:
             print(f"  pdf skipped {p}: {ex}")
-    print(f"  read {pages_read} pages, {len(events)} raw dates")
+    print(f"  read {pages_read} pages, {len(events)} dates kept")
+    if STRICT and not verify.sane(events):
+        print("  dates are out of order; hiding them until the page is consistent")
+        events = []
     seen_ev = {}
     for e in events:  # same step found on several pages: keep one, prefer the most specific page
         k = (e["cat"], e["start"], e["end"], e.get("programme"))
@@ -253,7 +273,7 @@ def main():
     def fetch(src):  # different sites are read at the same time; each site still gets one request every 2 s
         try:
             evs = read_source(src, w0, w1)
-            return ai_tidy(src, evs)
+            return (evs, False) if STRICT else ai_tidy(src, evs)
         except Exception as ex:
             return ex
 
@@ -291,6 +311,10 @@ def main():
                         moved.append(e)
                 evs = moved
             s.update(status="ok", checked=now, found=len(evs), ai=used_ai)
+            fp = "|".join(FINGERPRINTS.get(src["id"], []))
+            prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), {})
+            s["page_fp"] = fp
+            s["page_changed"] = now if prev_src.get("page_fp") and prev_src.get("page_fp") != fp else prev_src.get("page_changed")
             for e in evs:
                 e.pop("keyword", None)
                 prev = old_events.get(e["id"])
