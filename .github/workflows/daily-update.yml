@@ -1,0 +1,37 @@
+name: Daily date check
+
+on:
+  schedule:
+    - cron: "37 1 * * *"   # every day around 7:07 AM India time
+  workflow_dispatch:        # lets you run it by hand from the Actions tab
+  push:
+    paths: ["sources.json"] # re-run when you add a new exam
+
+permissions:
+  contents: write  # to save the new data.json
+  models: read     # free GitHub Models AI for tidying titles (optional)
+
+concurrency: { group: daily-update, cancel-in-progress: false }
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r scraper/requirements.txt
+      - run: python scraper/test_extract.py
+      - name: Read official sites
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADMITZVIEW_AI: "on"   # set to "off" to skip the AI step entirely
+        run: python scraper/scrape.py
+      - name: Save if anything changed
+        run: |
+          git config user.name "admitzview-bot"
+          git config user.email "admitzview-bot@users.noreply.github.com"
+          git add site/data.json
+          git diff --cached --quiet || git commit -m "Daily date check $(date -u +%F)"
+          git push
