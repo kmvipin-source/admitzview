@@ -32,6 +32,19 @@ def test_no_invalid_dates():
     assert find_dates("Last date: 31.02.2027") == []
 
 
+def test_table_rows():
+    christ = """November 25, 2026 | 17:00 Hrs | Last day of submitting the application online for Entrance Test Programmes | x
+December 05, 2026 | As per your E-Admit card | Entrance Test: Online | x
+Entrance Test Programmes December 11, 2026 To December 13, 2026 | As per your E-Admit card | Personal interview (PI) | x"""
+    got = {(e["cat"], e["start"], e["end"]) for e in extract(christ, "christ", W0, W1)}
+    assert ("app", "2026-11-25", None) in got and ("exam", "2026-12-05", None) in got and ("exam", "2026-12-11", "2026-12-13") in got
+    sju = """Programme Name: Bachelor of Commerce (B.Com.) | Last Date to Apply: 05 January 2027 | Date of Interview: 14 & 16 January 2027
+Programme Name: Master of Commerce (M.Com.) | Last Date to Apply: 06 January 2027"""
+    ev = extract(sju, "sju", W0, W1)
+    assert all(e["programme"] == "B.Com" for e in ev), "PG rows must be dropped"
+    assert {e["start"] for e in ev if e["cat"] == "exam"} == {"2027-01-14", "2027-01-16"}
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"):

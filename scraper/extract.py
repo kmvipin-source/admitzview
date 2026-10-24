@@ -20,6 +20,8 @@ SEP = r"\s*(?:to|till|until|-|–|—)\s*"
 PATTERNS = [
     # 1 November 2026 to 30 November 2026
     ("range_full", re.compile(rf"\b{D}\s+{MON}[\s,]*{Y}{SEP}{D}\s+{MON}[\s,]*{Y}", re.I)),
+    # December 11, 2026 To December 13, 2026
+    ("range_mdy_full", re.compile(rf"\b{MON}\s+{D},?\s*{Y}{SEP}{MON}\s+{D},?\s*{Y}", re.I)),
     # 22 to 31 January 2027  /  22-31 Jan 2027
     ("range_dm", re.compile(rf"\b{D}{SEP}{D}\s+{MON}[\s,]*{Y}", re.I)),
     # 28 January to 2 February 2027
@@ -37,17 +39,17 @@ PATTERNS = [
 ]
 
 CATEGORIES = [
-    ("result",   ["result", "score card", "scorecard", "rank list", "merit list", "answer key"]),
+    ("result",   ["result", "score card", "scorecard", "rank list", "merit list", "answer key", "selection list", "shortlist", "provisional list"]),
     ("admit",    ["admit card", "hall ticket", "city intimation", "city slip"]),
     ("counsel",  ["counselling", "counseling", "choice filling", "seat allotment", "seat allocation", "round 1", "round 2", "option entry", "mock allotment"]),
     ("docs",     ["document verification", "verification of documents", "reporting"]),
     ("fee",      ["fee payment", "pay fee", "payment of fee", "seat acceptance fee"]),
     ("correct",  ["correction"]),
-    ("app",      ["registration", "apply online", "application form", "online application", "last date", "submission of application", "applications open", "application window"]),
-    ("exam",     ["date of exam", "date of examination", "exam date", "examination date", "test date", "computer based test", "cbt", "will be held", "will be conducted", "entrance test", "aptitude test", "interview", "drawing test", "studio test", "session 1", "session 2", "paper 1", "paper 2"]),
+    ("app",      ["registration", "apply online", "application form", "online application", "last date", "last day", "submission of application", "submitting the application", "applications open", "application available", "application window", "date to apply", "apply by"]),
+    ("exam",     ["date of exam", "date of examination", "exam date", "examination date", "test date", "computer based test", "cbt", "will be held", "will be conducted", "entrance test", "aptitude test", "interview", "selection process", "skill assessment", "admission test", "written test", "drawing test", "studio test", "session 1", "session 2", "paper 1", "paper 2"]),
 ]
 CAT_TITLE = {
-    "result": "Result / answer key", "admit": "Admit card release", "counsel": "Counselling",
+    "result": "Result / shortlist", "admit": "Admit card release", "counsel": "Counselling",
     "docs": "Document verification", "fee": "Fee payment", "correct": "Application correction window",
     "app": "Application", "exam": "Exam / test",
 }
@@ -64,17 +66,29 @@ def _mk(y, m, d):
         return None
 
 
+AND_RX = re.compile(rf"\b{D}\s*(?:&|and)\s*{D}\s+{MON}[\s,]*{Y}", re.I)
+
+
 def find_dates(text):
     """Yield (start, end, span) for each date or range in text. Ranges win over singles."""
     taken = []
     out = []
+    for m in AND_RX.finditer(text):  # 14 & 16 January 2027 = two separate days
+        g = m.groups()
+        for day in (g[0], g[1]):
+            d = _mk(g[3], _mon(g[2]), day)
+            if d:
+                out.append((d, d, m.span()))
+        taken.append(m.span())
     for kind, rx in PATTERNS:
         for m in rx.finditer(text):
             s, e = m.span()
             if any(s < te and ts < e for ts, te in taken):
                 continue
             g = m.groups()
-            if kind == "range_full":
+            if kind == "range_mdy_full":
+                a, b = _mk(g[2], _mon(g[0]), g[1]), _mk(g[5], _mon(g[3]), g[4])
+            elif kind == "range_full":
                 a, b = _mk(g[2], _mon(g[1]), g[0]), _mk(g[5], _mon(g[4]), g[3])
             elif kind == "range_dm":
                 a, b = _mk(g[3], _mon(g[2]), g[0]), _mk(g[3], _mon(g[2]), g[1])
@@ -107,8 +121,11 @@ def sentences(text):
             yield chunk
 
 
+NOISE = re.compile(r"as per (your )?e?-?\s?admit card|refer (to )?(the )?admit card", re.I)
+
+
 def classify(context):
-    low = context.lower()
+    low = NOISE.sub(" ", context).lower()
     for cat, words in CATEGORIES:
         for w in words:
             if w in low:
@@ -137,6 +154,22 @@ def find_time(context):
     return f"{start}-{end}"
 
 
+PROGRAMMES = [
+    ("B.Com", r"\bB\.?\s?Com\b|Bachelor of Commerce"), ("BBA", r"\bBBA\b|Bachelor of Business Administration"),
+    ("BCA", r"\bBCA\b|Bachelor of Computer Applications"), ("B.Sc", r"\bB\.?\s?Sc\b|Bachelor of Science"),
+    ("BA", r"\bB\.?A\.?\b(?!\s*LL)|Bachelor of Arts"), ("B.Tech", r"\bB\.?\s?Tech\b|\bB\.?E\.?\b|Bachelor of (Technology|Engineering)"),
+    ("Law", r"\bLL\.?B\b|BA\s?LLB|Bachelor of Laws"), ("Design", r"\bB\.?\s?Des\b|Bachelor of Design"),
+]
+PG = re.compile(r"\b(Master of|M\.\s?Com|M\.\s?Sc|M\.\s?A\.|MBA|MCA|M\.\s?Tech|Ph\.?\s?D|PG Diploma|Postgraduate|Post Graduate)\b", re.I)
+
+
+def programme_of(text):
+    for name, rx in PROGRAMMES:
+        if re.search(rx, text):
+            return name
+    return None
+
+
 def extract(text, source_id, window_from, window_to):
     """Return candidate events found in text. Each has the evidence sentence."""
     events = {}
@@ -144,10 +177,22 @@ def extract(text, source_id, window_from, window_to):
         found = find_dates(sent)
         if not found:
             continue
-        cat, keyword = classify(sent)
-        if not cat:
-            continue
-        for a, b, _ in found:
+        prog = programme_of(sent)
+        if PG.search(sent) and not prog:
+            continue  # postgraduate rows are not for this tool
+        cells = sent.split(" | ") if " | " in sent else [sent]
+        row_cat, row_kw = classify(sent)
+        pairs = []
+        for cell in cells:
+            cf = find_dates(cell)
+            if not cf:
+                continue
+            ccat, ckw = classify(cell)
+            if not ccat:
+                ccat, ckw = row_cat, row_kw
+            if ccat:
+                pairs += [(ccat, ckw, x) for x in cf]
+        for cat, keyword, (a, b, _) in pairs:
             if a < window_from or b > window_to:
                 continue
             low = sent.lower()
@@ -160,16 +205,19 @@ def extract(text, source_id, window_from, window_to):
                 "time": find_time(sent) if cat == "exam" else None,
                 "tentative": any(w in low for w in ["tentative", "tentatively", "likely", "expected", "proposed"]),
                 "keyword": keyword,
+                "programme": prog,
                 "evidence": sent[:300],
             }
-            if cat == "app" and "last date" in low:
+            if cat == "app" and ("last date" in low or "last day" in low or "date to apply" in low):
                 ev["title"] = "Application last date"
-            elif cat == "app" and b == a and any(w in low for w in ["open", "start", "commence", "begin"]):
+            elif cat == "app" and b == a and any(w in low for w in ["open", "start", "commence", "begin", "available"]):
                 ev["title"] = "Application opens"
-            key = (cat, ev["start"], ev["end"])
+            if prog:
+                ev["title"] = f"{prog}: {ev['title']}"
+            key = (cat, ev["start"], ev["end"], prog)
             if key not in events or len(sent) < len(events[key]["evidence"]):
                 events[key] = ev
     out = list(events.values())
     for ev in out:
-        ev["id"] = hashlib.sha1(f'{source_id}|{ev["cat"]}|{ev["title"]}'.encode()).hexdigest()[:10] + "-" + ev["start"]
+        ev["id"] = hashlib.sha1(f'{source_id}|{ev["cat"]}|{ev["title"]}|{ev.get("programme")}'.encode()).hexdigest()[:10] + "-" + ev["start"]
     return sorted(out, key=lambda e: e["start"])

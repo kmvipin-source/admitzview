@@ -27,7 +27,7 @@ OUT = os.path.join(ROOT, "site", "data.json")
 UA = "AdmitzViewBot/1.0 (free student exam-date helper; reads public notices once a day)"
 IST = timezone(timedelta(hours=5, minutes=30))
 PDF_HINT = re.compile(r"(information\s*bulletin|brochure|notice|notification|schedule|important\s*dates|prospectus|press\s*release|public\s*notice)", re.I)
-MAX_PDFS = 3
+MAX_PDFS = 4
 MAX_BYTES = 25_000_000
 
 session = requests.Session()
@@ -66,39 +66,110 @@ def pdf_text(data):
     return "\n".join((p.extract_text() or "") for p in reader.pages[:40])
 
 
-def page_text_and_pdfs(url):
-    ctype, body = get(url)
-    if "pdf" in ctype:
-        return pdf_text(body), [url]
+LINK_RX = re.compile(r"admission|important[- _]?dates|key[- _]?dates|selection|schedule|notification|notice|undergraduate|\bug\b|b\.?com|apply|prospectus|entrance|calendar|2027", re.I)
+SKIP_RX = re.compile(r"\bpg\b|post ?graduate|ph\.?d|\bmba\b|login|sign ?in|facebook|twitter|instagram|youtube|linkedin|whatsapp|mailto:|tel:|javascript:|\.(jpe?g|png|gif|zip|docx?|xlsx?)(\?|$)", re.I)
+PRIORITY_RX = re.compile(r"important[- _]?dates|key[- _]?dates|selection[- _]?process|schedule|2027", re.I)
+MAX_PAGES = 10
+
+
+def site_of(url):
+    host = urlparse(url).netloc.lower().split(":")[0]
+    parts = host.split(".")
+    n = 3 if len(parts) >= 3 and ".".join(parts[-2:]) in ("edu.in", "ac.in", "gov.in", "co.in", "org.in", "nic.in", "res.in") else 2
+    return ".".join(parts[-n:])
+
+
+def table_lines(table):
+    """Turn a table into one line per row: 'Header: cell | Header: cell'. Dates in tables need their column label."""
+    rows = table.find_all("tr")
+    if not rows:
+        return []
+    def cells(r):
+        return [re.sub(r"\s+", " ", c.get_text(" ")).strip() for c in r.find_all(["th", "td"])]
+    head = cells(rows[0])
+    has_head = rows[0].find("th") is not None or not any(re.search(r"20\d\d", h) for h in head)
+    out = []
+    for r in rows[1:] if has_head else rows:
+        c = cells(r)
+        if not any(c):
+            continue
+        if has_head and len(c) == len(head):
+            out.append(" | ".join(f"{h}: {v}" if h else v for h, v in zip(head, c)))
+        else:
+            out.append(" | ".join(c))
+    return out
+
+
+def parse_html(url, body):
     soup = BeautifulSoup(body, "html.parser")
     for t in soup(["script", "style", "noscript"]):
         t.decompose()
-    text = soup.get_text("\n")
-    pdfs = []
+    links = []
     for a in soup.find_all("a", href=True):
-        href = urljoin(url, a["href"])
-        label = (a.get_text(" ") or "") + " " + href
-        if href.lower().split("?")[0].endswith(".pdf") and PDF_HINT.search(label) and href not in pdfs:
-            pdfs.append(href)
-    return text, pdfs[:MAX_PDFS]
+        href = urljoin(url, a["href"]).split("#")[0]
+        label = re.sub(r"\s+", " ", a.get_text(" ")).strip()
+        links.append((href, label))
+    for table in soup.find_all("table"):
+        table.replace_with("\n" + "\n".join(table_lines(table)) + "\n")
+    return soup.get_text("\n"), links
 
 
 def read_source(src, w0, w1):
-    text, pdfs = page_text_and_pdfs(src["url"])
-    events = [dict(e, url=src["url"]) for e in extract(text, src["id"], w0, w1)]
-    for p in pdfs:
+    """Read the source page, any listed pages, and same-site admission/date pages up to two clicks deep."""
+    home = site_of(src["url"])
+    queue = [(src["url"], 0)] + [(p, 0) for p in src.get("pages", [])]
+    seen, pdfs, events, pages_read = set(), [], [], 0
+    while queue and pages_read < MAX_PAGES:
+        url, depth = queue.pop(0)
+        if url in seen:
+            continue
+        seen.add(url)
+        try:
+            ctype, body = get(url)
+        except PermissionError:
+            if depth == 0 and url == src["url"]:
+                raise
+            continue
+        except Exception as ex:
+            if depth == 0 and url == src["url"]:
+                raise
+            print(f"  skipped {url}: {ex}")
+            continue
+        pages_read += 1
+        if "pdf" in ctype or url.lower().split("?")[0].endswith(".pdf"):
+            text, links = pdf_text(body), []
+        else:
+            text, links = parse_html(url, body)
+        events += [dict(e, url=url) for e in extract(text, src["id"], w0, w1)]
+        if depth >= 2:
+            continue
+        cand = []
+        for href, label in links:
+            if not href.startswith("http") or site_of(href) != home or href in seen:
+                continue
+            both = label + " " + href
+            if SKIP_RX.search(both):
+                continue
+            if href.lower().split("?")[0].endswith(".pdf"):
+                if PDF_HINT.search(both) or "2027" in both:
+                    pdfs.append(href)
+            elif LINK_RX.search(both):
+                cand.append((0 if PRIORITY_RX.search(both) else 1, href))
+        for _, href in sorted(set(cand))[:8]:
+            queue.append((href, depth + 1))
+    for p in list(dict.fromkeys(pdfs))[:MAX_PDFS]:
         try:
             _, body = get(p)
             events += [dict(e, url=p) for e in extract(pdf_text(body), src["id"], w0, w1)]
-        except Exception as ex:  # one broken PDF shouldn't sink the source
+        except Exception as ex:
             print(f"  pdf skipped {p}: {ex}")
-    # de-duplicate: same category + same dates -> keep one (prefer PDF notice)
-    seen = {}
-    for e in events:
-        k = (e["cat"], e["start"], e["end"])
-        if k not in seen or e["url"].lower().endswith(".pdf"):
-            seen[k] = e
-    return sorted(seen.values(), key=lambda e: e["start"])
+    print(f"  read {pages_read} pages, {len(events)} raw dates")
+    seen_ev = {}
+    for e in events:  # same step found on several pages: keep one, prefer the most specific page
+        k = (e["cat"], e["start"], e["end"], e.get("programme"))
+        if k not in seen_ev or len(e["url"]) > len(seen_ev[k]["url"]):
+            seen_ev[k] = e
+    return sorted(seen_ev.values(), key=lambda e: e["start"])
 
 
 # ---------- optional free AI tidy-up (GitHub Models, uses the built-in GITHUB_TOKEN) ----------
