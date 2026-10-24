@@ -144,12 +144,11 @@ def read_source(src, w0, w1):
         m = re.search(r"<title[^>]*>(.*?)</title>", body[:20000].decode("utf-8", "ignore") if isinstance(body, bytes) else "", re.I | re.S)
         if m:
             title = m.group(1)
-        adm_page = src.get("kind", "exam") in ("exam", "counselling") or bool(re.search(r"admission|important[-_ ]?dates|selection[-_ ]?process|entrance|prospectus|information[-_ ]?bulletin|ipmat|apply", url + " " + title, re.I))
+        adm_page = (src.get("kind", "exam") in ("exam", "counselling") and not src.get("require")) or bool(re.search(r"admission|important[-_ ]?dates|selection[-_ ]?process|entrance|prospectus|information[-_ ]?bulletin|ipmat|apply", url + " " + title, re.I))
         found = extract(text, src["id"], w0, w1, admission_page=adm_page)
         if src.get("require"):  # e.g. IIMs: only keep dates clearly about the IPM/BBA programme
             req = re.compile(src["require"], re.I)
-            page_hint = url + " " + (text[:400] if text else "")
-            found = [e for e in found if req.search(e["evidence"]) or req.search(page_hint)]
+            found = [e for e in found if req.search(e["evidence"]) or req.search(url)]  # sentence or page address must name the programme
         events += [dict(e, url=url) for e in found]
         if depth >= 2:
             continue
