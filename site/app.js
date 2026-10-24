@@ -262,7 +262,15 @@ document.addEventListener("dragleave", e => { const t = e.target.closest?.("#tra
 document.addEventListener("drop", e => { const t = e.target.closest?.("#tray"); if (!t) return; e.preventDefault(); const id = e.dataTransfer.getData("text/plain"); if (id && !S.sel.includes(id)) toggle(id); else render(); });
 
 async function boot() {
-  DATA = window.ADMITZVIEW_DATA || await fetch("data.json", { cache: "no-cache" }).then(r => r.json()).catch(() => null);
+  const [data, cfg] = await Promise.all([
+    window.ADMITZVIEW_DATA || fetch("data.json", { cache: "no-cache" }).then(r => r.json()).catch(() => null),
+    window.ADMITZVIEW_SOURCES || fetch("sources.json", { cache: "no-cache" }).then(r => r.json()).catch(() => null)]);
+  DATA = data;
+  if (DATA && cfg) { // the source list is the truth for names, course, state and city; data.json adds what the robot found
+    const seen = Object.fromEntries(DATA.sources.map(s => [s.id, s]));
+    DATA.sources = cfg.sources.map(c => Object.assign({ status: "pending", found: 0 }, seen[c.id] || {},
+      { id: c.id, name: c.name, authority: c.authority, stream: c.stream, url: c.url, kind: c.kind || "exam", state: c.state, city: c.city, hidden: c.hidden }));
+  }
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
   S = { sel, f: Object.assign({ course: "", state: "", city: "", q: "" }, store.get("f", {})), view: sel.length ? "view" : "find", tab: store.get("tab", "table"), open: null };
