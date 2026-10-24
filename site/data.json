@@ -1,8 +1,22 @@
 {
- "generated": "2026-10-25T00:02+05:30",
+ "generated": "2026-10-25T00:47+05:30",
  "cycle": "2027",
  "sample": false,
  "sources": [
+  {
+   "id": "nta",
+   "name": "NTA exam calendar",
+   "authority": "National Testing Agency",
+   "stream": [],
+   "url": "https://nta.ac.in/",
+   "hidden": true,
+   "state": "All India",
+   "kind": "exam",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
   {
    "id": "jee-main",
    "name": "JEE Main",
@@ -11,9 +25,10 @@
     "Engineering"
    ],
    "url": "https://jeemain.nta.nic.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -25,9 +40,10 @@
     "Engineering"
    ],
    "url": "https://jeeadv.ac.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -39,9 +55,10 @@
     "Engineering"
    ],
    "url": "https://josaa.nic.in/",
+   "state": "All India",
    "kind": "counselling",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -53,9 +70,10 @@
     "Engineering"
    ],
    "url": "https://www.bitsadmission.com/",
+   "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -67,9 +85,10 @@
     "Engineering"
    ],
    "url": "https://viteee.vit.ac.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -81,9 +100,10 @@
     "Engineering"
    ],
    "url": "https://www.srmist.edu.in/admission-india/",
+   "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -95,9 +115,10 @@
     "Engineering"
    ],
    "url": "https://manipal.edu/mu/admission.html",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -109,9 +130,10 @@
     "Engineering"
    ],
    "url": "https://www.comedk.org/",
+   "state": "Karnataka",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -124,9 +146,10 @@
     "Medical"
    ],
    "url": "https://cetonline.karnataka.gov.in/kea/",
+   "state": "Karnataka",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -139,9 +162,10 @@
     "Medical"
    ],
    "url": "https://cee.kerala.gov.in/",
+   "state": "Kerala",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -153,9 +177,10 @@
     "Engineering"
    ],
    "url": "https://cetcell.mahacet.org/",
+   "state": "Maharashtra",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -167,9 +192,10 @@
     "Engineering"
    ],
    "url": "https://wbjeeb.nic.in/",
+   "state": "West Bengal",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -181,9 +207,10 @@
     "Engineering"
    ],
    "url": "https://cets.apsche.ap.gov.in/",
+   "state": "Andhra Pradesh",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -195,9 +222,10 @@
     "Engineering"
    ],
    "url": "https://eapcet.tsche.ac.in/",
+   "state": "Telangana",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -209,9 +237,10 @@
     "Medical"
    ],
    "url": "https://neet.nta.nic.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -223,9 +252,10 @@
     "Medical"
    ],
    "url": "https://mcc.nic.in/",
+   "state": "All India",
    "kind": "counselling",
    "status": "failed",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -240,9 +270,10 @@
     "Management"
    ],
    "url": "https://cuet.nta.nic.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -254,9 +285,10 @@
     "Management"
    ],
    "url": "https://www.iimidr.ac.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -268,9 +300,10 @@
     "Law"
    ],
    "url": "https://consortiumofnlus.ac.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 1,
    "ai": false
   },
@@ -282,9 +315,10 @@
     "Law"
    ],
    "url": "https://nationallawuniversitydelhi.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -297,9 +331,10 @@
     "Design"
    ],
    "url": "https://www.nata.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -311,9 +346,10 @@
     "Design"
    ],
    "url": "https://www.uceed.iitb.ac.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   },
@@ -325,9 +361,10 @@
     "Design"
    ],
    "url": "https://admissions.nid.edu/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 2,
    "ai": false
   },
@@ -339,9 +376,275 @@
     "Design"
    ],
    "url": "https://www.nift.ac.in/",
+   "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:02+05:30",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "christ",
+   "name": "Christ University",
+   "authority": "Christ (Deemed to be University)",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Arts",
+    "Science",
+    "Law"
+   ],
+   "url": "https://christuniversity.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "sju",
+   "name": "St Joseph's University",
+   "authority": "St Joseph's University",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://admissions.sju.edu.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "sjcc",
+   "name": "St Joseph's College of Commerce",
+   "authority": "SJCC (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.sjcc.edu.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "mcc-blr",
+   "name": "Mount Carmel College",
+   "authority": "Mount Carmel College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://mccblr.edu.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T00:47+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "jain",
+   "name": "Jain University (JET)",
+   "authority": "Jain (Deemed-to-be University)",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Engineering"
+   ],
+   "url": "https://www.jainuniversity.ac.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T00:47+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "kristu",
+   "name": "Kristu Jayanti College",
+   "authority": "Kristu Jayanti College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://kristujayanti.edu.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "jyoti",
+   "name": "Jyoti Nivas College",
+   "authority": "Jyoti Nivas College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://www.jyotinivas.org/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "msrcasc",
+   "name": "MS Ramaiah College (Arts, Science & Commerce)",
+   "authority": "MSRCASC",
+   "stream": [
+    "Commerce",
+    "Science"
+   ],
+   "url": "https://www.msrcasc.edu.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 1,
+   "ai": false
+  },
+  {
+   "id": "pes",
+   "name": "PES University",
+   "authority": "PES University",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Engineering"
+   ],
+   "url": "https://pes.edu/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "presidency",
+   "name": "Presidency College",
+   "authority": "Presidency College, Bengaluru",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://presidencycollege.ac.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "gcu",
+   "name": "Garden City University",
+   "authority": "Garden City University",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Science"
+   ],
+   "url": "https://www.gcu.ac.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T00:47+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "surana",
+   "name": "Surana College",
+   "authority": "Surana College (Autonomous)",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.suranacollege.edu.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T00:47+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "bu",
+   "name": "Bangalore University",
+   "authority": "Bangalore University",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://bangaloreuniversity.karnataka.gov.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T00:47+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "npat",
+   "name": "NMIMS NPAT",
+   "authority": "NMIMS",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.nmims.edu/",
+   "state": "All India",
+   "kind": "exam",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "set",
+   "name": "Symbiosis SET",
+   "authority": "Symbiosis International University",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Law"
+   ],
+   "url": "https://www.set-test.org/",
+   "state": "All India",
+   "kind": "exam",
+   "status": "ok",
+   "checked": "2026-10-25T00:47+05:30",
    "found": 0,
    "ai": false
   }
@@ -359,7 +662,7 @@
    "id": "47c22df31b-2026-10-31",
    "url": "https://consortiumofnlus.ac.in/clat-2027/notifications/Press_Release_CLAT_2027.pdf",
    "first_seen": "2026-10-25T00:02+05:30",
-   "checked": "2026-10-25T00:02+05:30"
+   "checked": "2026-10-25T00:47+05:30"
   },
   {
    "source": "nid-dat",
@@ -373,7 +676,7 @@
    "id": "d38c3248ae-2026-09-15",
    "url": "https://admissions.nid.edu/",
    "first_seen": "2026-10-25T00:02+05:30",
-   "checked": "2026-10-25T00:02+05:30"
+   "checked": "2026-10-25T00:47+05:30"
   },
   {
    "source": "nid-dat",
@@ -387,8 +690,31 @@
    "id": "d38c3248ae-2026-10-03",
    "url": "https://admissions.nid.edu/",
    "first_seen": "2026-10-25T00:02+05:30",
-   "checked": "2026-10-25T00:02+05:30"
+   "checked": "2026-10-25T00:47+05:30"
+  },
+  {
+   "source": "msrcasc",
+   "cat": "exam",
+   "title": "Exam / test",
+   "start": "2026-10-29",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "evidence": "PG (MBA & MCA) Inauguration for the Academic Year 2026–27 will be held on 29 October 2026",
+   "id": "d8938ed915-2026-10-29",
+   "url": "https://www.msrcasc.edu.in/",
+   "first_seen": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T00:47+05:30"
   }
  ],
- "changes": []
+ "changes": [
+  {
+   "when": "2026-10-25T00:47+05:30",
+   "source": "msrcasc",
+   "title": "Exam / test",
+   "from": null,
+   "to": "2026-10-29",
+   "url": "https://www.msrcasc.edu.in/"
+  }
+ ]
 }
