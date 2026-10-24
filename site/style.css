@@ -2,8 +2,10 @@
    Layout: Find screen (filters, results, "My list" tray) -> View screen (next-up card, comparison table / timeline, not-yet note). */
 :root{
   color-scheme:light;
-  --bg:#f6f7fb; --paper:#ffffff; --ink:#1b2333; --muted:#5d6678; --line:#e3e6ee;
-  --brand:#2f4fd8; --brand-soft:#eaeefe; --red:#d43a3a; --red-soft:#fdecec; --amber:#a86400; --amber-soft:#fff4e0; --green:#1d7a4c;
+  --bg:#f4f5f9; --paper:#ffffff; --ink:#141a2e; --muted:#5b6377; --line:#e4e7ef;
+  --brand:#3345c4; --brand-soft:#eceffd;
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --shadow:0 1px 2px rgba(20,26,46,.04),0 10px 28px rgba(20,26,46,.06); --red:#d43a3a; --red-soft:#fdecec; --amber:#a86400; --amber-soft:#fff4e0; --green:#1d7a4c;
   --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --body:"Hind",ui-sans-serif,system-ui,sans-serif;
 }
@@ -199,3 +201,36 @@ td .cell .s{display:block}
 .agt{flex:1;min-width:0;display:grid}
 .agt small{color:var(--muted)}
 .st.urg{background:var(--red-soft);color:var(--red)}
+
+/* elegant pass */
+body{font-size:16.5px;-webkit-font-smoothing:antialiased}
+.h1{font:400 clamp(2.2rem,5.6vw,3.4rem)/1.05 var(--serif);letter-spacing:-.01em}
+.viewtop .h2,.next .h2,.agenda>.h2,.tray .h2,.card .h2,.notyet b{font-family:var(--body)}
+.next .h2{font:400 1.7rem/1.15 var(--serif)}
+.viewtop .h2{font:400 2rem/1.1 var(--serif)}
+.agenda>.h2{font:400 1.6rem/1.2 var(--serif)}
+.lede{font-size:1.05rem}
+.top{background:rgba(255,255,255,.85);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px)}
+.brand{font:400 1.55rem var(--serif);letter-spacing:0}
+.item,.tray,.panel,.card,.stat,.agenda,.notyet{box-shadow:var(--shadow);border-color:transparent}
+.item{border-radius:14px;border:1.5px solid transparent}
+.item:hover{border-color:var(--brand-soft);transform:translateY(-1px)}
+.item.picked{border-color:var(--brand)}
+.tray{border:1px solid var(--line)}
+.field select,.field input{border-radius:12px;border-color:var(--line);box-shadow:inset 0 1px 0 rgba(20,26,46,.02)}
+.field select:focus,.field input:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 4px var(--brand-soft)}
+.next{background:radial-gradient(120% 140% at 0% 0%,#2a3366 0%,var(--ink) 60%);box-shadow:0 18px 40px rgba(20,26,46,.22);border-radius:22px;padding:22px 24px}
+.next .count{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.next .count b{font:400 2.8rem/1 var(--serif)}
+.stat b{font:400 2.2rem/1 var(--serif)}
+.cta{border-radius:999px;padding:12px 22px;box-shadow:0 6px 16px rgba(20,26,46,.18)}
+.btn{border-radius:999px}
+.tabs{border-radius:999px;box-shadow:var(--shadow);border-color:transparent}
+.tabs button{border-radius:999px}
+.mon h3{font:400 1.3rem var(--serif)}
+.cd.now{box-shadow:0 4px 12px rgba(51,69,196,.35)}
+.ag{border-radius:14px;box-shadow:0 1px 2px rgba(20,26,46,.04)}
+.agd b{font:400 1.8rem/1 var(--serif)}
+.agm{font:600 .78rem var(--body);letter-spacing:.08em;text-transform:uppercase}
+.warnline{border-left:3px solid #e2a54a;border-radius:10px}
+@media (prefers-reduced-motion:no-preference){.item{transition:transform .15s,border-color .15s,background .15s}}
