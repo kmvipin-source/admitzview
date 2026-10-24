@@ -27,6 +27,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ADMITZVIEW_AI: "on"   # set to "off" to skip the AI step entirely
+          PYTHONUNBUFFERED: "1"
+          # For now: only the Bangalore B.Com colleges. Delete this line to read every source again.
+          ADMITZVIEW_ONLY: "christ sju sjcc mcc-blr jain kristu jyoti msrcasc pes presidency gcu surana bu"
         run: python scraper/scrape.py
       - name: Save if anything changed
         run: |
