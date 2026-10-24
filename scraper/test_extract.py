@@ -45,6 +45,14 @@ Programme Name: Master of Commerce (M.Com.) | Last Date to Apply: 06 January 202
     assert {e["start"] for e in ev if e["cat"] == "exam"} == {"2027-01-14", "2027-01-16"}
 
 
+def test_junk_is_dropped():
+    junk = """PG (MBA & MCA) Inauguration for the Academic Year 2026–27 will be held on 29 October 2026.
+    The Annual Sports Day will be held on 12 December 2026.
+    End semester examination will be held from 1 December 2026 to 15 December 2026.
+    Recruitment of faculty: last date 20 November 2026."""
+    assert extract(junk, "x", W0, W1) == []
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"):

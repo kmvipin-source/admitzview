@@ -46,7 +46,7 @@ CATEGORIES = [
     ("fee",      ["fee payment", "pay fee", "payment of fee", "seat acceptance fee"]),
     ("correct",  ["correction"]),
     ("app",      ["registration", "apply online", "application form", "online application", "last date", "last day", "submission of application", "submitting the application", "applications open", "application available", "application window", "date to apply", "apply by"]),
-    ("exam",     ["date of exam", "date of examination", "exam date", "examination date", "test date", "computer based test", "cbt", "will be held", "will be conducted", "entrance test", "aptitude test", "interview", "selection process", "skill assessment", "admission test", "written test", "drawing test", "studio test", "session 1", "session 2", "paper 1", "paper 2"]),
+    ("exam",     ["date of exam", "date of examination", "exam date", "examination date", "test date", "computer based test", "cbt", "examination", " exam ", "entrance test", "aptitude test", "interview", "selection process", "skill assessment", "admission test", "written test", "drawing test", "studio test", "session 1", "session 2", "paper 1", "paper 2"]),
 ]
 CAT_TITLE = {
     "result": "Result / shortlist", "admit": "Admit card release", "counsel": "Counselling",
@@ -160,7 +160,8 @@ PROGRAMMES = [
     ("BA", r"\bB\.?A\.?\b(?!\s*LL)|Bachelor of Arts"), ("B.Tech", r"\bB\.?\s?Tech\b|\bB\.?E\.?\b|Bachelor of (Technology|Engineering)"),
     ("Law", r"\bLL\.?B\b|BA\s?LLB|Bachelor of Laws"), ("Design", r"\bB\.?\s?Des\b|Bachelor of Design"),
 ]
-PG = re.compile(r"\b(Master of|M\.\s?Com|M\.\s?Sc|M\.\s?A\.|MBA|MCA|M\.\s?Tech|Ph\.?\s?D|PG Diploma|Postgraduate|Post Graduate)\b", re.I)
+NOT_ADMISSION = re.compile(r"inaugurat|orientation|convocation|graduation day|holiday|vacation|workshop|seminar|webinar|conference|symposium|fest\b|festival|sports|cultural|alumni|placement|internship|semester exam|end[- ]semester|supplementary|revaluation|re-?evaluation|faculty|recruitment|tender|walk[- ]in|guest lecture|club|hackathon|competition|commencement of classes|class commencement|classes (will )?(begin|commence)", re.I)
+PG = re.compile(r"\b(PG|Master of|M\.\s?Com|M\.\s?Sc|M\.\s?A\.|MBA|MCA|M\.\s?Tech|Ph\.?\s?D|PG Diploma|Postgraduate|Post Graduate)\b", re.I)
 
 
 def programme_of(text):
@@ -177,6 +178,8 @@ def extract(text, source_id, window_from, window_to):
         found = find_dates(sent)
         if not found:
             continue
+        if NOT_ADMISSION.search(sent):
+            continue  # events, fests, semester exams, recruitment: not admission steps
         prog = programme_of(sent)
         if PG.search(sent) and not prog:
             continue  # postgraduate rows are not for this tool
