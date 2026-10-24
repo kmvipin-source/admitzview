@@ -281,7 +281,11 @@
    "url": "https://christuniversity.in/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "pages": [
+    "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+    "https://christuniversity.in/admission/2027-ugpgsp"
+   ]
   },
   {
    "id": "sju",
@@ -295,7 +299,10 @@
    "url": "https://admissions.sju.edu.in/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "pages": [
+    "https://www.sju.edu.in/important-dates"
+   ]
   },
   {
    "id": "sjcc",
@@ -391,7 +398,11 @@
    "url": "https://pes.edu/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "pages": [
+    "https://pes.edu/important-dates/",
+    "https://pes.edu/admissions/"
+   ]
   },
   {
    "id": "presidency",
