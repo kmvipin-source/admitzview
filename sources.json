@@ -285,6 +285,20 @@
    "pages": [
     "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
     "https://christuniversity.in/admission/2027-ugpgsp"
+   ],
+   "campuses": [
+    {
+     "city": "Bengaluru",
+     "state": "Karnataka"
+    },
+    {
+     "city": "Delhi NCR",
+     "state": "Delhi"
+    },
+    {
+     "city": "Pune",
+     "state": "Maharashtra"
+    }
    ]
   },
   {
@@ -343,7 +357,17 @@
    "url": "https://www.jainuniversity.ac.in/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "campuses": [
+    {
+     "city": "Bengaluru",
+     "state": "Karnataka"
+    },
+    {
+     "city": "Kochi",
+     "state": "Kerala"
+    }
+   ]
   },
   {
    "id": "kristu",
@@ -689,7 +713,13 @@
    "url": "https://mitwpu.edu.in/",
    "kind": "college",
    "city": "Pune",
-   "state": "Maharashtra"
+   "state": "Maharashtra",
+   "campuses": [
+    {
+     "city": "Pune",
+     "state": "Maharashtra"
+    }
+   ]
   },
   {
    "id": "loyola-che",
