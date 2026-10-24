@@ -517,7 +517,10 @@
    "url": "https://admission.uod.ac.in/",
    "kind": "counselling",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug"
+   ]
   },
   {
    "id": "srcc",
@@ -529,7 +532,11 @@
    "url": "https://www.srcc.edu/",
    "kind": "college",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug",
+    "du-csas"
+   ]
   },
   {
    "id": "hansraj",
@@ -541,7 +548,11 @@
    "url": "https://www.hansrajcollege.ac.in/",
    "kind": "college",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug",
+    "du-csas"
+   ]
   },
   {
    "id": "kmc",
@@ -553,7 +564,11 @@
    "url": "https://www.kmcollege.ac.in/",
    "kind": "college",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug",
+    "du-csas"
+   ]
   },
   {
    "id": "lsr",
@@ -565,7 +580,11 @@
    "url": "https://lsr.edu.in/",
    "kind": "college",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug",
+    "du-csas"
+   ]
   },
   {
    "id": "ramjas",
@@ -577,7 +596,11 @@
    "url": "https://ramjas.du.ac.in/",
    "kind": "college",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug",
+    "du-csas"
+   ]
   },
   {
    "id": "sgtb",
@@ -589,7 +612,11 @@
    "url": "https://sgtbkhalsadu.ac.in/",
    "kind": "college",
    "city": "Delhi",
-   "state": "Delhi"
+   "state": "Delhi",
+   "uses": [
+    "cuet-ug",
+    "du-csas"
+   ]
   },
   {
    "id": "mu",
@@ -687,7 +714,10 @@
    "url": "https://www.symbiosiscollege.edu.in/",
    "kind": "college",
    "city": "Pune",
-   "state": "Maharashtra"
+   "state": "Maharashtra",
+   "uses": [
+    "set"
+   ]
   },
   {
    "id": "bmcc",
@@ -839,7 +869,10 @@
    "url": "https://www.iimidr.ac.in/",
    "kind": "college",
    "city": "Indore",
-   "state": "Madhya Pradesh"
+   "state": "Madhya Pradesh",
+   "uses": [
+    "ipmat"
+   ]
   },
   {
    "id": "iim-rohtak",
@@ -863,7 +896,10 @@
    "url": "https://iimranchi.ac.in/",
    "kind": "college",
    "city": "Ranchi",
-   "state": "Jharkhand"
+   "state": "Jharkhand",
+   "uses": [
+    "ipmat"
+   ]
   },
   {
    "id": "iim-shillong",
@@ -875,7 +911,10 @@
    "url": "https://www.iimshillong.ac.in/",
    "kind": "college",
    "city": "Shillong",
-   "state": "Meghalaya"
+   "state": "Meghalaya",
+   "uses": [
+    "ipmat"
+   ]
   },
   {
    "id": "iim-amritsar",
@@ -887,7 +926,10 @@
    "url": "https://iimamritsar.ac.in/",
    "kind": "college",
    "city": "Amritsar",
-   "state": "Punjab"
+   "state": "Punjab",
+   "uses": [
+    "ipmat"
+   ]
   },
   {
    "id": "iim-bg",
@@ -899,7 +941,10 @@
    "url": "https://iimbg.ac.in/",
    "kind": "college",
    "city": "Bodh Gaya",
-   "state": "Bihar"
+   "state": "Bihar",
+   "uses": [
+    "jipmat"
+   ]
   },
   {
    "id": "iim-jammu",
@@ -911,7 +956,10 @@
    "url": "https://www.iimj.ac.in/",
    "kind": "college",
    "city": "Jammu",
-   "state": "Jammu and Kashmir"
+   "state": "Jammu and Kashmir",
+   "uses": [
+    "jipmat"
+   ]
   },
   {
    "id": "iim-b",

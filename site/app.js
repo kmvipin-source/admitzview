@@ -43,7 +43,24 @@ const evEnd = e => e.end || e.start;
 const rangeText = e => e.end ? `${fmt(e.start)} – ${fmt(e.end)}` : fmt(e.start);
 const COURSE_PROG = { Commerce: ["B.Com"], Management: ["BBA"], Arts: ["BA"], Science: ["B.Sc", "BCA"], Engineering: ["B.Tech"], Law: ["Law"], Design: ["Design"] };
 const forCourse = e => !e.programme || !S.f.course || !COURSE_PROG[S.f.course] || COURSE_PROG[S.f.course].includes(e.programme);
-const upcomingFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today && forCourse(e)).sort((a, b) => a.start.localeCompare(b.start));
+const ownFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today && forCourse(e));
+/* a college that admits through a shared exam (IPMAT, JIPMAT, CUET...) gets that exam's dates, marked "via" */
+const upcomingFor = id => {
+  const own = ownFor(id), via = (srcOf(id).uses || []).flatMap(x => ownFor(x).map(e => Object.assign({}, e, { via: x, viaFor: id })));
+  return [...own, ...via.filter(v => !own.some(o => o.cat === v.cat && o.start === v.start))].sort((a, b) => a.start.localeCompare(b.start));
+};
+/* the same exam seen through several colleges is one event, not several (and never a clash with itself) */
+const examKey = e => e.via || ((srcOf(e.source).uses || [])[0] && e.cat === "exam" ? srcOf(e.source).uses[0] : e.source);
+function planEvents() {
+  const all = S.sel.flatMap(id => upcomingFor(id)), seen = new Map();
+  for (const e of all) {
+    const k = [examKey(e), e.cat, e.start, e.end || ""].join("|");
+    if (!seen.has(k)) seen.set(k, Object.assign({}, e, { forList: [] }));
+    const f = seen.get(k).forList, who = e.viaFor || e.source;
+    if (!f.includes(who)) f.push(who);
+  }
+  return [...seen.values()].sort((a, b) => a.start.localeCompare(b.start));
+}
 function save() { store.set("sel", S.sel); store.set("f", S.f); }
 
 /* ---------- clash engine (rules from the product spec) ---------- */
@@ -52,7 +69,7 @@ function clashes(events) {
   const out = [];
   for (let i = 0; i < events.length; i++) for (let j = i + 1; j < events.length; j++) {
     const a = events[i], b = events[j];
-    if (a.source === b.source || !(a.start <= evEnd(b) && b.start <= evEnd(a))) continue;
+    if (a.source === b.source || examKey(a) === examKey(b) || !(a.start <= evEnd(b) && b.start <= evEnd(a))) continue;
     const ah = HARD.has(a.cat), bh = HARD.has(b.cat), an = srcOf(a.source).name, bn = srcOf(b.source).name;
     if (ah && bh) {
       const ta = minutes(a.time), tb = minutes(b.time);
@@ -159,12 +176,16 @@ function table(withDates, clashIds) {
         if (!m.length) return `<td><span class="dash">—</span></td>`;
         const e = m[0], hit = m.some(x => clashIds.has(x.id));
         return `<td class="${hit ? "clash" : ""}"><button class="cell" data-ev="${esc(e.id)}"><span class="d num">${rangeText(e)}</span>
-          <span class="s">${esc(e.title)}${e.tentative ? " (tentative)" : ""}${m.length > 1 ? ` · +${m.length - 1} more` : ""}</span>${chip(e)}</button></td>`;
+          <span class="s">${e.via ? `via ${esc(srcOf(e.via).name)} · ` : ""}${esc(e.title)}${e.tentative ? " (tentative)" : ""}${m.length > 1 ? ` · +${m.length - 1} more` : ""}</span>${chip(e)}</button></td>`;
       }).join("")}</tr>`;
     }).join("")}</tbody></table></div>`;
 }
 const PALETTE = ["#2f4fd8", "#d43a3a", "#1d8a5b", "#b5650a", "#7b3fc4", "#0f8a9a", "#c2367a", "#5b6b00", "#8a5a2b", "#3d6fb5", "#a33d3d", "#4b4b9a"];
 const colorOf = id => PALETTE[Math.max(0, S.sel.indexOf(id)) % PALETTE.length];
+const whoText = e => {
+  const name = srcOf(e.via || e.source).name, f = (e.forList || []).filter(x => x !== (e.via || e.source));
+  return f.length ? `${name} · for ${f.map(x => srcOf(x).name).join(", ")}` : name;
+};
 function action(e) {
   const q = (e.title.match(/\(([^)]+)\)\s*$/) || [])[1];
   const base = { app: /open/i.test(e.title) ? "Applications open" : "Last date to apply", fee: "Pay fees by", correct: "Correction window",
@@ -186,7 +207,7 @@ function calendar(evs, clashIds) {
     for (let d = 1; d <= n; d++) {
       const di = iso(new Date(first.getFullYear(), first.getMonth(), d)), list = onDay(evs, di);
       const dl = list.some(e => DEADLINE.has(e.cat)), cl = list.some(e => clashIds.has(e.id)), past = di < todayIso;
-      const dots = [...new Set(list.map(e => e.source))].slice(0, 4).map(id => `<i style="background:${colorOf(id)}"></i>`).join("");
+      const dots = [...new Set(list.flatMap(e => e.forList || [e.source]))].slice(0, 4).map(id => `<i style="background:${colorOf(id)}"></i>`).join("");
       cells += list.length
         ? `<button class="cd has ${dl ? "dl" : ""} ${cl ? "cl" : ""} ${di === todayIso ? "now" : ""} ${past ? "past" : ""}" data-day="${di}" aria-label="${fmtY(di)}: ${list.length} date${list.length > 1 ? "s" : ""}"><b>${d}</b><span class="dots">${dots}</span></button>`
         : `<span class="cd ${di === todayIso ? "now" : ""} ${past ? "past" : ""}"><b>${d}</b></span>`;
@@ -194,7 +215,7 @@ function calendar(evs, clashIds) {
     months.push(`<div class="mon"><h3>${first.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</h3>
       <div class="wk">${["M", "T", "W", "T", "F", "S", "S"].map(x => `<span>${x}</span>`).join("")}</div><div class="days">${cells}</div></div>`);
   }
-  const legend = S.sel.filter(id => evs.some(e => e.source === id)).map(id => `<span><i style="background:${colorOf(id)}"></i>${esc(srcOf(id).name)}</span>`).join("");
+  const legend = S.sel.filter(id => evs.some(e => (e.forList || [e.source]).includes(id))).map(id => `<span><i style="background:${colorOf(id)}"></i>${esc(srcOf(id).name)}</span>`).join("");
   return `<div class="callegend">${legend}<span class="k"><b class="dlk"></b>Deadline</span><span class="k"><b class="clk"></b>Clash</span></div><div class="cal">${months.join("")}</div>`;
 }
 function agenda(evs, clashIds) {
@@ -205,17 +226,18 @@ function agenda(evs, clashIds) {
     if (mo !== lastMonth) { out += `<h3 class="agm">${mo}</h3>`; lastMonth = mo; }
     const when = n === 0 ? "Today" : n === 1 ? "Tomorrow" : `In ${n} days`;
     const urgent = DEADLINE.has(e.cat) && n <= 7;
-    out += `<button class="ag ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}" style="--c:${colorOf(e.source)}">
+    out += `<button class="ag ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}" style="--c:${colorOf((e.forList || [e.source])[0])}">
       <span class="agd"><b class="num">${d.getDate()}</b><small>${d.toLocaleDateString("en-IN", { weekday: "short" })}</small></span>
-      <span class="agt"><b>${esc(action(e))}</b><small>${esc(srcOf(e.source).name)}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
+      <span class="agt"><b>${esc(action(e))}</b><small>${esc(whoText(e))}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
       <span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span></button>`;
   });
   return `<div class="agenda"><h2 class="h2">What to do, step by step</h2>${out}</div>`;
 }
 function viewView() {
-  const evs = DATA.events.filter(e => S.sel.includes(e.source) && D(evEnd(e)) >= today && forCourse(e)).sort((a, b) => a.start.localeCompare(b.start));
+  const evs = planEvents();
   const cl = clashes(evs), clashIds = new Set(cl.filter(c => c.kind !== "risk").flatMap(c => [c.a.id, c.b.id]));
   const withDates = S.sel.filter(id => upcomingFor(id).length), notYet = S.sel.filter(id => !upcomingFor(id).length);
+  const sharedNote = S.sel.filter(id => (srcOf(id).uses || []).length).map(id => `${srcOf(id).name} admits through ${srcOf(id).uses.map(x => srcOf(x).name).join(" and ")}`);
   const cal = calUrls();
   return `<div class="wrap">
     <div class="viewtop"><h1 class="h2">My admission dates <span class="fine num">(${S.sel.length} picks)</span></h1><button class="btn" data-go="find">Edit my list</button></div>
@@ -224,6 +246,7 @@ function viewView() {
     ${cl.map(c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`).join("")}
     ${withDates.length ? `<div class="tabs" role="tablist"><button role="tab" data-tab="table" aria-selected="${S.tab === "table"}">Table</button><button role="tab" data-tab="calendar" aria-selected="${S.tab === "calendar"}">Calendar</button></div>
     ${S.tab === "calendar" ? `<div class="panel pad">${calendar(evs, clashIds)}</div>${agenda(evs, clashIds)}` : `<div class="panel">${table(withDates, clashIds)}</div>`}` : ""}
+    ${sharedNote.length ? `<p class="fine shared">Shared exams are shown once: ${esc(sharedNote.join("; "))}.</p>` : ""}
     ${notYet.length ? `<div class="notyet warnbox"><b>We couldn't find dates for ${notYet.length} of your picks.</b>
       <p>Applications may already be open. Our robot can miss dates, so <b>please check each official website yourself</b>:</p>
       <ul>${notYet.map(id => `<li><b>${esc(srcOf(id).name)}</b> · <a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">check official site now</a></li>`).join("")}</ul></div>` : ""}
@@ -247,10 +270,10 @@ function sheet(id) {
     <h2 class="h2">Official websites we read every morning</h2>
     ${DATA.sources.filter(s => !s.hidden).map(s => `<p class="fine"><b>${esc(s.name)}</b> · ${s.status === "failed" ? "couldn't open today" : s.status === "ok" ? `${s.found} date${s.found === 1 ? "" : "s"} found` : "sample"} · <a href="${esc(s.url)}" target="_blank" rel="noopener">open</a></p>`).join("")}</div></div>`;
   if (id.startsWith("day:")) {
-    const di = id.slice(4), list = onDay(DATA.events.filter(e => S.sel.includes(e.source) && forCourse(e)), di);
+    const di = id.slice(4), list = onDay(planEvents(), di);
     return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="Dates on ${fmtY(di)}"><div class="in"><button class="x" data-close aria-label="Close">×</button>
       <h2 class="h2">${D(di).toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</h2>
-      ${list.map(e => `<button class="ag" data-ev="${esc(e.id)}" style="--c:${colorOf(e.source)}"><span class="agt"><b>${esc(action(e))}</b><small>${esc(srcOf(e.source).name)}</small></span></button>`).join("")}
+      ${list.map(e => `<button class="ag" data-ev="${esc(e.id)}" style="--c:${colorOf((e.forList || [e.source])[0])}"><span class="agt"><b>${esc(action(e))}</b><small>${esc(whoText(e))}</small></span></button>`).join("")}
       ${list.length > 1 && list.filter(e => e.cat === "exam").length > 1 ? `<p class="bad">More than one test or interview on this day. Check the timings on your admit cards.</p>` : ""}</div></div>`;
   }
   const e = DATA.events.find(x => x.id === id); if (!e) return "";
@@ -328,7 +351,7 @@ async function boot() {
   if (DATA && cfg) { // the source list is the truth for names, course, state and city; data.json adds what the robot found
     const seen = Object.fromEntries(DATA.sources.map(s => [s.id, s]));
     DATA.sources = cfg.sources.map(c => Object.assign({ status: "pending", found: 0 }, seen[c.id] || {},
-      { id: c.id, name: c.name, authority: c.authority, stream: c.stream, url: c.url, kind: c.kind || "exam", state: c.state, city: c.city, hidden: c.hidden, campuses: c.campuses }));
+      { id: c.id, name: c.name, authority: c.authority, stream: c.stream, url: c.url, kind: c.kind || "exam", state: c.state, city: c.city, hidden: c.hidden, campuses: c.campuses, uses: c.uses }));
   }
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
