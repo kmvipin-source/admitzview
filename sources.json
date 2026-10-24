@@ -205,7 +205,10 @@
    ],
    "url": "https://www.iimidr.ac.in/",
    "state": "All India",
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://iimidr.ac.in/programmes/academic-programmes/five-year-integrated-programme-in-management-ipm/ipm-admissions-details/"
+   ]
   },
   {
    "id": "clat",
@@ -872,7 +875,10 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://iimidr.ac.in/programmes/academic-programmes/five-year-integrated-programme-in-management-ipm/ipm-admissions-details/"
+   ]
   },
   {
    "id": "iim-rohtak",
@@ -885,7 +891,10 @@
    "kind": "college",
    "city": "Rohtak",
    "state": "Haryana",
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://www.iimrohtak.ac.in/ipm-important-date.php"
+   ]
   },
   {
    "id": "iim-ranchi",
@@ -901,7 +910,10 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://iimranchi.ac.in/ipm/"
+   ]
   },
   {
    "id": "iim-shillong",
@@ -936,7 +948,10 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://iimamritsar.ac.in/academics/ipm/admission-process"
+   ]
   },
   {
    "id": "iim-bg",
