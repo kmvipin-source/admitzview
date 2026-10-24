@@ -171,15 +171,21 @@ def programme_of(text):
     return None
 
 
-def extract(text, source_id, window_from, window_to):
+ANCHOR = re.compile(r"admission|admit card|hall ticket|apply|applicat|entrance|selection|registration|counsel+ing|merit list|shortlist|aptitude test|personal interview|\bcuet\b|ipmat|jipmat|npat|\bset\b|cet\b|\bug\b|undergraduate|b\.?\s?com|bba|first year|fresh(er)?s? intake", re.I)
+INTERNAL = re.compile(r"terminal exam|internal (exam|assessment)|unit test|mid[- ]?term|semester|class test|preliminary exam of (fy|sy|ty)|\b(fy|sy|ty)(jc|bcom|ba|bsc)\b", re.I)
+
+
+def extract(text, source_id, window_from, window_to, admission_page=False):
     """Return candidate events found in text. Each has the evidence sentence."""
     events = {}
     for sent in sentences(text):
         found = find_dates(sent)
         if not found:
             continue
-        if NOT_ADMISSION.search(sent):
-            continue  # events, fests, semester exams, recruitment: not admission steps
+        if NOT_ADMISSION.search(sent) or INTERNAL.search(sent):
+            continue  # events, fests, internal exams, recruitment: not admission steps
+        if not admission_page and not ANCHOR.search(sent):
+            continue  # on a general page, only keep sentences that are clearly about admission
         prog = programme_of(sent)
         if PG.search(sent) and not prog and not re.search(r"\bUG\b|under ?graduate|bachelor", sent, re.I):
             continue  # postgraduate rows are not for this tool

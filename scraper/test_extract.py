@@ -18,7 +18,7 @@ def test_extract_keeps_only_keyword_dates():
     The examination will be held from 22 to 31 January 2027, 9:00 AM to 12:00 PM (tentative).
     Holiday on 26 January 2027.
     Old notice: Result declared on 12 February 2025."""
-    ev = extract(text, "jee-main", W0, W1)
+    ev = extract(text, "jee-main", W0, W1, admission_page=True)  # an exam body's whole site is about admission
     cats = {(e["cat"], e["start"], e["end"]) for e in ev}
     assert ("app", "2026-11-01", "2026-11-30") in cats
     assert ("exam", "2027-01-22", "2027-01-31") in cats
@@ -51,6 +51,12 @@ def test_long_rows_and_ug_pg():
     assert extract("UG & PG applications: last date 25 November 2026", "c", W0, W1)
 
 
+def test_admission_page_relaxes_anchor():
+    row = "Date: December 05, 2026 | Particulars: Entrance Test: Online"
+    assert extract(row, "c", W0, W1, admission_page=True)
+    assert extract("The examination will be held on 10 March 2027.", "c", W0, W1, admission_page=True)
+
+
 def test_junk_is_dropped():
     junk = """PG (MBA & MCA) Inauguration for the Academic Year 2026–27 will be held on 29 October 2026.
     The Annual Sports Day will be held on 12 December 2026.
@@ -58,7 +64,9 @@ def test_junk_is_dropped():
     Recruitment of faculty: last date 20 November 2026.
     Regular Lectures & Practicals for students of SYJC: 29 October 2026 to 4 November 2026 examination.
     Last Date for Full Paper Submission or Extended abstract | 10 November 2026.
-    Cancellation request received: 31 March – 07 April 2027 | Refund."""
+    Cancellation request received: 31 March – 07 April 2027 | Refund.
+    Regular Lectures & Practicals for students of FYJC Arts are cancelled from 22.10.2026 to 28.10.2026 due to the Common First Terminal Exam of SYJC.
+    The annual examination will be held from 5 March 2027 to 20 March 2027."""
     assert extract(junk, "x", W0, W1) == []
 
 
