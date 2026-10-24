@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T01:16+05:30",
+ "generated": "2026-10-25T01:20+05:30",
  "cycle": "2027",
  "sample": false,
  "sources": [
@@ -273,13 +273,13 @@
    "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
   {
    "id": "ipmat",
-   "name": "IPMAT (IIM Indore)",
+   "name": "IPMAT (Indore)",
    "authority": "IIM Indore",
    "stream": [
     "Management"
@@ -288,8 +288,8 @@
    "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
-   "found": 0,
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 2,
    "ai": false
   },
   {
@@ -399,7 +399,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 9,
    "ai": false
   },
@@ -417,7 +417,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -434,7 +434,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -452,7 +452,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -470,7 +470,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -488,7 +488,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -506,7 +506,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -523,7 +523,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -541,7 +541,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 4,
    "ai": false
   },
@@ -558,7 +558,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -576,7 +576,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -593,7 +593,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -611,7 +611,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T01:16+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -627,7 +627,7 @@
    "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
   },
@@ -644,12 +644,607 @@
    "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:20+05:30",
    "found": 0,
    "ai": false
+  },
+  {
+   "id": "du-csas",
+   "name": "Delhi University CSAS (UG)",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://admission.uod.ac.in/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "counselling",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "srcc",
+   "name": "Shri Ram College of Commerce",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.srcc.edu/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "hansraj",
+   "name": "Hansraj College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.hansrajcollege.ac.in/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 1,
+   "ai": false
+  },
+  {
+   "id": "kmc",
+   "name": "Kirori Mal College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.kmcollege.ac.in/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "lsr",
+   "name": "Lady Shri Ram College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://lsr.edu.in/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "ramjas",
+   "name": "Ramjas College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://ramjas.du.ac.in/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "sgtb",
+   "name": "SGTB Khalsa College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://sgtbkhalsadu.ac.in/",
+   "city": "Delhi",
+   "state": "Delhi",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "mu",
+   "name": "University of Mumbai (admissions)",
+   "authority": "University of Mumbai",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://mu.ac.in/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "counselling",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 2,
+   "ai": false
+  },
+  {
+   "id": "xaviers-mum",
+   "name": "St Xavier's College, Mumbai",
+   "authority": "St Xavier's (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://xaviers.edu/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "hr",
+   "name": "HR College of Commerce",
+   "authority": "HSNC University",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.hrcollege.edu/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "jaihind",
+   "name": "Jai Hind College",
+   "authority": "Jai Hind (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.jaihindcollege.com/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 1,
+   "ai": false
+  },
+  {
+   "id": "nmcollege",
+   "name": "NM College of Commerce",
+   "authority": "SVKM",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.nmcollege.in/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "mithibai",
+   "name": "Mithibai College",
+   "authority": "SVKM",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.mithibai.ac.in/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 2,
+   "ai": false
+  },
+  {
+   "id": "kc",
+   "name": "KC College",
+   "authority": "HSNC University",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.kccollege.edu.in/",
+   "city": "Mumbai",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "scac",
+   "name": "Symbiosis College of Arts & Commerce",
+   "authority": "Symbiosis",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.symbiosiscollege.edu.in/",
+   "city": "Pune",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Site asks bots not to read it",
+   "last_ok": null
+  },
+  {
+   "id": "bmcc",
+   "name": "BMCC (Brihan Maharashtra College of Commerce)",
+   "authority": "Deccan Education Society",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.bmcc.ac.in/",
+   "city": "Pune",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Site asks bots not to read it",
+   "last_ok": null
+  },
+  {
+   "id": "mitwpu",
+   "name": "MIT World Peace University",
+   "authority": "MIT-WPU",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Engineering"
+   ],
+   "url": "https://mitwpu.edu.in/",
+   "city": "Pune",
+   "state": "Maharashtra",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "loyola-che",
+   "name": "Loyola College, Chennai",
+   "authority": "Loyola (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.loyolacollege.edu/",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "mcc-che",
+   "name": "Madras Christian College",
+   "authority": "MCC (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://mcc.edu.in/",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "stella",
+   "name": "Stella Maris College",
+   "authority": "Stella Maris (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.stellamariscollege.edu.in/",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "wcc",
+   "name": "Women's Christian College",
+   "authority": "WCC (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://wcc.edu.in/",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "gurunanak",
+   "name": "Guru Nanak College",
+   "authority": "Guru Nanak (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.gurunanakcollege.edu.in/",
+   "city": "Chennai",
+   "state": "Tamil Nadu",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "sxc-kol",
+   "name": "St Xavier's College, Kolkata",
+   "authority": "St Xavier's (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.sxccal.edu/",
+   "city": "Kolkata",
+   "state": "West Bengal",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "bhawanipur",
+   "name": "Bhawanipur Education Society College",
+   "authority": "BESC",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.thebges.edu.in/",
+   "city": "Kolkata",
+   "state": "West Bengal",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "sfc-hyd",
+   "name": "St Francis College for Women",
+   "authority": "St Francis (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.sfc.ac.in/",
+   "city": "Hyderabad",
+   "state": "Telangana",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "loyola-hyd",
+   "name": "Loyola Academy",
+   "authority": "Loyola Academy (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.loyolaacademyugpg.ac.in/",
+   "city": "Hyderabad",
+   "state": "Telangana",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "iim-indore",
+   "name": "IIM Indore (IPM)",
+   "authority": "Indian Institute of Management Indore",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimidr.ac.in/",
+   "city": "Indore",
+   "state": "Madhya Pradesh",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 2,
+   "ai": false
+  },
+  {
+   "id": "iim-rohtak",
+   "name": "IIM Rohtak (IPM, IPMAT Rohtak)",
+   "authority": "Indian Institute of Management Rohtak",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimrohtak.ac.in/",
+   "city": "Rohtak",
+   "state": "Haryana",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "iim-ranchi",
+   "name": "IIM Ranchi (IPM)",
+   "authority": "Indian Institute of Management Ranchi",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://iimranchi.ac.in/",
+   "city": "Ranchi",
+   "state": "Jharkhand",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 2,
+   "ai": false
+  },
+  {
+   "id": "iim-shillong",
+   "name": "IIM Shillong (IPM)",
+   "authority": "Indian Institute of Management Shillong",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimshillong.ac.in/",
+   "city": "Shillong",
+   "state": "Meghalaya",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 4,
+   "ai": false
+  },
+  {
+   "id": "iim-amritsar",
+   "name": "IIM Amritsar (IPM)",
+   "authority": "Indian Institute of Management Amritsar",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://iimamritsar.ac.in/",
+   "city": "Amritsar",
+   "state": "Punjab",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "iim-bg",
+   "name": "IIM Bodh Gaya (IPM, JIPMAT)",
+   "authority": "Indian Institute of Management Bodh Gaya",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://iimbg.ac.in/",
+   "city": "Bodh Gaya",
+   "state": "Bihar",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 0,
+   "ai": false
+  },
+  {
+   "id": "iim-jammu",
+   "name": "IIM Jammu (IPM, JIPMAT)",
+   "authority": "Indian Institute of Management Jammu",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimj.ac.in/",
+   "city": "Jammu",
+   "state": "Jammu and Kashmir",
+   "kind": "college",
+   "status": "ok",
+   "checked": "2026-10-25T01:20+05:30",
+   "found": 8,
+   "ai": false
+  },
+  {
+   "id": "iim-b",
+   "name": "IIM Bangalore (BBA DBE)",
+   "authority": "Indian Institute of Management Bangalore",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimb.ac.in/",
+   "city": "Bengaluru",
+   "state": "Karnataka",
+   "kind": "college",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
+  },
+  {
+   "id": "jipmat",
+   "name": "JIPMAT",
+   "authority": "National Testing Agency",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://jipmat.nta.ac.in/",
+   "state": "All India",
+   "kind": "exam",
+   "status": "failed",
+   "checked": "2026-10-25T01:20+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": null
   }
  ],
  "events": [
+  {
+   "source": "ipmat",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-02-20",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Activity: Registration and payment deadline | Date: 20 February 2027",
+   "id": "c606734b0e-2027-02-20",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "ipmat",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-03-31",
+   "end": "2027-04-07",
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Cancellation request received: 31 March – 07 April 2027 | Refund: 50% of the registration fee",
+   "id": "c606734b0e-2027-03-31",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
   {
    "source": "clat",
    "cat": "app",
@@ -705,7 +1300,7 @@
    "id": "e9f1ee179a-2026-10-15",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -720,7 +1315,7 @@
    "id": "4181e8b3f5-2026-11-25",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:16+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -735,7 +1330,7 @@
    "id": "66382b80b6-2026-12-03",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:16+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -750,7 +1345,7 @@
    "id": "b9862178b4-2026-12-05",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -765,7 +1360,7 @@
    "id": "7606d1861c-2026-12-06",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:16+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -780,7 +1375,7 @@
    "id": "de321c5416-2026-12-09",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:16+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -795,8 +1390,7 @@
    "id": "b9862178b4-2026-12-11",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:16+05:30",
-   "checked": "2026-10-25T01:16+05:30",
-   "changed_from": "2026-12-05"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -811,7 +1405,7 @@
    "id": "07b26c1118-2026-12-11",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:16+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "christ",
@@ -826,7 +1420,7 @@
    "id": "f7e000c262-2026-12-21",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "pes",
@@ -841,7 +1435,7 @@
    "id": "eb5b7a0152-2026-09-03",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "pes",
@@ -856,7 +1450,7 @@
    "id": "63a316d525-2026-09-03",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "pes",
@@ -871,7 +1465,7 @@
    "id": "cc17f148ab-2026-10-16",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
   },
   {
    "source": "pes",
@@ -886,10 +1480,532 @@
    "id": "45dc6ab135-2027-07-30",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:10+05:30",
-   "checked": "2026-10-25T01:16+05:30"
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "hansraj",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2026-09-05",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Last date to fill the form: September 5, 2026",
+   "id": "4cb4e02a6b-2026-09-05",
+   "url": "https://www.hansrajcollege.ac.in/hCPanel/uploads/focus/Notice_2026-27_(2).pdf",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "mu",
+   "cat": "app",
+   "title": "Application",
+   "start": "2026-10-03",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "submission of online application forms is 3rd October, 2026 the same is hereby",
+   "id": "68a45203e6-2026-10-03",
+   "url": "https://mu.ac.in/admin/upload/notice/56052Notification extension of submision of app.pdf",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "mu",
+   "cat": "app",
+   "title": "Application",
+   "start": "2026-10-09",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "extended upto 9th October, 2026 ancl submission of printout of online application",
+   "id": "68a45203e6-2026-10-09",
+   "url": "https://mu.ac.in/admin/upload/notice/56052Notification extension of submision of app.pdf",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "jaihind",
+   "cat": "result",
+   "title": "Result / shortlist",
+   "start": "2026-09-10",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Display of First Merit List Thursday, 10th September, 2026 (06 :00 pm)",
+   "id": "d26adb180d-2026-09-10",
+   "url": "https://www.jaihindcollege.com/wp-content/uploads/2026/09/INSTITUTE-LEVEL-ADMISSION-NOTICE-26-27-1.pdf",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "mithibai",
+   "cat": "exam",
+   "title": "Exam / test",
+   "start": "2026-10-22",
+   "end": "2026-10-28",
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Regular Lectures & Practicals for students of FYJC Arts / Science / Commerce are cancelled from 22.10.2026 to 28.10.2026 due to the Common First Terminal Exam of SYJC Arts / Science / Commerce.",
+   "id": "436c907b53-2026-10-22",
+   "url": "https://www.mithibai.ac.in/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "mithibai",
+   "cat": "exam",
+   "title": "Exam / test",
+   "start": "2026-10-29",
+   "end": "2026-11-04",
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Regular Lectures & Practicals for students of SYJC Arts / Science / Commerce are cancelled from 29.10.2026 to 04.11.2026 due to Common First Terminal Exam of FYJC Arts / Science / Commerce",
+   "id": "436c907b53-2026-10-29",
+   "url": "https://www.mithibai.ac.in/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-indore",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-02-20",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Activity: Registration and payment deadline | Date: 20 February 2027",
+   "id": "dd766a9545-2027-02-20",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-indore",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-03-31",
+   "end": "2027-04-07",
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Cancellation request received: 31 March – 07 April 2027 | Refund: 50% of the registration fee",
+   "id": "dd766a9545-2027-03-31",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-ranchi",
+   "cat": "app",
+   "title": "Application opens",
+   "start": "2026-10-23",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration Opens | 23 October 2026",
+   "id": "9e0f029d6a-2026-10-23",
+   "url": "https://iimranchi.ac.in/icib-2027/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-ranchi",
+   "cat": "app",
+   "title": "Application",
+   "start": "2026-11-30",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration Deadline | 30 November 2026",
+   "id": "d2a0896356-2026-11-30",
+   "url": "https://iimranchi.ac.in/icib-2027/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-shillong",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2026-09-17",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "No: IIMS/S&P/E0I/2026-27/07 | Quotation Published Date on Website: 17-09-2026 | Last Date of Receipt of Quotation: 25-09-2026 | Bid Opening Date: 25-09-2026",
+   "id": "7fe43ac185-2026-09-17",
+   "url": "https://www.iimshillong.ac.in/tender-notices/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-shillong",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2026-09-25",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "No: IIMS/S&P/E0I/2026-27/07 | Quotation Published Date on Website: 17-09-2026 | Last Date of Receipt of Quotation: 25-09-2026 | Bid Opening Date: 25-09-2026",
+   "id": "7fe43ac185-2026-09-25",
+   "url": "https://www.iimshillong.ac.in/tender-notices/",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-shillong",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2026-11-10",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Last Date for Full Paper Submission or Extended abstract | 10th November, 2026",
+   "id": "7fe43ac185-2026-11-10",
+   "url": "https://www.iimshillong.ac.in/events-and-conferences/conferences/lead-2027",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-shillong",
+   "cat": "app",
+   "title": "Application",
+   "start": "2026-11-16",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration Date | 16th November 2026",
+   "id": "9b944c5222-2026-11-16",
+   "url": "https://www.iimshillong.ac.in/events-and-conferences/conferences/lead-2027",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "app",
+   "title": "Application",
+   "start": "2026-10-25",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration | 25.10.2026 | Sunday",
+   "id": "fda35d3ac9-2026-10-25",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "result",
+   "title": "Result / shortlist",
+   "start": "2026-12-16",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Mid Semester Result | 16.12.2026 | Wednesday",
+   "id": "48cce539f3-2026-12-16",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-01-30",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration | 30.01.2027 | Saturday",
+   "id": "fda35d3ac9-2027-01-30",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "result",
+   "title": "Result / shortlist",
+   "start": "2027-04-14",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Mid Semester Result | 14.04.2027 | Wednesday",
+   "id": "48cce539f3-2027-04-14",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-05-30",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration | 30.05.2027 | Saturday",
+   "id": "fda35d3ac9-2027-05-30",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "result",
+   "title": "Result / shortlist",
+   "start": "2027-07-21",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Mid Semester Result | 21.07.2027 | Wednesday",
+   "id": "48cce539f3-2027-07-21",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "result",
+   "title": "Result / shortlist",
+   "start": "2027-09-01",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Declaration of Semester - III Result | 01.09.2027 | Wednesday",
+   "id": "48cce539f3-2027-09-01",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
+  },
+  {
+   "source": "iim-jammu",
+   "cat": "app",
+   "title": "Application",
+   "start": "2027-09-18",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Registration | 18.09.2027 | Saturday",
+   "id": "fda35d3ac9-2027-09-18",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php",
+   "first_seen": "2026-10-25T01:20+05:30",
+   "checked": "2026-10-25T01:20+05:30"
   }
  ],
  "changes": [
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Application",
+   "from": null,
+   "to": "2027-09-18",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Result / shortlist",
+   "from": null,
+   "to": "2027-09-01",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Result / shortlist",
+   "from": null,
+   "to": "2027-07-21",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Application",
+   "from": null,
+   "to": "2027-05-30",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Result / shortlist",
+   "from": null,
+   "to": "2027-04-14",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Application",
+   "from": null,
+   "to": "2027-01-30",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Result / shortlist",
+   "from": null,
+   "to": "2026-12-16",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-jammu",
+   "title": "Application",
+   "from": null,
+   "to": "2026-10-25",
+   "url": "https://www.iimj.ac.in/programs/bba/academic_calendar.php"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-shillong",
+   "title": "Application",
+   "from": null,
+   "to": "2026-11-16",
+   "url": "https://www.iimshillong.ac.in/events-and-conferences/conferences/lead-2027"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-shillong",
+   "title": "Application last date",
+   "from": null,
+   "to": "2026-11-10",
+   "url": "https://www.iimshillong.ac.in/events-and-conferences/conferences/lead-2027"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-shillong",
+   "title": "Application last date",
+   "from": null,
+   "to": "2026-09-25",
+   "url": "https://www.iimshillong.ac.in/tender-notices/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-shillong",
+   "title": "Application last date",
+   "from": null,
+   "to": "2026-09-17",
+   "url": "https://www.iimshillong.ac.in/tender-notices/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-ranchi",
+   "title": "Application",
+   "from": null,
+   "to": "2026-11-30",
+   "url": "https://iimranchi.ac.in/icib-2027/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-ranchi",
+   "title": "Application opens",
+   "from": null,
+   "to": "2026-10-23",
+   "url": "https://iimranchi.ac.in/icib-2027/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-indore",
+   "title": "Application",
+   "from": null,
+   "to": "2027-03-31 to 2027-04-07",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "iim-indore",
+   "title": "Application",
+   "from": null,
+   "to": "2027-02-20",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "mithibai",
+   "title": "Exam / test",
+   "from": null,
+   "to": "2026-10-29 to 2026-11-04",
+   "url": "https://www.mithibai.ac.in/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "mithibai",
+   "title": "Exam / test",
+   "from": null,
+   "to": "2026-10-22 to 2026-10-28",
+   "url": "https://www.mithibai.ac.in/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "jaihind",
+   "title": "Result / shortlist",
+   "from": null,
+   "to": "2026-09-10",
+   "url": "https://www.jaihindcollege.com/wp-content/uploads/2026/09/INSTITUTE-LEVEL-ADMISSION-NOTICE-26-27-1.pdf"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "mu",
+   "title": "Application",
+   "from": null,
+   "to": "2026-10-09",
+   "url": "https://mu.ac.in/admin/upload/notice/56052Notification extension of submision of app.pdf"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "mu",
+   "title": "Application",
+   "from": null,
+   "to": "2026-10-03",
+   "url": "https://mu.ac.in/admin/upload/notice/56052Notification extension of submision of app.pdf"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "hansraj",
+   "title": "Application last date",
+   "from": null,
+   "to": "2026-09-05",
+   "url": "https://www.hansrajcollege.ac.in/hCPanel/uploads/focus/Notice_2026-27_(2).pdf"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "ipmat",
+   "title": "Application",
+   "from": null,
+   "to": "2027-03-31 to 2027-04-07",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/"
+  },
+  {
+   "when": "2026-10-25T01:20+05:30",
+   "source": "ipmat",
+   "title": "Application",
+   "from": null,
+   "to": "2027-02-20",
+   "url": "https://iimidr.ac.in/research-publications/conferences/cere-2027/"
+  },
   {
    "when": "2026-10-25T01:16+05:30",
    "source": "christ",
@@ -1017,22 +2133,6 @@
    "from": null,
    "to": "2026-11-25",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
-  },
-  {
-   "when": "2026-10-25T01:10+05:30",
-   "source": "christ",
-   "title": "Application opens",
-   "from": null,
-   "to": "2026-10-15",
-   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
-  },
-  {
-   "when": "2026-10-25T00:47+05:30",
-   "source": "msrcasc",
-   "title": "Exam / test",
-   "from": null,
-   "to": "2026-10-29",
-   "url": "https://www.msrcasc.edu.in/"
   }
  ]
 }
