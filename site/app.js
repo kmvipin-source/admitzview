@@ -86,7 +86,7 @@ function itemRow(s) {
   return `<div class="item" draggable="true" data-drag="${s.id}">
     <span class="grip" aria-hidden="true">⠿</span>
     <div class="txt"><b>${esc(s.name)}</b><small>${(s.kind || "exam") === "college" ? "College" : (s.kind === "counselling" ? "Counselling" : "Entrance exam")} · ${esc(where)}</small>
-      <div>${n ? `<span class="tag ok">${n} date${n > 1 ? "s" : ""} announced</span>` : `<span class="tag">Dates not announced yet</span>`}</div></div>
+      <div>${n ? `<span class="tag ok">${n} date${n > 1 ? "s" : ""} announced</span>` : `<span class="tag warn">No dates found by us · check official site</span>`}</div></div>
     <button class="add ${on ? "on" : ""}" data-toggle="${s.id}" aria-pressed="${on}">${on ? "Added" : "Add"}</button></div>`;
 }
 function tray() {
@@ -106,7 +106,8 @@ function viewFind() {
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section>
     <h1 class="h1">All your admission dates in one view.</h1>
-    <p class="lede">Choose your course and city, add up to ${CONFIG.max} colleges and exams, and see every deadline side by side. Updated from official websites every morning.</p>
+    <p class="lede">Choose your course and city, add up to ${CONFIG.max} colleges and exams, and see their deadlines side by side, read from official websites every morning.</p>
+    <p class="warnline"><b>Early preview.</b> Our robot can miss or misread dates. Always confirm on each college's official website before you rely on a date.</p>
     <div class="filters">
       <label class="field">Course<select id="fCourse">${COURSES.map(c => `<option value="${c.id}" ${S.f.course === c.id ? "selected" : ""}>${c.label}</option>`).join("")}</select></label>
       <label class="field">State<select id="fState"><option value="">All states</option>${states.map(s => `<option ${S.f.state === s ? "selected" : ""}>${esc(s)}</option>`).join("")}</select></label>
@@ -123,8 +124,8 @@ function viewFind() {
 function nextCard(evs, cl) {
   const up = evs.filter(e => D(evEnd(e)) >= today);
   const dl = up.filter(e => DEADLINE.has(e.cat)).sort((a, b) => evEnd(a).localeCompare(evEnd(b)))[0] || up[0];
-  if (!dl) return `<div class="next calm"><h2 class="h2">No dates announced yet for your list</h2>
-    <p class="fine">Colleges and exam bodies usually publish ${esc(DATA.cycle)} dates a few months ahead. We read their official websites every morning, and new dates appear here the same day. Add your list to your phone calendar below and they'll show up there automatically.</p></div>`;
+  if (!dl) return `<div class="next calm warnbox"><h2 class="h2">We haven't found dates for your list yet</h2>
+    <p>This does <b>not</b> mean applications are closed or not open. Our robot may have missed them. <b>Open each official website below and check today.</b></p></div>`;
   const target = DEADLINE.has(dl.cat) ? evEnd(dl) : dl.start, n = dayDiff(today, D(target));
   return `<div class="next"><div class="count"><b class="num">${n}</b><span>day${n === 1 ? "" : "s"} left</span></div>
     <div><small>Next deadline</small><h2 class="h2">${esc(srcOf(dl.source).name)}: ${esc(dl.title)}</h2>
@@ -179,9 +180,9 @@ function viewView() {
     ${cl.map(c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`).join("")}
     ${withDates.length ? `<div class="tabs" role="tablist"><button role="tab" data-tab="table" aria-selected="${S.tab === "table"}">Table</button><button role="tab" data-tab="timeline" aria-selected="${S.tab === "timeline"}">Timeline</button></div>
     <div class="panel">${S.tab === "timeline" ? timeline(withDates, clashIds, cl) : table(withDates, clashIds)}</div>` : ""}
-    ${notYet.length ? `<div class="notyet"><b>Dates not announced yet for ${notYet.length} of your picks.</b>
-      <p class="fine">They usually publish closer to admission season. We check their official websites every morning and add dates the day they appear.</p>
-      <ul>${notYet.map(id => `<li>${esc(srcOf(id).name)} · <a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">official site</a></li>`).join("")}</ul></div>` : ""}
+    ${notYet.length ? `<div class="notyet warnbox"><b>We couldn't find dates for ${notYet.length} of your picks.</b>
+      <p>Applications may already be open. Our robot can miss dates, so <b>please check each official website yourself</b>:</p>
+      <ul>${notYet.map(id => `<li><b>${esc(srcOf(id).name)}</b> · <a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">check official site now</a></li>`).join("")}</ul></div>` : ""}
     <div class="side">
       <div class="card"><h2 class="h2">Get these dates on your phone</h2>
         ${cal.live ? `<a class="cta full" href="${cal.google}" target="_blank" rel="noopener">Add to Google Calendar</a><a class="btn full" href="${cal.webcal}">iPhone / other calendars</a><button class="btn full" id="copyCal">Copy calendar link</button><p class="fine">New and changed dates appear in your calendar by themselves.</p>`

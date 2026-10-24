@@ -139,3 +139,7 @@ td.clash .d{color:var(--red)}
 .foot{color:var(--muted);font-size:.88rem;padding-block:28px 120px;display:grid;gap:4px}
 .foot p{margin:0}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .2s ease-out}@keyframes up{from{transform:translateY(24px);opacity:.5}}}
+
+.tag.warn{background:var(--amber-soft);color:var(--amber)}
+.warnbox{background:var(--amber-soft);border:1.5px solid #f0c98a;color:var(--ink)}
+.warnline{margin:12px 0 0;padding:10px 14px;border-radius:12px;background:var(--amber-soft);color:var(--ink);font-size:.95rem;max-width:62ch}
