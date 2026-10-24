@@ -28,8 +28,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ADMITZVIEW_AI: "on"   # set to "off" to skip the AI step entirely
           PYTHONUNBUFFERED: "1"
-          # For now: only the Bangalore B.Com colleges. Delete this line to read every source again.
-          ADMITZVIEW_ONLY: "christ sju sjcc mcc-blr jain kristu jyoti msrcasc pes presidency gcu surana bu"
+          # For now: B.Com colleges in major cities, IIM IPM programmes and their entrance tests. Delete this line to read every source again.
+          ADMITZVIEW_ONLY: "du-csas srcc hansraj kmc lsr ramjas sgtb mu xaviers-mum hr jaihind nmcollege mithibai kc scac bmcc mitwpu loyola-che mcc-che stella wcc gurunanak sxc-kol bhawanipur sfc-hyd loyola-hyd iim-indore iim-rohtak iim-ranchi iim-shillong iim-amritsar iim-bg iim-jammu iim-b jipmat christ sju sjcc mcc-blr jain kristu jyoti msrcasc pes presidency gcu surana bu cuet-ug npat set ipmat"
         run: python scraper/scrape.py
       - name: Save if anything changed
         run: |
