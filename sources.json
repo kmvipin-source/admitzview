@@ -1,0 +1,30 @@
+{
+  "cycle": "2027",
+  "window": { "from": "2026-09-01", "to": "2027-10-31" },
+  "sources": [
+    { "id": "jee-main",  "name": "JEE Main",            "authority": "National Testing Agency",         "stream": ["Engineering"],             "url": "https://jeemain.nta.nic.in/" },
+    { "id": "jee-adv",   "name": "JEE Advanced",        "authority": "IITs (organising IIT)",           "stream": ["Engineering"],             "url": "https://jeeadv.ac.in/" },
+    { "id": "josaa",     "name": "JoSAA Counselling",   "authority": "Joint Seat Allocation Authority", "stream": ["Engineering"],             "url": "https://josaa.nic.in/", "kind": "counselling" },
+    { "id": "bitsat",    "name": "BITSAT",              "authority": "BITS Pilani",                     "stream": ["Engineering"],             "url": "https://www.bitsadmission.com/" },
+    { "id": "viteee",    "name": "VITEEE",              "authority": "VIT",                             "stream": ["Engineering"],             "url": "https://viteee.vit.ac.in/" },
+    { "id": "srmjeee",   "name": "SRMJEEE",             "authority": "SRM Institute",                   "stream": ["Engineering"],             "url": "https://www.srmist.edu.in/admission-india/" },
+    { "id": "met",       "name": "MET (Manipal)",       "authority": "Manipal Academy",                 "stream": ["Engineering"],             "url": "https://manipal.edu/mu/admission.html" },
+    { "id": "comedk",    "name": "COMEDK UGET",         "authority": "COMEDK",                          "stream": ["Engineering"],             "url": "https://www.comedk.org/" },
+    { "id": "kcet",      "name": "KCET",                "authority": "Karnataka Examinations Authority","stream": ["Engineering", "Medical"],  "url": "https://cetonline.karnataka.gov.in/kea/" },
+    { "id": "keam",      "name": "KEAM",                "authority": "CEE Kerala",                      "stream": ["Engineering", "Medical"],  "url": "https://cee.kerala.gov.in/" },
+    { "id": "mht-cet",   "name": "MHT CET",             "authority": "State CET Cell, Maharashtra",     "stream": ["Engineering"],             "url": "https://cetcell.mahacet.org/" },
+    { "id": "wbjee",     "name": "WBJEE",               "authority": "WBJEE Board",                     "stream": ["Engineering"],             "url": "https://wbjeeb.nic.in/" },
+    { "id": "ap-eapcet", "name": "AP EAPCET",           "authority": "APSCHE",                          "stream": ["Engineering"],             "url": "https://cets.apsche.ap.gov.in/" },
+    { "id": "ts-eapcet", "name": "TS EAPCET",           "authority": "TSCHE",                           "stream": ["Engineering"],             "url": "https://eapcet.tsche.ac.in/" },
+    { "id": "neet-ug",   "name": "NEET UG",             "authority": "National Testing Agency",         "stream": ["Medical"],                 "url": "https://neet.nta.nic.in/" },
+    { "id": "mcc",       "name": "MCC NEET Counselling","authority": "Medical Counselling Committee",   "stream": ["Medical"],                 "url": "https://mcc.nic.in/", "kind": "counselling" },
+    { "id": "cuet-ug",   "name": "CUET UG",             "authority": "National Testing Agency",         "stream": ["Arts", "Science", "Commerce", "Management"], "url": "https://cuet.nta.nic.in/" },
+    { "id": "ipmat",     "name": "IPMAT (IIM Indore)",  "authority": "IIM Indore",                      "stream": ["Management"],              "url": "https://www.iimidr.ac.in/" },
+    { "id": "clat",      "name": "CLAT",                "authority": "Consortium of NLUs",              "stream": ["Law"],                     "url": "https://consortiumofnlus.ac.in/" },
+    { "id": "ailet",     "name": "AILET",               "authority": "NLU Delhi",                       "stream": ["Law"],                     "url": "https://nationallawuniversitydelhi.in/" },
+    { "id": "nata",      "name": "NATA",                "authority": "Council of Architecture",         "stream": ["Architecture", "Design"],  "url": "https://www.nata.in/" },
+    { "id": "uceed",     "name": "UCEED",               "authority": "IIT Bombay",                      "stream": ["Design"],                  "url": "https://www.uceed.iitb.ac.in/" },
+    { "id": "nid-dat",   "name": "NID DAT",             "authority": "National Institute of Design",    "stream": ["Design"],                  "url": "https://admissions.nid.edu/" },
+    { "id": "nift",      "name": "NIFT Entrance",       "authority": "NIFT",                            "stream": ["Design"],                  "url": "https://www.nift.ac.in/" }
+  ]
+}
