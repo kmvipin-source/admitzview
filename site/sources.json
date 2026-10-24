@@ -872,7 +872,8 @@
    "state": "Madhya Pradesh",
    "uses": [
     "ipmat"
-   ]
+   ],
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-rohtak",
@@ -884,7 +885,8 @@
    "url": "https://www.iimrohtak.ac.in/",
    "kind": "college",
    "city": "Rohtak",
-   "state": "Haryana"
+   "state": "Haryana",
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-ranchi",
@@ -899,7 +901,8 @@
    "state": "Jharkhand",
    "uses": [
     "ipmat"
-   ]
+   ],
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-shillong",
@@ -914,7 +917,8 @@
    "state": "Meghalaya",
    "uses": [
     "ipmat"
-   ]
+   ],
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-amritsar",
@@ -929,7 +933,8 @@
    "state": "Punjab",
    "uses": [
     "ipmat"
-   ]
+   ],
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-bg",
@@ -944,7 +949,8 @@
    "state": "Bihar",
    "uses": [
     "jipmat"
-   ]
+   ],
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-jammu",
@@ -959,7 +965,8 @@
    "state": "Jammu and Kashmir",
    "uses": [
     "jipmat"
-   ]
+   ],
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-b",
@@ -971,7 +978,8 @@
    "url": "https://www.iimb.ac.in/",
    "kind": "college",
    "city": "Bengaluru",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
   },
   {
    "id": "jipmat",
