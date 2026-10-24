@@ -33,5 +33,10 @@ jobs:
           git config user.name "admitzview-bot"
           git config user.email "admitzview-bot@users.noreply.github.com"
           git add site/data.json
-          git diff --cached --quiet || git commit -m "Daily date check $(date -u +%F)"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "Daily date check $(date -u +%F)"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1
