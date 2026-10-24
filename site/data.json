@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-25T00:47+05:30",
+ "generated": "2026-10-25T01:10+05:30",
  "cycle": "2027",
  "sample": false,
  "sources": [
@@ -399,8 +399,8 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
-   "found": 0,
+   "checked": "2026-10-25T01:10+05:30",
+   "found": 7,
    "ai": false
   },
   {
@@ -417,7 +417,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "found": 0,
    "ai": false
   },
@@ -434,7 +434,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "found": 0,
    "ai": false
   },
@@ -452,7 +452,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -470,7 +470,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -488,7 +488,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "found": 0,
    "ai": false
   },
@@ -506,7 +506,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "found": 0,
    "ai": false
   },
@@ -523,8 +523,8 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
-   "found": 1,
+   "checked": "2026-10-25T01:10+05:30",
+   "found": 0,
    "ai": false
   },
   {
@@ -541,8 +541,8 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
-   "found": 0,
+   "checked": "2026-10-25T01:10+05:30",
+   "found": 4,
    "ai": false
   },
   {
@@ -558,7 +558,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "found": 0,
    "ai": false
   },
@@ -576,7 +576,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -593,7 +593,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -611,7 +611,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-10-25T00:47+05:30",
+   "checked": "2026-10-25T01:10+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -693,21 +693,260 @@
    "checked": "2026-10-25T00:47+05:30"
   },
   {
-   "source": "msrcasc",
-   "cat": "exam",
-   "title": "Exam / test",
-   "start": "2026-10-29",
+   "source": "christ",
+   "cat": "app",
+   "title": "Application opens",
+   "start": "2026-10-15",
    "end": null,
    "time": null,
    "tentative": false,
-   "evidence": "PG (MBA & MCA) Inauguration for the Academic Year 2026–27 will be held on 29 October 2026",
-   "id": "d8938ed915-2026-10-29",
-   "url": "https://www.msrcasc.edu.in/",
-   "first_seen": "2026-10-25T00:47+05:30",
-   "checked": "2026-10-25T00:47+05:30"
+   "programme": null,
+   "evidence": "Date: October 15, 2026 | Time And Venue: 14:00 Hrs | Particulars/Events: Application available online | Venue/Website: www.christuniversity.in",
+   "id": "e9f1ee179a-2026-10-15",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "christ",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2026-11-25",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Date: November 25, 2026 | Time And Venue: 17:00 Hrs | Particulars/Events: Last day of submitting the application online for Entrance Test Programmes | Venue/Website: https://christuniversity.in/applyonline",
+   "id": "ff65a12b9c-2026-11-25",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "christ",
+   "cat": "admit",
+   "title": "Admit card release",
+   "start": "2026-12-03",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Date: December 03, 2026 | Time And Venue: 23:00 Hrs | Particulars/Events: Release of selection process (ET) admit card for the eligible candidates | Venue/Website: https://christuniversity.in/applyonline",
+   "id": "1a0f25bc11-2026-12-03",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "christ",
+   "cat": "exam",
+   "title": "Exam / test",
+   "start": "2026-12-05",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Date: December 05, 2026 | Time And Venue: As per your E-Admit card | Particulars/Events: Entrance Test: Online | Venue/Website: https://christuniversity.in/applyonline",
+   "id": "b9862178b4-2026-12-05",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "christ",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2026-12-06",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Date: December 06, 2026 | Time And Venue: 17:00 Hrs | Particulars/Events: Last day of submitting the application online for Non Entrance Test Programmes | Venue/Website: https://christuniversity.in/applyonline",
+   "id": "ff65a12b9c-2026-12-06",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "christ",
+   "cat": "admit",
+   "title": "Admit card release",
+   "start": "2026-12-09",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Date: December 09, 2026 | Time And Venue: 23:00 Hrs | Particulars/Events: Release of selection process (NON ET) admit card for the eligible candidates SA_MP_PI_*AU: Venue Based | Venue/Website: https://christuniversity.in/applyonline",
+   "id": "1a0f25bc11-2026-12-09",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "christ",
+   "cat": "result",
+   "title": "Result / shortlist",
+   "start": "2026-12-21",
+   "end": null,
+   "time": null,
+   "tentative": false,
+   "programme": null,
+   "evidence": "Date: December 21, 2026 | Time And Venue: 22:00 Hrs | Particulars/Events: Publishing of Final selection list | Venue/Website: https://christuniversity.in/applyonline",
+   "id": "f7e000c262-2026-12-21",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "pes",
+   "cat": "app",
+   "title": "B.Tech: Application opens",
+   "start": "2026-09-03",
+   "end": null,
+   "time": null,
+   "tentative": true,
+   "programme": "B.Tech",
+   "evidence": "Tentative: September 3, 2026 | Activity: Start of B.Tech 2027 Registrations",
+   "id": "eb5b7a0152-2026-09-03",
+   "url": "https://pes.edu/important-dates/",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "pes",
+   "cat": "app",
+   "title": "Application opens",
+   "start": "2026-09-03",
+   "end": null,
+   "time": null,
+   "tentative": true,
+   "programme": null,
+   "evidence": "Tentative: September 3, 2026 | Activity: Start of online registrations for Admissions 2027",
+   "id": "63a316d525-2026-09-03",
+   "url": "https://pes.edu/important-dates/",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "pes",
+   "cat": "admit",
+   "title": "Admit card release",
+   "start": "2026-10-16",
+   "end": null,
+   "time": null,
+   "tentative": true,
+   "programme": null,
+   "evidence": "Tentative: October 16, 2026 | Activity: Commencement of Entrance Slot Bookings and Hall Ticket Generation",
+   "id": "cc17f148ab-2026-10-16",
+   "url": "https://pes.edu/important-dates/",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
+  },
+  {
+   "source": "pes",
+   "cat": "app",
+   "title": "Application last date",
+   "start": "2027-07-30",
+   "end": null,
+   "time": null,
+   "tentative": true,
+   "programme": null,
+   "evidence": "Tentative: July 30, 2027 | Activity: Last date of Online Registrations for Admissions",
+   "id": "45dc6ab135-2027-07-30",
+   "url": "https://pes.edu/important-dates/",
+   "first_seen": "2026-10-25T01:10+05:30",
+   "checked": "2026-10-25T01:10+05:30"
   }
  ],
  "changes": [
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "pes",
+   "title": "Application last date",
+   "from": null,
+   "to": "2027-07-30",
+   "url": "https://pes.edu/important-dates/"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "pes",
+   "title": "Admit card release",
+   "from": null,
+   "to": "2026-10-16",
+   "url": "https://pes.edu/important-dates/"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "pes",
+   "title": "Application opens",
+   "from": null,
+   "to": "2026-09-03",
+   "url": "https://pes.edu/important-dates/"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "pes",
+   "title": "B.Tech: Application opens",
+   "from": null,
+   "to": "2026-09-03",
+   "url": "https://pes.edu/important-dates/"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Result / shortlist",
+   "from": null,
+   "to": "2026-12-21",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Admit card release",
+   "from": null,
+   "to": "2026-12-09",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Application last date",
+   "from": null,
+   "to": "2026-12-06",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Exam / test",
+   "from": null,
+   "to": "2026-12-05",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Admit card release",
+   "from": null,
+   "to": "2026-12-03",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Application last date",
+   "from": null,
+   "to": "2026-11-25",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
+  {
+   "when": "2026-10-25T01:10+05:30",
+   "source": "christ",
+   "title": "Application opens",
+   "from": null,
+   "to": "2026-10-15",
+   "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027"
+  },
   {
    "when": "2026-10-25T00:47+05:30",
    "source": "msrcasc",
