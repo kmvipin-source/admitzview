@@ -82,7 +82,9 @@ function parseAsk(q) {
 }
 
 function summary(evs, cl) {
-  if (!evs.length) return [];
+  if (!S.sel.size) return [];
+  if (!evs.length) return [`None of your picks have announced ${esc(DATA.cycle)} dates yet. Most exam bodies and colleges publish them a few months ahead, and the robot checks their official sites every morning.`,
+    `Meanwhile, tap <b>Which sites?</b> at the top to open each official page yourself.`];
   const lines = [];
   const end = new Date(today); end.setDate(end.getDate() + CONFIG.weeks * 7);
   const upcoming = evs.filter(e => D(evEnd(e)) >= today);
@@ -143,7 +145,7 @@ function seasonMap(evs, cl) {
       const cls = ["ev", e.cat, e.tentative ? "tent" : "", clashIds.has(e.id) ? "clash" : "", e.stale ? "stale" : ""].join(" ");
       return `<button class="${cls}" style="left:${l - (e.end ? 0 : 6)}px;width:${w}px" data-ev="${esc(e.id)}" aria-label="${esc(s.name)}: ${esc(e.title)}, ${rangeText(e)}"></button>`;
     }).join("");
-    const note = s.status === "failed" ? `<small>Couldn't read today</small>` : (!mine.length ? `<small>No dates yet</small>` : `<small>${esc(s.authority)}</small>`);
+    const note = mine.length ? `<small>${esc(s.authority)}</small>` : s.status === "failed" ? `<small>Couldn't read today</small>` : `<small>No 2027 dates yet</small>`;
     rows += `<div class="lab">${esc(s.name)}${note}</div><div class="lane" style="width:${W}px">${weeks}${bands}${todayX ? `<i class="today" style="left:${todayX}px"></i>` : `<i class="today" style="left:0"></i>`}${bubbles}</div>`;
   });
   return `<div class="scroller"><div class="grid">${rows}</div></div>`;
@@ -183,7 +185,7 @@ function calUrls() {
 function render() {
   const evs = selectedEvents(), cl = clashes(evs);
   const ok = DATA.sources.filter(s => s.status === "ok").length;
-  const visible = DATA.sources.filter(s => !S.stream || (s.stream || []).includes(S.stream));
+  const visible = DATA.sources.filter(s => !s.hidden && (!S.stream || (s.stream || []).includes(S.stream)));
   const cal = calUrls();
   const aiReady = "LanguageModel" in self;
   $("#app").innerHTML = `
@@ -197,7 +199,7 @@ function render() {
     <section class="pick" aria-label="Choose your exams">
       <form class="ask" id="askForm"><input id="askIn" aria-label="Type your exams" placeholder='Type your exams, e.g. "JEE, BITSAT and KCET, any clash?"' autocomplete="off"><button>Show</button></form>
       ${S.pickOpen ? `<div class="streams" role="group" aria-label="Filter by stream"><button class="stream" data-stream="" aria-pressed="${!S.stream}">All</button>${STREAMS.filter(st => DATA.sources.some(s => (s.stream || []).includes(st))).map(st => `<button class="stream" data-stream="${st}" aria-pressed="${S.stream === st}">${st}</button>`).join("")}</div>
-      <div class="exams" role="group" aria-label="Exams">${visible.map(s => `<button class="exam ${s.status === "failed" ? "down" : ""}" data-src="${s.id}" aria-pressed="${S.sel.has(s.id)}"><span class="b"></span>${esc(s.name)}</button>`).join("")}<button class="more" id="pickToggle">Done</button></div>` :
+      <div class="exams" role="group" aria-label="Exams">${visible.map(s => `<button class="exam ${s.status === "failed" ? "down" : ""}" data-src="${s.id}" aria-pressed="${S.sel.has(s.id)}"><span class="b"></span>${esc(s.name)}${s.city ? ` <small style="color:var(--muted)">${esc(s.city)}</small>` : ""}</button>`).join("")}<button class="more" id="pickToggle">Done</button></div>` :
       `<div class="exams" role="group" aria-label="Your exams">${DATA.sources.filter(s => S.sel.has(s.id)).map(s => `<button class="exam" data-src="${s.id}" aria-pressed="true" title="Remove ${esc(s.name)}"><span class="b"></span>${esc(s.name)}</button>`).join("")}<button class="more" id="pickToggle">${S.sel.size ? "Add or remove exams" : "Choose exams"}</button></div>`}
       ${S.msg ? `<p class="hint">${S.msg}</p>` : ""}
     </section>
@@ -241,7 +243,7 @@ function render() {
 function sheet(id, cl) {
   if (id === "__sites") return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="Official sites checked"><div class="in"><button class="x" data-close aria-label="Close">×</button>
     <h3>Official sites the robot reads every morning</h3>
-    ${DATA.sources.map(s => `<div class="meta"><b style="color:var(--lead)">${esc(s.name)}</b>, ${esc(s.authority)}: ${s.status === "failed" ? `<span style="color:var(--red)">${esc(s.reason || "couldn't read")}</span>` : s.status === "ok" ? `read OK, ${s.found} dates${s.ai ? ", tidied by AI" : ""}` : "sample"} · <a href="${esc(s.url)}" target="_blank" rel="noopener">open site</a></div>`).join("")}
+    ${DATA.sources.map(s => `<div class="meta"><b style="color:var(--lead)">${esc(s.name)}</b>${s.city ? ` (${esc(s.city)})` : ""}, ${esc(s.authority)}: ${s.status === "failed" ? `<span style="color:var(--red)">${esc(s.reason || "couldn't read")}</span>` : s.status === "ok" ? `read OK, ${s.found} dates${s.ai ? ", tidied by AI" : ""}` : "sample"} · <a href="${esc(s.url)}" target="_blank" rel="noopener">open site</a></div>`).join("")}
   </div></div>`;
   const e = DATA.events.find(x => x.id === id); if (!e) return "";
   const s = srcOf(e.source);
