@@ -198,7 +198,7 @@
   },
   {
    "id": "ipmat",
-   "name": "IPMAT (IIM Indore)",
+   "name": "IPMAT (Indore)",
    "authority": "IIM Indore",
    "stream": [
     "Management"
@@ -479,6 +479,431 @@
     "Law"
    ],
    "url": "https://www.set-test.org/",
+   "state": "All India"
+  },
+  {
+   "id": "du-csas",
+   "name": "Delhi University CSAS (UG)",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://admission.uod.ac.in/",
+   "kind": "counselling",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "srcc",
+   "name": "Shri Ram College of Commerce",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.srcc.edu/",
+   "kind": "college",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "hansraj",
+   "name": "Hansraj College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.hansrajcollege.ac.in/",
+   "kind": "college",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "kmc",
+   "name": "Kirori Mal College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.kmcollege.ac.in/",
+   "kind": "college",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "lsr",
+   "name": "Lady Shri Ram College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://lsr.edu.in/",
+   "kind": "college",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "ramjas",
+   "name": "Ramjas College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://ramjas.du.ac.in/",
+   "kind": "college",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "sgtb",
+   "name": "SGTB Khalsa College",
+   "authority": "University of Delhi",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://sgtbkhalsadu.ac.in/",
+   "kind": "college",
+   "city": "Delhi",
+   "state": "Delhi"
+  },
+  {
+   "id": "mu",
+   "name": "University of Mumbai (admissions)",
+   "authority": "University of Mumbai",
+   "stream": [
+    "Commerce",
+    "Arts",
+    "Science"
+   ],
+   "url": "https://mu.ac.in/",
+   "kind": "counselling",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "xaviers-mum",
+   "name": "St Xavier's College, Mumbai",
+   "authority": "St Xavier's (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://xaviers.edu/",
+   "kind": "college",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "hr",
+   "name": "HR College of Commerce",
+   "authority": "HSNC University",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.hrcollege.edu/",
+   "kind": "college",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "jaihind",
+   "name": "Jai Hind College",
+   "authority": "Jai Hind (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.jaihindcollege.com/",
+   "kind": "college",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "nmcollege",
+   "name": "NM College of Commerce",
+   "authority": "SVKM",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.nmcollege.in/",
+   "kind": "college",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "mithibai",
+   "name": "Mithibai College",
+   "authority": "SVKM",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.mithibai.ac.in/",
+   "kind": "college",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "kc",
+   "name": "KC College",
+   "authority": "HSNC University",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.kccollege.edu.in/",
+   "kind": "college",
+   "city": "Mumbai",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "scac",
+   "name": "Symbiosis College of Arts & Commerce",
+   "authority": "Symbiosis",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.symbiosiscollege.edu.in/",
+   "kind": "college",
+   "city": "Pune",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "bmcc",
+   "name": "BMCC (Brihan Maharashtra College of Commerce)",
+   "authority": "Deccan Education Society",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.bmcc.ac.in/",
+   "kind": "college",
+   "city": "Pune",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "mitwpu",
+   "name": "MIT World Peace University",
+   "authority": "MIT-WPU",
+   "stream": [
+    "Commerce",
+    "Management",
+    "Engineering"
+   ],
+   "url": "https://mitwpu.edu.in/",
+   "kind": "college",
+   "city": "Pune",
+   "state": "Maharashtra"
+  },
+  {
+   "id": "loyola-che",
+   "name": "Loyola College, Chennai",
+   "authority": "Loyola (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.loyolacollege.edu/",
+   "kind": "college",
+   "city": "Chennai",
+   "state": "Tamil Nadu"
+  },
+  {
+   "id": "mcc-che",
+   "name": "Madras Christian College",
+   "authority": "MCC (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://mcc.edu.in/",
+   "kind": "college",
+   "city": "Chennai",
+   "state": "Tamil Nadu"
+  },
+  {
+   "id": "stella",
+   "name": "Stella Maris College",
+   "authority": "Stella Maris (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.stellamariscollege.edu.in/",
+   "kind": "college",
+   "city": "Chennai",
+   "state": "Tamil Nadu"
+  },
+  {
+   "id": "wcc",
+   "name": "Women's Christian College",
+   "authority": "WCC (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://wcc.edu.in/",
+   "kind": "college",
+   "city": "Chennai",
+   "state": "Tamil Nadu"
+  },
+  {
+   "id": "gurunanak",
+   "name": "Guru Nanak College",
+   "authority": "Guru Nanak (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.gurunanakcollege.edu.in/",
+   "kind": "college",
+   "city": "Chennai",
+   "state": "Tamil Nadu"
+  },
+  {
+   "id": "sxc-kol",
+   "name": "St Xavier's College, Kolkata",
+   "authority": "St Xavier's (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.sxccal.edu/",
+   "kind": "college",
+   "city": "Kolkata",
+   "state": "West Bengal"
+  },
+  {
+   "id": "bhawanipur",
+   "name": "Bhawanipur Education Society College",
+   "authority": "BESC",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.thebges.edu.in/",
+   "kind": "college",
+   "city": "Kolkata",
+   "state": "West Bengal"
+  },
+  {
+   "id": "sfc-hyd",
+   "name": "St Francis College for Women",
+   "authority": "St Francis (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.sfc.ac.in/",
+   "kind": "college",
+   "city": "Hyderabad",
+   "state": "Telangana"
+  },
+  {
+   "id": "loyola-hyd",
+   "name": "Loyola Academy",
+   "authority": "Loyola Academy (Autonomous)",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.loyolaacademyugpg.ac.in/",
+   "kind": "college",
+   "city": "Hyderabad",
+   "state": "Telangana"
+  },
+  {
+   "id": "iim-indore",
+   "name": "IIM Indore (IPM)",
+   "authority": "Indian Institute of Management Indore",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimidr.ac.in/",
+   "kind": "college",
+   "city": "Indore",
+   "state": "Madhya Pradesh"
+  },
+  {
+   "id": "iim-rohtak",
+   "name": "IIM Rohtak (IPM, IPMAT Rohtak)",
+   "authority": "Indian Institute of Management Rohtak",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimrohtak.ac.in/",
+   "kind": "college",
+   "city": "Rohtak",
+   "state": "Haryana"
+  },
+  {
+   "id": "iim-ranchi",
+   "name": "IIM Ranchi (IPM)",
+   "authority": "Indian Institute of Management Ranchi",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://iimranchi.ac.in/",
+   "kind": "college",
+   "city": "Ranchi",
+   "state": "Jharkhand"
+  },
+  {
+   "id": "iim-shillong",
+   "name": "IIM Shillong (IPM)",
+   "authority": "Indian Institute of Management Shillong",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimshillong.ac.in/",
+   "kind": "college",
+   "city": "Shillong",
+   "state": "Meghalaya"
+  },
+  {
+   "id": "iim-amritsar",
+   "name": "IIM Amritsar (IPM)",
+   "authority": "Indian Institute of Management Amritsar",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://iimamritsar.ac.in/",
+   "kind": "college",
+   "city": "Amritsar",
+   "state": "Punjab"
+  },
+  {
+   "id": "iim-bg",
+   "name": "IIM Bodh Gaya (IPM, JIPMAT)",
+   "authority": "Indian Institute of Management Bodh Gaya",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://iimbg.ac.in/",
+   "kind": "college",
+   "city": "Bodh Gaya",
+   "state": "Bihar"
+  },
+  {
+   "id": "iim-jammu",
+   "name": "IIM Jammu (IPM, JIPMAT)",
+   "authority": "Indian Institute of Management Jammu",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimj.ac.in/",
+   "kind": "college",
+   "city": "Jammu",
+   "state": "Jammu and Kashmir"
+  },
+  {
+   "id": "iim-b",
+   "name": "IIM Bangalore (BBA DBE)",
+   "authority": "Indian Institute of Management Bangalore",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.iimb.ac.in/",
+   "kind": "college",
+   "city": "Bengaluru",
+   "state": "Karnataka"
+  },
+  {
+   "id": "jipmat",
+   "name": "JIPMAT",
+   "authority": "National Testing Agency",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://jipmat.nta.ac.in/",
+   "kind": "exam",
    "state": "All India"
   }
  ]
