@@ -41,7 +41,9 @@ const store = {
 const srcOf = id => DATA.sources.find(s => s.id === id) || { name: id, authority: "", stream: [] };
 const evEnd = e => e.end || e.start;
 const rangeText = e => e.end ? `${fmt(e.start)} – ${fmt(e.end)}` : fmt(e.start);
-const upcomingFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today).sort((a, b) => a.start.localeCompare(b.start));
+const COURSE_PROG = { Commerce: ["B.Com"], Management: ["BBA"], Arts: ["BA"], Science: ["B.Sc", "BCA"], Engineering: ["B.Tech"], Law: ["Law"], Design: ["Design"] };
+const forCourse = e => !e.programme || !S.f.course || !COURSE_PROG[S.f.course] || COURSE_PROG[S.f.course].includes(e.programme);
+const upcomingFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today && forCourse(e)).sort((a, b) => a.start.localeCompare(b.start));
 function save() { store.set("sel", S.sel); store.set("f", S.f); }
 
 /* ---------- clash engine (rules from the product spec) ---------- */
@@ -170,7 +172,7 @@ function timeline(withDates, clashIds, cl) {
     <div class="scroller"><div class="grid">${rows}</div></div>`;
 }
 function viewView() {
-  const evs = DATA.events.filter(e => S.sel.includes(e.source) && D(evEnd(e)) >= today).sort((a, b) => a.start.localeCompare(b.start));
+  const evs = DATA.events.filter(e => S.sel.includes(e.source) && D(evEnd(e)) >= today && forCourse(e)).sort((a, b) => a.start.localeCompare(b.start));
   const cl = clashes(evs), clashIds = new Set(cl.filter(c => c.kind !== "risk").flatMap(c => [c.a.id, c.b.id]));
   const withDates = S.sel.filter(id => upcomingFor(id).length), notYet = S.sel.filter(id => !upcomingFor(id).length);
   const cal = calUrls();
