@@ -161,44 +161,54 @@ function table(withDates, clashIds) {
       }).join("")}</tr>`;
     }).join("")}</tbody></table></div>`;
 }
-function mapStart() { const d = new Date(today); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; }
-function timeline(withDates, clashIds, cl) {
-  const start = mapStart(), days = CONFIG.weeks * 7, PX = 9, W = days * PX;
-  const x = d => Math.max(0, Math.min(days, dayDiff(start, d))) * PX;
-  let months = "", weeks = "";
-  for (let i = 0; i < days; i++) {
-    const d = new Date(start); d.setDate(d.getDate() + i);
-    if (d.getDate() === 1 || i === 0) months += `<span style="left:${i * PX}px">${d.toLocaleDateString("en-IN", { month: "short" })}</span>`;
-    if (i % 7 === 0) weeks += `<i class="week" style="left:${i * PX}px"></i>`;
-    if (d.getDate() === 1 && d.getMonth() % 2 === 0) { const e2 = new Date(d); e2.setMonth(e2.getMonth() + 1); weeks += `<i class="mshade" style="left:${i * PX}px;width:${Math.min(days - i, dayDiff(d, e2)) * PX}px"></i>`; }
+const PALETTE = ["#2f4fd8", "#d43a3a", "#1d8a5b", "#b5650a", "#7b3fc4", "#0f8a9a", "#c2367a", "#5b6b00", "#8a5a2b", "#3d6fb5", "#a33d3d", "#4b4b9a"];
+const colorOf = id => PALETTE[Math.max(0, S.sel.indexOf(id)) % PALETTE.length];
+function action(e) {
+  const q = (e.title.match(/\(([^)]+)\)\s*$/) || [])[1];
+  const base = { app: /open/i.test(e.title) ? "Applications open" : "Last date to apply", fee: "Pay fees by", correct: "Correction window",
+    admit: "Download admit card", exam: /interview|selection|skill/i.test(e.evidence) && !/entrance test:/i.test(e.evidence) ? "Interview / selection round" : "Entrance test",
+    result: "Results / shortlist", counsel: "Counselling", docs: "Document verification" }[e.cat] || e.title;
+  return q && !/tentative/i.test(q) ? `${base} (${q})` : base;
+}
+const keyDate = e => DEADLINE.has(e.cat) && e.end && !/open/i.test(e.title) ? e.end : e.start;
+function onDay(evs, iso) { return evs.filter(e => keyDate(e) === iso || (!DEADLINE.has(e.cat) && e.end && e.start <= iso && iso <= e.end)); }
+function calendar(evs, clashIds) {
+  const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const todayIso = iso(today);
+  const months = [];
+  for (let k = 0; k < 4; k++) {
+    const first = new Date(today.getFullYear(), today.getMonth() + k, 1), n = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+    const pad = (first.getDay() + 6) % 7;
+    let cells = "";
+    for (let i = 0; i < pad; i++) cells += `<span class="cd empty"></span>`;
+    for (let d = 1; d <= n; d++) {
+      const di = iso(new Date(first.getFullYear(), first.getMonth(), d)), list = onDay(evs, di);
+      const dl = list.some(e => DEADLINE.has(e.cat)), cl = list.some(e => clashIds.has(e.id)), past = di < todayIso;
+      const dots = [...new Set(list.map(e => e.source))].slice(0, 4).map(id => `<i style="background:${colorOf(id)}"></i>`).join("");
+      cells += list.length
+        ? `<button class="cd has ${dl ? "dl" : ""} ${cl ? "cl" : ""} ${di === todayIso ? "now" : ""} ${past ? "past" : ""}" data-day="${di}" aria-label="${fmtY(di)}: ${list.length} date${list.length > 1 ? "s" : ""}"><b>${d}</b><span class="dots">${dots}</span></button>`
+        : `<span class="cd ${di === todayIso ? "now" : ""} ${past ? "past" : ""}"><b>${d}</b></span>`;
+    }
+    months.push(`<div class="mon"><h3>${first.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</h3>
+      <div class="wk">${["M", "T", "W", "T", "F", "S", "S"].map(x => `<span>${x}</span>`).join("")}</div><div class="days">${cells}</div></div>`);
   }
-  const bands = cl.filter(c => c.kind !== "risk").map(c => {
-    const s = c.a.start > c.b.start ? c.a.start : c.b.start, e = evEnd(c.a) < evEnd(c.b) ? evEnd(c.a) : evEnd(c.b);
-    return `<i class="clashband" style="left:${x(D(s))}px;width:${Math.max(PX, x(D(e)) - x(D(s)) + PX)}px"></i>`;
-  }).join("");
-  let rows = `<div class="lab top"></div><div class="months" style="width:${W}px">${months}<span class="todaylab" style="left:${x(today)}px">Today</span></div>`;
-  withDates.forEach(id => {
-    const list = upcomingFor(id).filter(e => dayDiff(start, D(e.start)) < days).map(e => {
-      const l = x(D(e.start)), w = e.end ? Math.max(18, x(D(e.end)) - l + PX) : 18;
-      return { e, l: e.end ? l : l - 5, w };
-    }).sort((p, q) => p.l - q.l);
-    let freeFrom = -1;
-    const marks = list.map((m, i) => {
-      const e = m.e;
-      const short = e.title.replace(/^[^:]+: /, "").replace("Application last date", "Last date").replace("Applications open", "Opens").replace("Exam / test", "Test").replace("Admit card release", "Admit card").replace("Result / shortlist", "Result").replace("Application", "Apply");
-      const btn = `<button class="${["ev", e.cat, e.tentative ? "tent" : "", clashIds.has(e.id) ? "clash" : ""].join(" ")}" style="left:${m.l}px;width:${m.w}px" data-ev="${esc(e.id)}" aria-label="${esc(srcOf(id).name)}: ${esc(e.title)}, ${rangeText(e)}" title="${esc(e.title)}: ${rangeText(e)}"></button>`;
-      const lx = m.l + m.w + 4, next = list[i + 1] ? list[i + 1].l - 4 : W, room = next - lx;
-      let label = "";
-      const when = DEADLINE.has(e.cat) && e.end ? `closes ${fmt(e.end)}` : fmt(e.start);
-      for (const txt of [`${short} · ${when}`, when, short]) {
-        if (lx >= freeFrom && txt.length * 6.3 + 6 <= room) { label = `<span class="evl" style="left:${lx}px">${esc(txt)}</span>`; freeFrom = lx + txt.length * 6.3 + 6; break; }
-      }
-      return btn + label;
-    }).join("");
-    rows += `<div class="lab">${esc(srcOf(id).name)}</div><div class="lane" style="width:${W}px">${weeks}${bands}<i class="today" style="left:${x(today)}px"></i>${marks}</div>`;
+  const legend = S.sel.filter(id => evs.some(e => e.source === id)).map(id => `<span><i style="background:${colorOf(id)}"></i>${esc(srcOf(id).name)}</span>`).join("");
+  return `<div class="callegend">${legend}<span class="k"><b class="dlk"></b>Deadline</span><span class="k"><b class="clk"></b>Clash</span></div><div class="cal">${months.join("")}</div>`;
+}
+function agenda(evs, clashIds) {
+  const items = evs.map(e => ({ e, k: keyDate(e) })).filter(x => D(x.k) >= today).sort((a, b) => a.k.localeCompare(b.k));
+  let out = "", lastMonth = "";
+  items.forEach(({ e, k }) => {
+    const d = D(k), mo = d.toLocaleDateString("en-IN", { month: "long", year: "numeric" }), n = dayDiff(today, d);
+    if (mo !== lastMonth) { out += `<h3 class="agm">${mo}</h3>`; lastMonth = mo; }
+    const when = n === 0 ? "Today" : n === 1 ? "Tomorrow" : `In ${n} days`;
+    const urgent = DEADLINE.has(e.cat) && n <= 7;
+    out += `<button class="ag ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}" style="--c:${colorOf(e.source)}">
+      <span class="agd"><b class="num">${d.getDate()}</b><small>${d.toLocaleDateString("en-IN", { weekday: "short" })}</small></span>
+      <span class="agt"><b>${esc(action(e))}</b><small>${esc(srcOf(e.source).name)}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
+      <span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span></button>`;
   });
-  return `<div class="legend"><span><i class="lg"></i>Exam</span><span><i class="lg app"></i>Application</span><span><i class="lg counsel"></i>Counselling / fees</span><span><i class="lg result"></i>Admit card / result</span><span><i class="lg clash"></i>Clash</span></div>
-    <div class="scroller"><div class="grid">${rows}</div></div>`;
+  return `<div class="agenda"><h2 class="h2">What to do, step by step</h2>${out}</div>`;
 }
 function viewView() {
   const evs = DATA.events.filter(e => S.sel.includes(e.source) && D(evEnd(e)) >= today && forCourse(e)).sort((a, b) => a.start.localeCompare(b.start));
@@ -210,8 +220,8 @@ function viewView() {
     ${nextCard(evs, cl)}
     ${evs.length ? stats(evs, cl) : ""}
     ${cl.map(c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`).join("")}
-    ${withDates.length ? `<div class="tabs" role="tablist"><button role="tab" data-tab="table" aria-selected="${S.tab === "table"}">Table</button><button role="tab" data-tab="timeline" aria-selected="${S.tab === "timeline"}">Timeline</button></div>
-    <div class="panel">${S.tab === "timeline" ? timeline(withDates, clashIds, cl) : table(withDates, clashIds)}</div>` : ""}
+    ${withDates.length ? `<div class="tabs" role="tablist"><button role="tab" data-tab="table" aria-selected="${S.tab === "table"}">Table</button><button role="tab" data-tab="calendar" aria-selected="${S.tab === "calendar"}">Calendar</button></div>
+    ${S.tab === "calendar" ? `<div class="panel pad">${calendar(evs, clashIds)}</div>${agenda(evs, clashIds)}` : `<div class="panel">${table(withDates, clashIds)}</div>`}` : ""}
     ${notYet.length ? `<div class="notyet warnbox"><b>We couldn't find dates for ${notYet.length} of your picks.</b>
       <p>Applications may already be open. Our robot can miss dates, so <b>please check each official website yourself</b>:</p>
       <ul>${notYet.map(id => `<li><b>${esc(srcOf(id).name)}</b> · <a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">check official site now</a></li>`).join("")}</ul></div>` : ""}
@@ -234,6 +244,13 @@ function sheet(id) {
   if (id === "__sites") return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="Official sites we read"><div class="in"><button class="x" data-close aria-label="Close">×</button>
     <h2 class="h2">Official websites we read every morning</h2>
     ${DATA.sources.filter(s => !s.hidden).map(s => `<p class="fine"><b>${esc(s.name)}</b> · ${s.status === "failed" ? "couldn't open today" : s.status === "ok" ? `${s.found} date${s.found === 1 ? "" : "s"} found` : "sample"} · <a href="${esc(s.url)}" target="_blank" rel="noopener">open</a></p>`).join("")}</div></div>`;
+  if (id.startsWith("day:")) {
+    const di = id.slice(4), list = onDay(DATA.events.filter(e => S.sel.includes(e.source) && forCourse(e)), di);
+    return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="Dates on ${fmtY(di)}"><div class="in"><button class="x" data-close aria-label="Close">×</button>
+      <h2 class="h2">${D(di).toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</h2>
+      ${list.map(e => `<button class="ag" data-ev="${esc(e.id)}" style="--c:${colorOf(e.source)}"><span class="agt"><b>${esc(action(e))}</b><small>${esc(srcOf(e.source).name)}</small></span></button>`).join("")}
+      ${list.length > 1 && list.filter(e => e.cat === "exam").length > 1 ? `<p class="bad">More than one test or interview on this day. Check the timings on your admit cards.</p>` : ""}</div></div>`;
+  }
   const e = DATA.events.find(x => x.id === id); if (!e) return "";
   const s = srcOf(e.source);
   return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="Date details"><div class="in"><button class="x" data-close aria-label="Close">×</button>
@@ -274,6 +291,7 @@ document.addEventListener("click", async ev => {
   if (t.dataset.toggle) { ev.stopPropagation(); toggle(t.dataset.toggle); }
   else if (t.dataset.go) go(t.dataset.go);
   else if (t.dataset.ev) { S.open = t.dataset.ev; render(); }
+  else if (t.dataset.day) { S.open = "day:" + t.dataset.day; render(); }
   else if (t.dataset.tab) { S.tab = t.dataset.tab; store.set("tab", S.tab); render(); }
   else if (t.hasAttribute("data-close")) { S.open = null; render(); }
   else if (t.id === "sitesBtn") { S.open = "__sites"; render(); }
@@ -312,7 +330,7 @@ async function boot() {
   }
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
-  S = { sel, f: Object.assign({ course: "", state: "", city: "", q: "" }, store.get("f", {})), view: sel.length ? "view" : "find", tab: store.get("tab", "table"), open: null };
+  S = { sel, f: Object.assign({ course: "", state: "", city: "", q: "" }, store.get("f", {})), view: sel.length ? "view" : "find", tab: store.get("tab", "calendar") === "timeline" ? "calendar" : store.get("tab", "calendar"), open: null };
   render();
 }
 boot();
