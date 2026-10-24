@@ -268,7 +268,9 @@ def main():
     sources_out, events_out, changes = [], [], list(old.get("changes", []))[:40]
 
     only = sys.argv[1:] or [x for x in re.split(r"[\s,]+", os.environ.get("ADMITZVIEW_ONLY", "")) if x]  # optional: limit to some sources
-    todo = [src for src in cfg["sources"] if not only or src["id"] in only]
+    streams = [x for x in re.split(r"[\s,]+", os.environ.get("ADMITZVIEW_STREAMS", "")) if x]
+    todo = [src for src in cfg["sources"] if (not only or src["id"] in only)
+            and (not streams or set(src.get("stream") or []) & set(streams) or src["id"] in {u for s2 in cfg["sources"] if set(s2.get("stream") or []) & set(streams) for u in s2.get("uses", [])})]
 
     def fetch(src):  # different sites are read at the same time; each site still gets one request every 2 s
         try:
