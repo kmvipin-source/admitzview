@@ -166,7 +166,7 @@ def main():
             continue
         print(f"-> {src['name']}")
         s = {k: src[k] for k in ("id", "name", "authority", "stream", "url")}
-        for k in ("hidden", "city"):
+        for k in ("hidden", "city", "state"):
             if k in src:
                 s[k] = src[k]
         s["kind"] = src.get("kind", "exam")
