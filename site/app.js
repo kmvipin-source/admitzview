@@ -85,7 +85,7 @@ function matches(s) {
 function itemRow(s) {
   const on = S.sel.includes(s.id), n = upcomingFor(s.id).length;
   const where = s.city ? `${s.city}, ${s.state}` : s.state || "";
-  return `<div class="item" draggable="true" data-drag="${s.id}">
+  return `<div class="item ${on ? "picked" : ""}" draggable="true" data-drag="${s.id}" data-card="${s.id}" role="button" tabindex="0" aria-pressed="${on}" title="Tap to add, or drag into My list">
     <span class="grip" aria-hidden="true">⠿</span>
     <div class="txt"><b>${esc(s.name)}</b><small>${(s.kind || "exam") === "college" ? "College" : (s.kind === "counselling" ? "Counselling" : "Entrance exam")} · ${esc(where)}</small>
       <div>${n ? `<span class="tag ok">${n} date${n > 1 ? "s" : ""} announced</span>` : `<span class="tag warn">No dates found by us · check official site</span>`}</div></div>
@@ -97,7 +97,7 @@ function tray() {
     <div class="row1"><div><h2 class="h2">My list</h2><span class="fine num">${n} of ${CONFIG.max}</span></div>
       <button class="cta" data-go="view" ${n ? "" : "disabled"}>View dates</button></div>
     <div class="meter"><i style="width:${(n / CONFIG.max) * 100}%"></i></div>
-    <p class="fine hint">${n ? "Drag more here, or tap Add." : "Drag colleges and exams here, or tap Add."}</p>
+    <div class="drop hint">${n ? "Drop more here" : "Drag colleges here<br><small>or just tap them</small>"}</div>
     <div class="chips">${S.sel.map(id => `<button class="chipx" data-toggle="${id}" aria-label="Remove ${esc(srcOf(id).name)}">${esc(srcOf(id).name)}<span>×</span></button>`).join("")}</div>
   </aside>`;
 }
@@ -133,6 +133,21 @@ function nextCard(evs, cl) {
     <div><small>Next deadline</small><h2 class="h2">${esc(srcOf(dl.source).name)}: ${esc(dl.title)}</h2>
     <p>${fmtY(target)} · <button class="link" data-ev="${esc(dl.id)}">See proof</button></p></div></div>`;
 }
+function chip(e) {
+  const s = D(e.start), en = D(evEnd(e)), n = dayDiff(today, en), m = dayDiff(today, s);
+  if (DEADLINE.has(e.cat) && s <= today && en >= today) return `<span class="st open">Open now · ${n === 0 ? "closes today" : `closes in ${n}d`}</span>`;
+  if (m > 0 && m <= 7) return `<span class="st soon">In ${m} day${m === 1 ? "" : "s"}</span>`;
+  if (m > 0) return `<span class="st later">In ${m} days</span>`;
+  if (en >= today) return `<span class="st soon">On now</span>`;
+  return "";
+}
+function stats(evs, cl) {
+  const in30 = evs.filter(e => DEADLINE.has(e.cat) && dayDiff(today, D(evEnd(e))) <= 30).length;
+  const open = evs.filter(e => DEADLINE.has(e.cat) && D(e.start) <= today && D(evEnd(e)) >= today).length;
+  const tests = evs.filter(e => e.cat === "exam").length, clash = cl.filter(c => c.kind !== "risk").length;
+  const box = (n, label, cls = "") => `<div class="stat ${cls}"><b class="num">${n}</b><span>${label}</span></div>`;
+  return `<div class="stats">${box(open, "applications open now", open ? "good" : "")}${box(in30, "deadlines in 30 days", in30 ? "warn" : "")}${box(tests, "tests and interviews")}${box(clash, clash === 1 ? "clash" : "clashes", clash ? "bad" : "")}</div>`;
+}
 function table(withDates, clashIds) {
   return `<div class="tablewrap"><table><thead><tr><th>College / exam</th>${COLS.map(c => `<th>${c.label}</th>`).join("")}</tr></thead><tbody>
     ${withDates.map(id => {
@@ -142,29 +157,43 @@ function table(withDates, clashIds) {
         if (!m.length) return `<td><span class="dash">—</span></td>`;
         const e = m[0], hit = m.some(x => clashIds.has(x.id));
         return `<td class="${hit ? "clash" : ""}"><button class="cell" data-ev="${esc(e.id)}"><span class="d num">${rangeText(e)}</span>
-          <span class="s">${esc(e.title)}${e.tentative ? " (tentative)" : ""}${m.length > 1 ? ` · +${m.length - 1} more` : ""}</span></button></td>`;
+          <span class="s">${esc(e.title)}${e.tentative ? " (tentative)" : ""}${m.length > 1 ? ` · +${m.length - 1} more` : ""}</span>${chip(e)}</button></td>`;
       }).join("")}</tr>`;
     }).join("")}</tbody></table></div>`;
 }
 function mapStart() { const d = new Date(today); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d; }
 function timeline(withDates, clashIds, cl) {
-  const start = mapStart(), days = CONFIG.weeks * 7, PX = 7, W = days * PX;
+  const start = mapStart(), days = CONFIG.weeks * 7, PX = 9, W = days * PX;
   const x = d => Math.max(0, Math.min(days, dayDiff(start, d))) * PX;
   let months = "", weeks = "";
   for (let i = 0; i < days; i++) {
     const d = new Date(start); d.setDate(d.getDate() + i);
     if (d.getDate() === 1 || i === 0) months += `<span style="left:${i * PX}px">${d.toLocaleDateString("en-IN", { month: "short" })}</span>`;
     if (i % 7 === 0) weeks += `<i class="week" style="left:${i * PX}px"></i>`;
+    if (d.getDate() === 1 && d.getMonth() % 2 === 0) { const e2 = new Date(d); e2.setMonth(e2.getMonth() + 1); weeks += `<i class="mshade" style="left:${i * PX}px;width:${Math.min(days - i, dayDiff(d, e2)) * PX}px"></i>`; }
   }
   const bands = cl.filter(c => c.kind !== "risk").map(c => {
     const s = c.a.start > c.b.start ? c.a.start : c.b.start, e = evEnd(c.a) < evEnd(c.b) ? evEnd(c.a) : evEnd(c.b);
     return `<i class="clashband" style="left:${x(D(s))}px;width:${Math.max(PX, x(D(e)) - x(D(s)) + PX)}px"></i>`;
   }).join("");
-  let rows = `<div class="lab top"></div><div class="months" style="width:${W}px">${months}</div>`;
+  let rows = `<div class="lab top"></div><div class="months" style="width:${W}px">${months}<span class="todaylab" style="left:${x(today)}px">Today</span></div>`;
   withDates.forEach(id => {
-    const marks = upcomingFor(id).filter(e => dayDiff(start, D(e.start)) < days).map(e => {
+    const list = upcomingFor(id).filter(e => dayDiff(start, D(e.start)) < days).map(e => {
       const l = x(D(e.start)), w = e.end ? Math.max(18, x(D(e.end)) - l + PX) : 18;
-      return `<button class="${["ev", e.cat, e.tentative ? "tent" : "", clashIds.has(e.id) ? "clash" : ""].join(" ")}" style="left:${e.end ? l : l - 5}px;width:${w}px" data-ev="${esc(e.id)}" aria-label="${esc(srcOf(id).name)}: ${esc(e.title)}, ${rangeText(e)}"></button>`;
+      return { e, l: e.end ? l : l - 5, w };
+    }).sort((p, q) => p.l - q.l);
+    let freeFrom = -1;
+    const marks = list.map((m, i) => {
+      const e = m.e;
+      const short = e.title.replace(/^[^:]+: /, "").replace("Application last date", "Last date").replace("Applications open", "Opens").replace("Exam / test", "Test").replace("Admit card release", "Admit card").replace("Result / shortlist", "Result").replace("Application", "Apply");
+      const btn = `<button class="${["ev", e.cat, e.tentative ? "tent" : "", clashIds.has(e.id) ? "clash" : ""].join(" ")}" style="left:${m.l}px;width:${m.w}px" data-ev="${esc(e.id)}" aria-label="${esc(srcOf(id).name)}: ${esc(e.title)}, ${rangeText(e)}" title="${esc(e.title)}: ${rangeText(e)}"></button>`;
+      const lx = m.l + m.w + 4, next = list[i + 1] ? list[i + 1].l - 4 : W, room = next - lx;
+      let label = "";
+      const when = DEADLINE.has(e.cat) && e.end ? `closes ${fmt(e.end)}` : fmt(e.start);
+      for (const txt of [`${short} · ${when}`, when, short]) {
+        if (lx >= freeFrom && txt.length * 6.3 + 6 <= room) { label = `<span class="evl" style="left:${lx}px">${esc(txt)}</span>`; freeFrom = lx + txt.length * 6.3 + 6; break; }
+      }
+      return btn + label;
     }).join("");
     rows += `<div class="lab">${esc(srcOf(id).name)}</div><div class="lane" style="width:${W}px">${weeks}${bands}<i class="today" style="left:${x(today)}px"></i>${marks}</div>`;
   });
@@ -179,6 +208,7 @@ function viewView() {
   return `<div class="wrap">
     <div class="viewtop"><h1 class="h2">My admission dates <span class="fine num">(${S.sel.length} picks)</span></h1><button class="btn" data-go="find">Edit my list</button></div>
     ${nextCard(evs, cl)}
+    ${evs.length ? stats(evs, cl) : ""}
     ${cl.map(c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`).join("")}
     ${withDates.length ? `<div class="tabs" role="tablist"><button role="tab" data-tab="table" aria-selected="${S.tab === "table"}">Table</button><button role="tab" data-tab="timeline" aria-selected="${S.tab === "timeline"}">Timeline</button></div>
     <div class="panel">${S.tab === "timeline" ? timeline(withDates, clashIds, cl) : table(withDates, clashIds)}</div>` : ""}
@@ -238,8 +268,10 @@ function toggle(id) {
 }
 
 document.addEventListener("click", async ev => {
+  const card = ev.target.closest("[data-card]");
+  if (card && !ev.target.closest("button,a")) { toggle(card.dataset.card); return; }
   const t = ev.target.closest("button,[data-close]"); if (!t) return;
-  if (t.dataset.toggle) toggle(t.dataset.toggle);
+  if (t.dataset.toggle) { ev.stopPropagation(); toggle(t.dataset.toggle); }
   else if (t.dataset.go) go(t.dataset.go);
   else if (t.dataset.ev) { S.open = t.dataset.ev; render(); }
   else if (t.dataset.tab) { S.tab = t.dataset.tab; store.set("tab", S.tab); render(); }
@@ -256,7 +288,11 @@ document.addEventListener("input", e => {
   S.f.q = e.target.value; const pos = e.target.selectionStart; render();
   const n = $("#fQ"); if (n) { n.focus(); n.setSelectionRange(pos, pos); }
 });
-document.addEventListener("keydown", e => { if (e.key === "Escape" && S.open) { S.open = null; render(); } });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && S.open) { S.open = null; render(); }
+  const card = e.target.closest?.("[data-card]");
+  if (card && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggle(card.dataset.card); }
+});
 /* drag and drop (desktop); tapping Add does the same on phones */
 document.addEventListener("dragstart", e => { const it = e.target.closest?.("[data-drag]"); if (!it) return; e.dataTransfer.setData("text/plain", it.dataset.drag); it.classList.add("dragging"); });
 document.addEventListener("dragend", e => e.target.closest?.("[data-drag]")?.classList.remove("dragging"));
