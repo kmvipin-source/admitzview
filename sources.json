@@ -254,7 +254,8 @@
     "Law"
    ],
    "url": "https://christuniversity.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "sju",
@@ -266,7 +267,8 @@
     "Science"
    ],
    "url": "https://admissions.sju.edu.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "sjcc",
@@ -277,7 +279,8 @@
     "Management"
    ],
    "url": "https://www.sjcc.edu.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "mcc-blr",
@@ -289,7 +292,8 @@
     "Science"
    ],
    "url": "https://mccblr.edu.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "jain",
@@ -301,7 +305,8 @@
     "Engineering"
    ],
    "url": "https://www.jainuniversity.ac.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "kristu",
@@ -313,7 +318,8 @@
     "Science"
    ],
    "url": "https://kristujayanti.edu.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "jyoti",
@@ -325,7 +331,8 @@
     "Science"
    ],
    "url": "https://www.jyotinivas.org/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "msrcasc",
@@ -336,7 +343,8 @@
     "Science"
    ],
    "url": "https://www.msrcasc.edu.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "pes",
@@ -348,7 +356,8 @@
     "Engineering"
    ],
    "url": "https://pes.edu/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "presidency",
@@ -359,7 +368,8 @@
     "Management"
    ],
    "url": "https://presidencycollege.ac.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "gcu",
@@ -371,7 +381,8 @@
     "Science"
    ],
    "url": "https://www.gcu.ac.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "surana",
@@ -382,7 +393,8 @@
     "Management"
    ],
    "url": "https://www.suranacollege.edu.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "bu",
@@ -394,7 +406,8 @@
     "Science"
    ],
    "url": "https://bangaloreuniversity.karnataka.gov.in/",
-   "city": "Bengaluru"
+   "city": "Bengaluru",
+   "kind": "college"
   },
   {
    "id": "npat",
