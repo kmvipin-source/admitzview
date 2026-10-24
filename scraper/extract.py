@@ -160,7 +160,7 @@ PROGRAMMES = [
     ("BA", r"\bB\.?A\.?\b(?!\s*LL)|Bachelor of Arts"), ("B.Tech", r"\bB\.?\s?Tech\b|\bB\.?E\.?\b|Bachelor of (Technology|Engineering)"),
     ("Law", r"\bLL\.?B\b|BA\s?LLB|Bachelor of Laws"), ("Design", r"\bB\.?\s?Des\b|Bachelor of Design"),
 ]
-NOT_ADMISSION = re.compile(r"inaugurat|orientation|convocation|graduation day|holiday|vacation|workshop|seminar|webinar|conference|symposium|fest\b|festival|sports|cultural|alumni|placement|internship|semester exam|end[- ]semester|supplementary|revaluation|re-?evaluation|faculty|recruitment|tender|walk[- ]in|guest lecture|club|hackathon|competition|commencement of classes|class commencement|classes (will )?(begin|commence)", re.I)
+NOT_ADMISSION = re.compile(r"paper submission|abstract|call for papers|\bmdp\b|\bfdp\b|executive (education|programme|program)|management development|cancellation|refund|withdrawal|lectures?\b|practicals?\b|\bsyjc\b|\bfyjc\b|junior college|tuition|hostel|scholarship renewal|inaugurat|orientation|convocation|graduation day|holiday|vacation|workshop|seminar|webinar|conference|symposium|fest\b|festival|sports|cultural|alumni|placement|internship|semester exam|end[- ]semester|supplementary|revaluation|re-?evaluation|faculty|recruitment|tender|walk[- ]in|guest lecture|club|hackathon|competition|commencement of classes|class commencement|classes (will )?(begin|commence)", re.I)
 PG = re.compile(r"\b(PG|Master of|M\.\s?Com|M\.\s?Sc|M\.\s?A\.|MBA|MCA|M\.\s?Tech|Ph\.?\s?D|PG Diploma|Postgraduate|Post Graduate)\b", re.I)
 
 

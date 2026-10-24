@@ -140,7 +140,12 @@ def read_source(src, w0, w1):
             text, links = pdf_text(body), []
         else:
             text, links = parse_html(url, body)
-        events += [dict(e, url=url) for e in extract(text, src["id"], w0, w1)]
+        found = extract(text, src["id"], w0, w1)
+        if src.get("require"):  # e.g. IIMs: only keep dates clearly about the IPM/BBA programme
+            req = re.compile(src["require"], re.I)
+            page_hint = url + " " + (text[:400] if text else "")
+            found = [e for e in found if req.search(e["evidence"]) or req.search(page_hint)]
+        events += [dict(e, url=url) for e in found]
         if depth >= 2:
             continue
         cand = []

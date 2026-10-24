@@ -55,7 +55,10 @@ def test_junk_is_dropped():
     junk = """PG (MBA & MCA) Inauguration for the Academic Year 2026–27 will be held on 29 October 2026.
     The Annual Sports Day will be held on 12 December 2026.
     End semester examination will be held from 1 December 2026 to 15 December 2026.
-    Recruitment of faculty: last date 20 November 2026."""
+    Recruitment of faculty: last date 20 November 2026.
+    Regular Lectures & Practicals for students of SYJC: 29 October 2026 to 4 November 2026 examination.
+    Last Date for Full Paper Submission or Extended abstract | 10 November 2026.
+    Cancellation request received: 31 March – 07 April 2027 | Refund."""
     assert extract(junk, "x", W0, W1) == []
 
 
