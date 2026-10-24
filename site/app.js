@@ -2,18 +2,11 @@
    Two screens:
    1. Find  — filter by course, state and city; drag or tap colleges/exams into "My list" (max 12).
    2. View  — next deadline, clashes, comparison table (or timeline), and a note listing picks with no dates yet. */
-const CONFIG = { maker: "Vipin", makerUrl: "https://www.youtube.com/@VipinMakes", weeks: 18, max: 12 };
+const CONFIG = { maker: "Vipin", makerUrl: "https://www.youtube.com/@VipinMakes", weeks: 18, max: 12, focus: ["Commerce", "Management"] };
 
 const COURSES = [
-  { id: "", label: "All courses" },
   { id: "Commerce", label: "B.Com" },
-  { id: "Engineering", label: "B.Tech / B.E." },
-  { id: "Medical", label: "MBBS / Medical" },
-  { id: "Management", label: "BBA / IPM" },
-  { id: "Law", label: "Law (BA LLB)" },
-  { id: "Design", label: "Design / B.Arch", also: ["Architecture"] },
-  { id: "Arts", label: "BA", also: [] },
-  { id: "Science", label: "B.Sc", also: [] },
+  { id: "Management", label: "IPM / BBA (IPMAT)" },
 ];
 const COLS = [
   { key: "app", label: "Applications", cats: ["app", "correct", "fee"] },
@@ -113,7 +106,7 @@ function itemRow(s) {
   return `<div class="item ${on ? "picked" : ""}" draggable="true" data-drag="${s.id}" data-card="${s.id}" role="button" tabindex="0" aria-pressed="${on}" title="Tap to add, or drag into My list">
     <span class="grip" aria-hidden="true">⠿</span>
     <div class="txt"><b>${esc(s.name)}</b><small>${(s.kind || "exam") === "college" ? "College" : (s.kind === "counselling" ? "Counselling" : "Entrance exam")} · ${esc(where)}</small>
-      <div>${n ? `<span class="tag ok">${n} date${n > 1 ? "s" : ""} announced</span>` : `<span class="tag warn">No dates found by us · check official site</span>`}</div></div>
+      <div>${n ? `<span class="tag ok">${n} date${n > 1 ? "s" : ""} found · confirm on official site</span>` : `<span class="tag warn">No dates found by us · check official site</span>`}</div></div>
     <button class="add ${on ? "on" : ""}" data-toggle="${s.id}" aria-pressed="${on}">${on ? "Added" : "Add"}</button></div>`;
 }
 function tray() {
@@ -133,22 +126,32 @@ function multi(key, label, opts, all) {
     <div class="opts">${opts.length ? opts.map(([v, l]) => `<label class="opt"><input type="checkbox" data-f="${key}" value="${esc(v)}" ${sel.includes(v) ? "checked" : ""}><span>${esc(l)}</span></label>`).join("") : `<p class="fine">Pick a state first</p>`}
     ${sel.length ? `<button class="link clr" data-clear="${key}">Clear</button>` : ""}</div></details></div>`;
 }
+const nextOf = id => { const d = upcomingFor(id).map(keyDate).filter(k => D(k) >= today).sort()[0]; return d || "9999-12-31"; };
+const placeOf = s => (s.campuses && s.campuses[0] ? s.campuses[0].city : s.city) || s.state || "";
+const SORTS = { dates: ["Dates found first", (a, b) => (upcomingFor(b.id).length > 0) - (upcomingFor(a.id).length > 0) || a.name.localeCompare(b.name)],
+  soon: ["Nearest deadline", (a, b) => nextOf(a.id).localeCompare(nextOf(b.id)) || a.name.localeCompare(b.name)],
+  name: ["Name A–Z", (a, b) => a.name.localeCompare(b.name)],
+  city: ["City", (a, b) => placeOf(a).localeCompare(placeOf(b)) || a.name.localeCompare(b.name)] };
+const SHOWS = { all: "All", found: "Only with dates found", none: "Only with no dates found" };
+const sel1 = (key, label, opts, val) => `<label class="field sm"><span>${label}</span><select data-pref="${key}">${Object.entries(opts).map(([v, l]) => `<option value="${v}" ${v === val ? "selected" : ""}>${esc(Array.isArray(l) ? l[0] : l)}</option>`).join("")}</select></label>`;
 function viewFind() {
   const places = DATA.sources.filter(s => !s.hidden).flatMap(s => s.campuses && s.campuses.length ? s.campuses : [{ city: s.city, state: s.state }]);
   const states = [...new Set(places.filter(p => p.state && p.state !== "All India").map(p => p.state))].sort();
   const cities = [...new Set(places.filter(p => p.city && (!S.f.state.length || S.f.state.includes(p.state))).map(p => p.city))].sort();
-  const list = DATA.sources.filter(matches);
+  const show = S.f.show || "all", sortBy = SORTS[S.f.sort] ? S.f.sort : "dates";
+  const list = DATA.sources.filter(matches).filter(s => show === "all" || (show === "found") === (upcomingFor(s.id).length > 0)).sort(SORTS[sortBy][1]);
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section>
     <h1 class="h1">All your admission dates in one view.</h1>
-    <p class="lede">Choose your course and city, add up to ${CONFIG.max} colleges and exams, and see their deadlines side by side, read from official websites every morning.</p>
-    <p class="warnline"><b>Early preview.</b> Our robot can miss or misread dates. Always confirm on each college's official website before you rely on a date.</p>
+    <p class="lede">B.Com and IPM admissions for now. Choose your course and city, add up to ${CONFIG.max} colleges and exams, and see their deadlines side by side, read from official websites every morning.</p>
+    <p class="warnline"><b>Indicative only. Accuracy not guaranteed.</b> Dates are read automatically by a robot and can be missing, out of date or wrong. Before you apply, pay or plan, <b>confirm every date on the college's or exam body's official website.</b></p>
     <div class="filters">
       ${multi("course", "Course", COURSES.filter(c => c.id).map(c => [c.id, c.label]), "All courses")}
       ${multi("state", "State", states.map(x => [x, x]), "All states")}
       ${multi("city", "City", cities.map(x => [x, x]), "All cities")}
       <label class="field q">Search<input id="fQ" placeholder="College or exam name" value="${esc(S.f.q || "")}" autocomplete="off"></label>
     </div>
+    <div class="sortbar">${sel1("sort", "Sort by", SORTS, sortBy)}${sel1("show", "Show", SHOWS, show)}</div>
     ${colleges.length ? `<div class="rhead"><h2 class="h3">Colleges (${colleges.length})</h2></div><div class="results">${colleges.map(itemRow).join("")}</div>` : ""}
     ${exams.length ? `<div class="rhead"><h2 class="h3">Entrance exams and counselling (${exams.length})</h2></div><div class="results">${exams.map(itemRow).join("")}</div>` : ""}
     ${!list.length ? `<p class="fine">Nothing matches these filters yet. Try "All states", or a different course. We're adding more colleges regularly.</p>` : ""}
@@ -164,7 +167,8 @@ function nextCard(evs, cl) {
   const target = DEADLINE.has(dl.cat) ? evEnd(dl) : dl.start, n = dayDiff(today, D(target));
   return `<div class="next"><div class="count"><b class="num">${n}</b><span>day${n === 1 ? "" : "s"} left</span></div>
     <div><small>Next deadline</small><h2 class="h2">${esc(srcOf(dl.source).name)}: ${esc(dl.title)}</h2>
-    <p>${fmtY(target)} · <button class="link" data-ev="${esc(dl.id)}">See proof</button></p></div></div>`;
+    <p>${fmtY(target)} · <button class="link" data-ev="${esc(dl.id)}">See proof</button> · <a href="${esc(srcOf(dl.via || dl.source).url)}" target="_blank" rel="noopener">confirm on official site</a></p>
+    <p class="fine">Indicative only. Confirm this date on the official website before you act.</p></div></div>`;
 }
 function chip(e) {
   const s = D(e.start), en = D(evEnd(e)), n = dayDiff(today, en), m = dayDiff(today, s);
@@ -181,11 +185,16 @@ function stats(evs, cl) {
   const box = (n, label, cls = "") => `<div class="stat ${cls}"><b class="num">${n}</b><span>${label}</span></div>`;
   return `<div class="stats">${box(open, "applications open now", open ? "good" : "")}${box(in30, "deadlines in 30 days", in30 ? "warn" : "")}${box(tests, "tests and interviews")}${box(clash, clash === 1 ? "clash" : "clashes", clash ? "bad" : "")}</div>`;
 }
+const TSORTS = { soon: "Nearest deadline", list: "My list order", name: "Name A–Z" };
 function table(withDates, clashIds) {
-  return `<div class="tablewrap"><table><thead><tr><th>College / exam</th>${COLS.map(c => `<th>${c.label}</th>`).join("")}</tr></thead><tbody>
+  const ts = TSORTS[S.tsort] ? S.tsort : "soon";
+  withDates = [...withDates];
+  if (ts === "soon") withDates.sort((a, b) => nextOf(a).localeCompare(nextOf(b)));
+  if (ts === "name") withDates.sort((a, b) => srcOf(a).name.localeCompare(srcOf(b).name));
+  return `<div class="tablebar">${sel1("tsort", "Sort rows by", TSORTS, ts)}<p class="fine">Indicative only · tap a date to see the proof, then confirm on the official site.</p></div><div class="tablewrap"><table><thead><tr><th>College / exam</th>${COLS.map(c => `<th>${c.label}</th>`).join("")}</tr></thead><tbody>
     ${withDates.map(id => {
       const evs = upcomingFor(id);
-      return `<tr><td><b>${esc(srcOf(id).name)}</b><div class="s"><a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">Official site</a></div></td>${COLS.map(col => {
+      return `<tr><td><b>${esc(srcOf(id).name)}</b><div class="s"><a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">Confirm on official site</a></div></td>${COLS.map(col => {
         const m = evs.filter(e => col.cats.includes(e.cat));
         if (!m.length) return `<td><span class="dash">—</span></td>`;
         const e = m[0], hit = m.some(x => clashIds.has(x.id));
@@ -245,7 +254,7 @@ function agenda(evs, clashIds) {
       <span class="agt"><b>${esc(action(e))}</b><small>${esc(whoText(e))}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
       <span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span></button>`;
   });
-  return `<div class="agenda"><h2 class="h2">What to do, step by step</h2>${out}</div>`;
+  return `<div class="agenda"><h2 class="h2">What to do, step by step</h2><p class="fine">Indicative only. Confirm each date on the official website before you act.</p>${out}</div>`;
 }
 function viewView() {
   const evs = planEvents();
@@ -255,6 +264,7 @@ function viewView() {
   const cal = calUrls();
   return `<div class="wrap">
     <div class="viewtop"><h1 class="h2">My admission dates <span class="fine num">(${S.sel.length} picks)</span></h1><button class="btn" data-go="find">Edit my list</button></div>
+    <div class="disclaim"><b>Indicative only. Accuracy not guaranteed.</b> These dates are read automatically from official websites and may be incomplete, outdated or wrong. Colleges change dates without notice. <b>Always confirm on the college's or exam body's official website before you apply, pay or travel.</b> AdmitzView is not responsible for decisions made using this page.</div>
     ${nextCard(evs, cl)}
     ${evs.length ? stats(evs, cl) : ""}
     ${cl.map(c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`).join("")}
@@ -298,7 +308,8 @@ function sheet(id) {
     ${e.tentative ? `<p class="fine">The official site marks this as tentative.</p>` : ""}${e.changed_from ? `<p class="bad">Changed: earlier it said ${esc(e.changed_from)}.</p>` : ""}
     <p class="fine">What the official page says:</p><blockquote>${esc(e.evidence)}</blockquote>
     <a class="btn full" href="${esc(e.url)}" target="_blank" rel="noopener">Open the official source</a>
-    <p class="fine">Read automatically${e.checked ? " on " + fmtY(e.checked.slice(0, 10)) : ""}. Always confirm on the official site before you act.</p></div></div>`;
+    <p class="fine">${e.verified === "2 readers agree" ? "✓ Confirmed by two independent readers of the official page." : "Read from the college's official admission-dates page."} Checked${e.checked ? " " + fmtY(e.checked.slice(0, 10)) : ""}.</p>
+    <p class="disclaim sm"><b>Indicative only. Accuracy not guaranteed.</b> Open the official source above and confirm this date before you act.</p></div></div>`;
 }
 
 function render() {
@@ -309,7 +320,7 @@ function render() {
   </div></header>
   ${DATA.sample ? `<div class="wrap"><p class="banner">Preview with sample dates. These are not real dates.</p></div>` : ""}
   <main>${S.view === "view" ? viewView() : viewFind()}</main>
-  <footer class="wrap foot"><p><b>Always confirm dates on the official website before you act.</b> Dates are read automatically and may contain mistakes. AdmitzView is not affiliated with any college or exam body.</p>
+  <footer class="wrap foot"><p><b>Indicative information only. Accuracy is not guaranteed.</b> Dates are read automatically and may be missing, outdated or wrong. Always confirm on the official website of the college or exam body before you apply, pay or plan. AdmitzView is not affiliated with any college or exam body and accepts no liability for decisions made using this site.</p>
     <p>No sign-up, no tracking. Your list stays on this device. Made by <a href="${CONFIG.makerUrl}" target="_blank" rel="noopener">${esc(CONFIG.maker)}</a>, free for every student.</p></footer>
   ${S.open ? sheet(S.open) : ""}`;
 }
@@ -338,6 +349,8 @@ document.addEventListener("click", async ev => {
   else if (t.id === "copyCal") { const u = calUrls().https; try { await navigator.clipboard.writeText(u); toast("Calendar link copied"); } catch { toast(u); } }
 });
 document.addEventListener("change", e => {
+  const pk = e.target.dataset?.pref;
+  if (pk) { if (pk === "tsort") { S.tsort = e.target.value; store.set("tsort", S.tsort); } else { S.f[pk] = e.target.value; save(); } render(); return; }
   const k = e.target.dataset?.f; if (!k) return;
   const v = e.target.value, arr = S.f[k];
   e.target.checked ? arr.includes(v) || arr.push(v) : arr.splice(arr.indexOf(v), 1);
@@ -370,13 +383,13 @@ async function boot() {
   DATA = data;
   if (DATA && cfg) { // the source list is the truth for names, course, state and city; data.json adds what the robot found
     const seen = Object.fromEntries(DATA.sources.map(s => [s.id, s]));
-    DATA.sources = cfg.sources.map(c => Object.assign({ status: "pending", found: 0 }, seen[c.id] || {},
+    DATA.sources = cfg.sources.filter(c => (c.stream || []).some(x => CONFIG.focus.includes(x))).map(c => Object.assign({ status: "pending", found: 0 }, seen[c.id] || {},
       { id: c.id, name: c.name, authority: c.authority, stream: c.stream, url: c.url, kind: c.kind || "exam", state: c.state, city: c.city, hidden: c.hidden, campuses: c.campuses, uses: c.uses }));
   }
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
   S = { sel, f: (() => { const f = Object.assign({ course: [], state: [], city: [], q: "" }, store.get("f", {}));
-      ["course", "state", "city"].forEach(k => { if (!Array.isArray(f[k])) f[k] = f[k] ? [f[k]] : []; }); return f; })(), openMs: null, view: sel.length ? "view" : "find", tab: store.get("tab", "calendar") === "timeline" ? "calendar" : store.get("tab", "calendar"), open: null };
+      ["course", "state", "city"].forEach(k => { if (!Array.isArray(f[k])) f[k] = f[k] ? [f[k]] : []; }); return f; })(), openMs: null, view: sel.length ? "view" : "find", tab: store.get("tab", "calendar") === "timeline" ? "calendar" : store.get("tab", "calendar"), open: null, tsort: store.get("tsort", "soon") };
   render();
 }
 boot();
