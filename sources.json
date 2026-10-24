@@ -1009,6 +1009,257 @@
    "kind": "exam",
    "state": "All India",
    "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+  },
+  {
+   "id": "mop-vaishnav-women-che",
+   "name": "MOP Vaishnav College for Women (Autonomous), Chennai",
+   "authority": "MOP Vaishnav College for Women",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.mopvaishnav.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Chennai"
+  },
+  {
+   "id": "ethiraj-women-chennai-che",
+   "name": "Ethiraj College for Women (Autonomous), Chennai",
+   "authority": "Ethiraj College for Women",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://ethirajcollege.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Chennai"
+  },
+  {
+   "id": "dg-vaishnav-chennai-che",
+   "name": "DG Vaishnav College (Autonomous), Chennai",
+   "authority": "Dwaraka Doss Goverdhan Doss Vaishnav College",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.dgvaishnavcollege.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Chennai",
+   "pages": [
+    "https://www.dgvaishnavcollege.edu.in/counselling-schedule/",
+    "https://www.dgvaishnavcollege.edu.in/admission/"
+   ]
+  },
+  {
+   "id": "shri-shankarlal-sundarbai-che",
+   "name": "Shri Shankarlal Sundarbai Shasun Jain College for Women, Chennai",
+   "authority": "Shasun Jain College",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.shasuncollege.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Chennai"
+  },
+  {
+   "id": "srm-institute-science-che",
+   "name": "SRM Institute of Science and Technology – Faculty of Science & Humanities (B.Com), Kattankulathur",
+   "authority": "SRM Institute of Science and Technology",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.srmist.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Chennai",
+   "pages": [
+    "https://www.srmist.edu.in/admissions/"
+   ]
+  },
+  {
+   "id": "psg-arts-science-coi",
+   "name": "PSG College of Arts & Science (Autonomous), Coimbatore",
+   "authority": "PSG College of Arts & Science",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.psgcas.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore",
+   "pages": [
+    "https://www.psgcas.ac.in/admissions/dates.php",
+    "https://www.psgcas.ac.in/admissions/"
+   ]
+  },
+  {
+   "id": "kumaraguru-liberal-arts-coi",
+   "name": "Kumaraguru College of Liberal Arts and Science, Coimbatore",
+   "authority": "Kumaraguru Institutions",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.kclas.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore",
+   "pages": [
+    "https://www.kclas.ac.in/admission/"
+   ]
+  },
+  {
+   "id": "sri-krishna-arts-coi",
+   "name": "Sri Krishna Arts and Science College, Coimbatore",
+   "authority": "Sri Krishna Institutions",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://skasc.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore",
+   "pages": [
+    "https://skasc.ac.in/admissions/"
+   ]
+  },
+  {
+   "id": "dr-g-r-coi",
+   "name": "Dr. G.R. Damodaran College of Science (Autonomous), Coimbatore",
+   "authority": "GRD Institutions",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.grd.org/grdcs/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore"
+  },
+  {
+   "id": "nirmala-women-coimbatore-coi",
+   "name": "Nirmala College for Women (Autonomous), Coimbatore",
+   "authority": "Nirmala College for Women",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.nirmalacollegeonline.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore"
+  },
+  {
+   "id": "dr-n-g-coi",
+   "name": "Dr. N.G.P. Arts and Science College, Coimbatore",
+   "authority": "Dr. N.G.P. Institutions",
+   "stream": [
+    "Commerce",
+    "Management"
+   ],
+   "url": "https://www.drngpasc.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore"
+  },
+  {
+   "id": "psgr-krishnammal-women-coi",
+   "name": "PSGR Krishnammal College for Women, Coimbatore",
+   "authority": "PSGR Krishnammal College for Women",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.psgrkcw.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Coimbatore"
+  },
+  {
+   "id": "bishop-heber-tiruchirappalli-tir",
+   "name": "Bishop Heber College (Autonomous), Tiruchirappalli",
+   "authority": "Bishop Heber College",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.bhc.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Tiruchirappalli",
+   "pages": [
+    "https://www.bhc.edu.in/admission/programmes-offered"
+   ]
+  },
+  {
+   "id": "st-joseph-s-tir",
+   "name": "St Joseph's College (Autonomous), Tiruchirappalli",
+   "authority": "St Joseph's College, Trichy",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.sjctni.edu/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Tiruchirappalli"
+  },
+  {
+   "id": "holy-cross-tiruchirappalli-tir",
+   "name": "Holy Cross College (Autonomous), Tiruchirappalli",
+   "authority": "Holy Cross College, Trichy",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.hcctrichy.ac.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Tiruchirappalli",
+   "pages": [
+    "https://www.hcctrichy.ac.in/page.php?id=45"
+   ]
+  },
+  {
+   "id": "american-madurai-mad",
+   "name": "The American College (Autonomous), Madurai",
+   "authority": "The American College",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.americancollege.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Madurai"
+  },
+  {
+   "id": "thiagarajar-madurai-mad",
+   "name": "Thiagarajar College (Autonomous), Madurai",
+   "authority": "Thiagarajar College",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.tcarts.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Madurai",
+   "pages": [
+    "https://www.tcarts.in/admission.php"
+   ]
+  },
+  {
+   "id": "lady-doak-madurai-mad",
+   "name": "Lady Doak College (Autonomous), Madurai",
+   "authority": "Lady Doak College",
+   "stream": [
+    "Commerce"
+   ],
+   "url": "https://www.ladydoakcollege.edu.in/",
+   "kind": "college",
+   "state": "Tamil Nadu",
+   "city": "Madurai",
+   "pages": [
+    "https://www.ladydoakcollege.edu.in/Latest_News.html"
+   ]
   }
  ]
 }
