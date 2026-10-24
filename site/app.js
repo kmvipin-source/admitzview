@@ -6,7 +6,9 @@ const CONFIG = {
   repoIssues: "",                                   // optional: GitHub issues URL for "Report a wrong date"
 };
 
-const STREAMS = ["Engineering", "Medical", "Law", "Design", "Management", "Arts", "Science", "Commerce", "Architecture"];
+const STREAMS = ["Engineering", "Medical", "Commerce", "Management", "Law", "Design", "Arts", "Science", "Architecture"];
+const STREAM_LABEL = { Engineering: "B.Tech", Medical: "MBBS / Medical", Commerce: "B.Com", Management: "BBA", Law: "Law", Design: "Design",
+  Arts: "BA", Science: "B.Sc", Architecture: "B.Arch" };
 const HARD = new Set(["exam"]);                     // things you must physically attend
 const DEADLINE = new Set(["app", "fee", "correct"]);
 const CAT_NAME = { exam: "Exam / test", app: "Application", fee: "Fee", correct: "Correction window", admit: "Admit card",
@@ -18,6 +20,10 @@ const ALIASES = {
   "keam": "keam", "mht cet": "mht-cet", "mhtcet": "mht-cet", "wbjee": "wbjee", "ts eapcet": "ts-eapcet", "ts eamcet": "ts-eapcet",
   "ap eapcet": "ap-eapcet", "eapcet": "ap-eapcet", "eamcet": "ap-eapcet", "clat": "clat", "ailet": "ailet", "nata": "nata",
   "uceed": "uceed", "nid": "nid-dat", "nift": "nift", "ipmat": "ipmat", "josaa": "josaa", "mcc": "mcc",
+  "christ": "christ", "st joseph s university": "sju", "st josephs university": "sju", "sju": "sju", "sjcc": "sjcc",
+  "st joseph s college of commerce": "sjcc", "st josephs college of commerce": "sjcc", "mount carmel": "mcc-blr", "jain": "jain",
+  "kristu jayanti": "kristu", "kristu": "kristu", "jyoti nivas": "jyoti", "ramaiah": "msrcasc", "pes": "pes", "presidency": "presidency",
+  "garden city": "gcu", "surana": "surana", "bangalore university": "bu", "npat": "npat", "nmims": "npat", "symbiosis": "set", "set": "set",
 };
 
 let DATA, S;
@@ -77,7 +83,8 @@ function parseAsk(q) {
     const rx = new RegExp(` ${k} `, "g");
     if (rx.test(text)) { ids.push(ALIASES[k]); text = text.replace(rx, " "); }
   }
-  const stream = STREAMS.find(s => text.includes(s.toLowerCase()) || (s === "Medical" && text.includes("mbbs")) || (s === "Law" && text.includes("llb")));
+  const stream = STREAMS.find(s => text.includes(s.toLowerCase()) || (s === "Medical" && text.includes("mbbs")) || (s === "Law" && text.includes("llb"))
+    || (s === "Commerce" && /\bb ?com\b/.test(text)) || (s === "Engineering" && /\bb ?tech\b/.test(text)) || (s === "Management" && /\bbba\b/.test(text)));
   return { ids: [...new Set(ids)].filter(id => DATA.sources.some(s => s.id === id)), stream, wantsClash: /clash|overlap|same day|conflict/.test(text) };
 }
 
@@ -191,16 +198,21 @@ function render() {
   $("#app").innerHTML = `
   <header class="wrap top">
     <div><h1 class="mark"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="2.5" y="5.5" width="27" height="21" rx="5" fill="none" stroke="var(--lead)" stroke-width="3"/><rect x="8" y="12" width="12" height="3.5" rx="1.75" fill="var(--lead)"/><circle cx="22" cy="19.5" r="3.5" fill="var(--red)"/></svg>AdmitzView</h1>
-      <p class="tag">Every entrance exam date you care about, on one map. Clashes show up in red. Free, no sign-up.</p></div>
+      <p class="tag">Every entrance exam and college admission date you care about, on one map. Clashes show up in red. Free, no sign-up.</p></div>
     <div class="health">${DATA.sample ? "" : `Checked <b class="num">${ok}</b> of ${DATA.sources.length} official sites<br>${fmtY(DATA.generated.slice(0, 10))}, ${DATA.generated.slice(11, 16)} IST · `}<button id="sitesBtn">Which sites?</button></div>
   </header>
   <main class="wrap">
     ${DATA.sample ? `<div class="banner"><b>Preview with sample dates.</b> These are not real dates. Real dates appear after the robot's first daily run.</div>` : ""}
     <section class="pick" aria-label="Choose your exams">
-      <form class="ask" id="askForm"><input id="askIn" aria-label="Type your exams" placeholder='Type your exams, e.g. "JEE, BITSAT and KCET, any clash?"' autocomplete="off"><button>Show</button></form>
-      ${S.pickOpen ? `<div class="streams" role="group" aria-label="Filter by stream"><button class="stream" data-stream="" aria-pressed="${!S.stream}">All</button>${STREAMS.filter(st => DATA.sources.some(s => (s.stream || []).includes(st))).map(st => `<button class="stream" data-stream="${st}" aria-pressed="${S.stream === st}">${st}</button>`).join("")}</div>
-      <div class="exams" role="group" aria-label="Exams">${visible.map(s => `<button class="exam ${s.status === "failed" ? "down" : ""}" data-src="${s.id}" aria-pressed="${S.sel.has(s.id)}"><span class="b"></span>${esc(s.name)}${s.city ? ` <small style="color:var(--muted)">${esc(s.city)}</small>` : ""}</button>`).join("")}<button class="more" id="pickToggle">Done</button></div>` :
-      `<div class="exams" role="group" aria-label="Your exams">${DATA.sources.filter(s => S.sel.has(s.id)).map(s => `<button class="exam" data-src="${s.id}" aria-pressed="true" title="Remove ${esc(s.name)}"><span class="b"></span>${esc(s.name)}</button>`).join("")}<button class="more" id="pickToggle">${S.sel.size ? "Add or remove exams" : "Choose exams"}</button></div>`}
+      <form class="ask" id="askForm"><input id="askIn" aria-label="Type your exams" placeholder='Type exams or colleges, e.g. "Christ, Mount Carmel and CUET"' autocomplete="off"><button>Show</button></form>
+      ${S.pickOpen ? `<div class="streams" role="group" aria-label="Filter by stream"><button class="stream" data-stream="" aria-pressed="${!S.stream}">All</button>${STREAMS.filter(st => DATA.sources.some(s => (s.stream || []).includes(st))).map(st => `<button class="stream" data-stream="${st}" aria-pressed="${S.stream === st}">${STREAM_LABEL[st] || st}</button>`).join("")}</div>
+      <input id="pickSearch" class="pickq" aria-label="Search exams and colleges" placeholder="Search, e.g. Christ, KCET, Mount Carmel" value="${esc(S.q || "")}" autocomplete="off">
+      ${[["exam", "Entrance exams"], ["counselling", "Counselling"], ["college", "Colleges (Bengaluru)"]].map(([k, label]) => {
+        const list = visible.filter(s => (s.kind || "exam") === k && (!S.q || (s.name + " " + s.authority).toLowerCase().includes(S.q.toLowerCase())));
+        return list.length ? `<div class="grp"><div class="grph">${label}</div><div class="exams" role="group" aria-label="${label}">${list.map(s => `<button class="exam ${s.status === "failed" ? "down" : ""}" data-src="${s.id}" aria-pressed="${S.sel.has(s.id)}"><span class="b"></span>${esc(s.name)}</button>`).join("")}</div></div>` : "";
+      }).join("") || `<p class="hint">Nothing matches "${esc(S.q)}". Try a shorter name.</p>`}
+      <div><button class="more" id="pickToggle">Done</button></div>` :
+      `<div class="exams" role="group" aria-label="Your exams">${DATA.sources.filter(s => S.sel.has(s.id)).map(s => `<button class="exam" data-src="${s.id}" aria-pressed="true" title="Remove ${esc(s.name)}"><span class="b"></span>${esc(s.name)}</button>`).join("")}<button class="more" id="pickToggle">${S.sel.size ? "Add exams or colleges" : "Choose exams or colleges"}</button></div>`}
       ${S.msg ? `<p class="hint">${S.msg}</p>` : ""}
     </section>
 
@@ -277,6 +289,11 @@ document.addEventListener("click", async ev => {
     const u = calUrls().https;
     try { await navigator.clipboard.writeText(u); toast("Calendar link copied"); } catch { prompt("Copy this link", u); }
   } else if (t.id === "aiGo") { askAI(); }
+});
+document.addEventListener("input", e => {
+  if (e.target.id !== "pickSearch") return;
+  S.q = e.target.value; const pos = e.target.selectionStart; render();
+  const n = $("#pickSearch"); if (n) { n.focus(); n.setSelectionRange(pos, pos); }
 });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && S.open) { S.open = null; render(); } });
 document.addEventListener("submit", e => {
