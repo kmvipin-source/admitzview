@@ -77,14 +77,15 @@ function matches(s) {
   const f = S.f, c = COURSES.find(x => x.id === f.course);
   if (s.hidden) return false;
   if (c && c.id && ![c.id, ...(c.also || [])].some(x => (s.stream || []).includes(x))) return false;
-  if (f.state && s.state !== f.state && s.state !== "All India") return false;
-  if (f.city && s.city && s.city !== f.city) return false;
+  const places = s.campuses && s.campuses.length ? s.campuses : [{ city: s.city, state: s.state }];
+  if (f.state && s.state !== "All India" && !places.some(p => p.state === f.state)) return false;
+  if (f.city && s.city && !places.some(p => p.city === f.city)) return false;
   if (f.q && !(s.name + " " + s.authority).toLowerCase().includes(f.q.toLowerCase())) return false;
   return true;
 }
 function itemRow(s) {
   const on = S.sel.includes(s.id), n = upcomingFor(s.id).length;
-  const where = s.city ? `${s.city}, ${s.state}` : s.state || "";
+  const where = s.campuses && s.campuses.length > 1 ? `Campuses: ${s.campuses.map(c => c.city).join(", ")}` : s.city ? `${s.city}, ${s.state}` : s.state || "";
   return `<div class="item ${on ? "picked" : ""}" draggable="true" data-drag="${s.id}" data-card="${s.id}" role="button" tabindex="0" aria-pressed="${on}" title="Tap to add, or drag into My list">
     <span class="grip" aria-hidden="true">⠿</span>
     <div class="txt"><b>${esc(s.name)}</b><small>${(s.kind || "exam") === "college" ? "College" : (s.kind === "counselling" ? "Counselling" : "Entrance exam")} · ${esc(where)}</small>
@@ -102,8 +103,9 @@ function tray() {
   </aside>`;
 }
 function viewFind() {
-  const states = [...new Set(DATA.sources.filter(s => !s.hidden && s.state && s.state !== "All India").map(s => s.state))].sort();
-  const cities = [...new Set(DATA.sources.filter(s => s.city && (!S.f.state || s.state === S.f.state)).map(s => s.city))].sort();
+  const places = DATA.sources.filter(s => !s.hidden).flatMap(s => s.campuses && s.campuses.length ? s.campuses : [{ city: s.city, state: s.state }]);
+  const states = [...new Set(places.filter(p => p.state && p.state !== "All India").map(p => p.state))].sort();
+  const cities = [...new Set(places.filter(p => p.city && (!S.f.state || p.state === S.f.state)).map(p => p.city))].sort();
   const list = DATA.sources.filter(matches);
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section>
@@ -326,7 +328,7 @@ async function boot() {
   if (DATA && cfg) { // the source list is the truth for names, course, state and city; data.json adds what the robot found
     const seen = Object.fromEntries(DATA.sources.map(s => [s.id, s]));
     DATA.sources = cfg.sources.map(c => Object.assign({ status: "pending", found: 0 }, seen[c.id] || {},
-      { id: c.id, name: c.name, authority: c.authority, stream: c.stream, url: c.url, kind: c.kind || "exam", state: c.state, city: c.city, hidden: c.hidden }));
+      { id: c.id, name: c.name, authority: c.authority, stream: c.stream, url: c.url, kind: c.kind || "exam", state: c.state, city: c.city, hidden: c.hidden, campuses: c.campuses }));
   }
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
