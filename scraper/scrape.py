@@ -267,7 +267,7 @@ def main():
     now = datetime.now(IST).isoformat(timespec="minutes")
     sources_out, events_out, changes = [], [], list(old.get("changes", []))[:40]
 
-    only = sys.argv[1:] or os.environ.get("ADMITZVIEW_ONLY", "").split()  # optional: limit to some sources
+    only = sys.argv[1:] or [x for x in re.split(r"[\s,]+", os.environ.get("ADMITZVIEW_ONLY", "")) if x]  # optional: limit to some sources
     todo = [src for src in cfg["sources"] if not only or src["id"] in only]
 
     def fetch(src):  # different sites are read at the same time; each site still gets one request every 2 s
@@ -286,7 +286,7 @@ def main():
             prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), None)
             if prev_src:
                 sources_out.append(prev_src)
-                if not STRICT:  # strict mode never re-shows dates from older, looser runs
+                if not STRICT or old.get("strict"):  # never re-show dates from older, looser (non-strict) runs
                     events_out += [e for e in old.get("events", []) if e.get("via", e["source"]) == src["id"]]
             continue
         print(f"-> {src['name']}")
@@ -342,7 +342,9 @@ def main():
             s["last_ok"] = prev_src.get("checked") if prev_src.get("status") == "ok" else prev_src.get("last_ok")
         sources_out.append(s)
 
-    data = {"generated": now, "cycle": cfg["cycle"], "sample": False,
+    if only and not todo:
+        raise SystemExit("ADMITZVIEW_ONLY matched no sources; refusing to overwrite data.json")
+    data = {"generated": now, "cycle": cfg["cycle"], "sample": False, "strict": STRICT,
             "sources": sources_out, "events": events_out, "changes": changes[:40]}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
