@@ -204,7 +204,8 @@
     "Management"
    ],
    "url": "https://www.iimidr.ac.in/",
-   "state": "All India"
+   "state": "All India",
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "clat",
@@ -873,7 +874,7 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-rohtak",
@@ -886,7 +887,7 @@
    "kind": "college",
    "city": "Rohtak",
    "state": "Haryana",
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-ranchi",
@@ -902,7 +903,7 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-shillong",
@@ -918,7 +919,10 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://www.iimshillong.ac.in/ipm/admission-process"
+   ]
   },
   {
    "id": "iim-amritsar",
@@ -934,7 +938,7 @@
    "uses": [
     "ipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-bg",
@@ -950,7 +954,7 @@
    "uses": [
     "jipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-jammu",
@@ -966,7 +970,7 @@
    "uses": [
     "jipmat"
    ],
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "iim-b",
@@ -979,7 +983,7 @@
    "kind": "college",
    "city": "Bengaluru",
    "state": "Karnataka",
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   },
   {
    "id": "jipmat",
@@ -990,7 +994,8 @@
    ],
    "url": "https://jipmat.nta.ac.in/",
    "kind": "exam",
-   "state": "All India"
+   "state": "All India",
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
   }
  ]
 }
