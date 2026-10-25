@@ -371,6 +371,7 @@ function viewView() {
   const cal = calUrls(), tab = ["list", "college", "calendar"].includes(S.tab) ? S.tab : "list";
   const tabBtn = (k, l) => `<button role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}</button>`;
   return `<div class="wrap view">
+    <button class="back" data-go="find">← Home</button>
     <div class="viewtop"><div><h1 class="h2">My dates</h1><span class="fine">${S.sel.length} college${S.sel.length === 1 ? "" : "s"} · ${evs.length} dates · ${S.sel.filter(id => isDone(id, "applied")).length} applied</span></div><button class="btn" data-go="find">Edit list</button></div>
     ${note()}
     ${nextCard(evs)}
@@ -453,8 +454,12 @@ function render() {
   $("#app").innerHTML = `
   <header class="top"><div class="wrap topin">
     <button class="brand" data-go="find" aria-label="AdmitzView home"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="2.5" y="5.5" width="27" height="21" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><rect x="8" y="12" width="12" height="3.5" rx="1.75" fill="currentColor"/><circle cx="22" cy="19.5" r="3.5" fill="var(--red)"/></svg>AdmitzView</button>
-    <button class="link" id="sitesBtn">${DATA.sample ? "Sample data" : `Updated ${fmt(DATA.generated.slice(0, 10))}, ${DATA.generated.slice(11, 16)}`}</button>
+    <nav class="topnav" aria-label="Main">
+      <button data-go="find" class="${S.view !== "view" ? "on" : ""}" aria-current="${S.view !== "view" ? "page" : "false"}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>Home</button>
+      <button data-go="view" class="${S.view === "view" ? "on" : ""}" aria-current="${S.view === "view" ? "page" : "false"}" ${S.sel.length ? "" : "disabled"}><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>My dates${S.sel.length ? `<i>${S.sel.length}</i>` : ""}</button>
+    </nav>
   </div></header>
+  ${DATA.sample ? "" : `<div class="wrap upd"><button class="link" id="sitesBtn">Dates checked ${fmt(DATA.generated.slice(0, 10))}, ${DATA.generated.slice(11, 16)}</button></div>`}
   ${DATA.sample ? `<div class="wrap"><p class="banner">Preview with sample dates. These are not real dates.</p></div>` : ""}
   <main>${S.view === "view" ? viewView() : viewFind()}</main>
   <footer class="wrap foot">${statsLine()}<p><b>Indicative information only. Accuracy is not guaranteed.</b> ${NOTE_LONG}</p>
