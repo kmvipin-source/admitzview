@@ -443,3 +443,28 @@ html,body{overflow-x:hidden}
 .pickbar>span{flex:1;min-width:160px}
 .minel{list-style:none;padding:0 14px 14px;margin:0;display:grid;gap:6px}
 .minel li{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:8px 10px}
+/* v6: filter dropdowns with clear structure */
+.ms .opts{padding:0;overflow:hidden;display:flex;flex-direction:column;min-width:260px;max-height:min(70vh,460px);border-radius:16px;border:1px solid var(--line);box-shadow:0 16px 40px rgba(20,26,46,.18);background:var(--paper)}
+.ms .oh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:14px 16px 10px;border-bottom:1px solid var(--line);background:var(--paper)}
+.ms .oh b{font-size:1rem}
+.ms .ol{overflow-y:auto;flex:1;padding:4px 0}
+.ms .opt{padding:12px 16px;border-radius:0;border-bottom:1px solid #eef0f5;margin:0}
+.ms .opt:last-child{border-bottom:0}
+.ms .opt input{width:20px;height:20px;accent-color:var(--brand)}
+.ms .opt:has(input:checked){background:var(--brand-soft);font-weight:600}
+.ms .of{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-top:1px solid var(--line);background:var(--bg)}
+.ms .of .btn,.ms .of .cta{padding:9px 18px}
+.ms .of .btn:disabled{opacity:.4}
+.ms.has summary{border-color:var(--brand);color:var(--brand);font-weight:600;background:var(--brand-soft)}
+@media (max-width:560px){
+  .ms[open] summary::before{content:"";position:fixed;inset:0;background:rgba(20,26,46,.45);z-index:40;cursor:default}
+  .ms .opts{position:fixed;left:0;right:0;bottom:0;top:auto;min-width:0;max-height:75vh;border-radius:20px 20px 0 0;z-index:41;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .ms .oh{padding:18px 18px 12px}
+  .ms .oh::before{content:"";position:absolute;left:50%;top:6px;width:40px;height:4px;border-radius:2px;background:#d6d9e2;transform:translateX(-50%)}
+  .ms .opt{padding:14px 18px;font-size:1.02rem}
+  .ms .of{padding:12px 16px}
+  .ms .of .cta{flex:1}
+}
+.ms .opts{color:var(--ink);font-weight:500}
+.ms .oh b{color:var(--ink);font-weight:700}
+.ms .oh .fine{margin:0;font-weight:400}

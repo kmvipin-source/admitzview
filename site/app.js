@@ -178,9 +178,12 @@ function tray() {
 function multi(key, label, opts, all) {
   const sel = S.f[key], names = opts.filter(([v]) => sel.includes(v)).map(o => o[1]);
   const summary = !names.length ? all : names.length <= 2 ? names.join(", ") : `${names.slice(0, 2).join(", ")} +${names.length - 2}`;
-  return `<div class="field"><span>${label}</span><details class="ms" data-ms="${key}" ${S.openMs === key ? "open" : ""}><summary>${esc(summary)}</summary>
-    <div class="opts">${opts.length ? opts.map(([v, l]) => `<label class="opt"><input type="checkbox" data-f="${key}" value="${esc(v)}" ${sel.includes(v) ? "checked" : ""}><span>${esc(l)}</span></label>`).join("") : `<p class="fine">Pick a state first</p>`}
-    ${sel.length ? `<button class="link clr" data-clear="${key}">Clear</button>` : ""}</div></details></div>`;
+  return `<div class="field"><span>${label}</span><details class="ms ${sel.length ? "has" : ""}" data-ms="${key}" ${S.openMs === key ? "open" : ""}><summary>${esc(summary)}</summary>
+    <div class="opts" role="listbox" aria-label="${label}">
+      <div class="oh"><b>Choose ${label.toLowerCase()}</b><span class="fine">${sel.length ? `${sel.length} selected` : "Pick one or more"}</span></div>
+      <div class="ol">${opts.length ? opts.map(([v, l]) => `<label class="opt"><input type="checkbox" data-f="${key}" value="${esc(v)}" ${sel.includes(v) ? "checked" : ""}><span>${esc(l)}</span></label>`).join("") : `<p class="fine">Pick a state first</p>`}</div>
+      <div class="of"><button class="btn" data-clear="${key}" ${sel.length ? "" : "disabled"}>Clear</button><button class="cta" data-msdone>Done</button></div>
+    </div></details></div>`;
 }
 const nextOf = id => { const d = upcomingFor(id).map(keyDate).filter(k => D(k) >= today).sort()[0]; return d || "9999-12-31"; };
 const placeOf = s => (s.campuses && s.campuses[0] ? s.campuses[0].city : s.city) || s.state || "";
@@ -491,6 +494,7 @@ document.addEventListener("click", async ev => {
   if (t.dataset.unmine) { S.mine = S.mine.filter(x => x.id !== t.dataset.unmine); S.open = null; S.mineOpen = true; save(); render(); return; }
   if (t.id === "shareList") { const u = location.origin + location.pathname + "?l=" + S.sel.join(","); try { await navigator.clipboard.writeText(u); toast("List link copied"); } catch { toast(u); } return; }
   if (t.hasAttribute("data-reset")) { Object.assign(S.f, { course: [], state: [], city: [], q: "" }); save(); render(); return; }
+  if (t.hasAttribute("data-msdone")) { S.openMs = null; render(); return; }
   if (t.dataset.clear) { S.f[t.dataset.clear] = []; S.openMs = null; save(); render(); }
   else if (t.dataset.toggle) { ev.stopPropagation(); toggle(t.dataset.toggle); }
   else if (t.dataset.go) go(t.dataset.go);
