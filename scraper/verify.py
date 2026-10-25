@@ -27,14 +27,14 @@ def fingerprint(text):
     return hashlib.sha1(re.sub(r"\s+", " ", text or "").strip().encode()).hexdigest()[:16]
 
 
-ENDPOINTS = ["https://models.github.ai/inference/chat/completions", "https://models.inference.ai.azure.com/chat/completions"]
+ENDPOINTS = ["https://models.github.ai/inference/chat/completions"]
 
 
 def _ask(prompt):
     token = os.environ.get("GITHUB_TOKEN")
     if not token or os.environ.get("ADMITZVIEW_AI", "on") == "off":
         return None, "AI off"
-    last = ""
+    errs = []
     for endpoint in ENDPOINTS:
         for model in MODELS:
             name = model if "github.ai" in endpoint else model.split("/")[-1]
@@ -47,17 +47,17 @@ def _ask(prompt):
                                                      {"role": "user", "content": prompt}]})
                 ctype = r.headers.get("content-type", "")
                 if r.status_code != 200 or "json" not in ctype:
-                    last = f"{endpoint.split('/')[2]} {name}: HTTP {r.status_code} {ctype} {r.text[:160]!r}"
+                    errs.append(f"{name}: HTTP {r.status_code} {ctype} {r.text[:200]!r}")
                     continue
                 content = (r.json()["choices"][0]["message"]["content"] or "").strip()
                 m = re.search(r"\[.*\]|\{.*\}", content, re.S)
                 if not m:
-                    last = f"{name}: no JSON in reply {content[:120]!r}"
+                    errs.append(f"{name}: no JSON in reply {content[:120]!r}")
                     continue
                 return json.loads(m.group(0)), name
             except Exception as ex:
-                last = f"{endpoint.split('/')[2]} {name}: {type(ex).__name__} {str(ex)[:150]}"
-    return None, last
+                errs.append(f"{name}: {type(ex).__name__} {str(ex)[:150]}")
+    return None, " || ".join(errs[:3])
 
 
 def ai_dates(src, page_text, cycle):
