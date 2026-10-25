@@ -457,7 +457,7 @@ function render() {
   </div></header>
   ${DATA.sample ? `<div class="wrap"><p class="banner">Preview with sample dates. These are not real dates.</p></div>` : ""}
   <main>${S.view === "view" ? viewView() : viewFind()}</main>
-  <footer class="wrap foot"><p><b>Indicative information only. Accuracy is not guaranteed.</b> ${NOTE_LONG}</p>
+  <footer class="wrap foot">${statsLine()}<p><b>Indicative information only. Accuracy is not guaranteed.</b> ${NOTE_LONG}</p>
     <p class="maker">Made by <a href="${CONFIG.makerUrl}" target="_blank" rel="noopener">${esc(CONFIG.maker)}</a> for his son's college applications, and shared free in case it helps you too. No sign-up and no personal data: we only count visits anonymously, and your list stays on this device.</p></footer>
   ${S.open ? sheet(S.open) : ""}`;
 }
@@ -543,11 +543,11 @@ async function hit(k) {
     const counted = store.get(flag, "") === day;
     const r = await fetch("/api/stats", counted ? { cache: "no-store" } : { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ k }) });
     const j = await r.json();
-    if (j.ok) { STATS = j; if (!counted) store.set(flag, day); const el = $("#stats"); if (el) el.outerHTML = statsLine(); }
+    if (j.ok) { STATS = j; if (!counted) store.set(flag, day); document.querySelectorAll(".statsline,#stats").forEach(el => el.outerHTML = statsLine()); }
   } catch {}
 }
 const nfmt = n => Number(n).toLocaleString("en-IN");
-const statsLine = () => STATS && STATS.visits ? `<p class="statsline" id="stats"><span><b>${nfmt(STATS.visits)}</b> visits</span><span><b>${nfmt(STATS.plans)}</b> date plans made</span><span><b>${nfmt(STATS.today)}</b> today</span></p>` : `<p id="stats" hidden></p>`;
+const statsLine = () => STATS && STATS.visits ? `<p class="statsline"><span><b>${nfmt(STATS.visits)}</b> visits</span><span><b>${nfmt(STATS.plans)}</b> date plans made</span><span><b>${nfmt(STATS.today)}</b> today</span></p>` : `<p id="stats" hidden></p>`;
 async function boot() {
   const [data, cfg] = await Promise.all([
     window.ADMITZVIEW_DATA || fetch("data.json", { cache: "no-cache" }).then(r => r.json()).catch(() => null),
