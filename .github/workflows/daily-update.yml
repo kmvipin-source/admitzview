@@ -5,7 +5,7 @@ on:
     - cron: "37 1 * * *"   # every day around 7:07 AM India time
   workflow_dispatch:        # lets you run it by hand from the Actions tab
   push:
-    paths: ["sources.json"] # re-run when you add a new exam
+    paths: ["sources.json", "scraper/**", ".github/workflows/**"]  # re-run when sources or the robot change
 
 permissions:
   contents: write  # to save the new data.json
