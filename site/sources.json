@@ -332,7 +332,10 @@
    "url": "https://www.sjcc.edu.in/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "pages": [
+    "https://www.sjcc.edu.in/admission_procedure.php"
+   ]
   },
   {
    "id": "mcc-blr",
@@ -346,7 +349,10 @@
    "url": "https://mccblr.edu.in/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "pages": [
+    "https://mccblr.edu.in/admissions/"
+   ]
   },
   {
    "id": "jain",
@@ -384,7 +390,10 @@
    "url": "https://kristujayanti.edu.in/",
    "city": "Bengaluru",
    "kind": "college",
-   "state": "Karnataka"
+   "state": "Karnataka",
+   "pages": [
+    "https://kristujayanti.edu.in/admission"
+   ]
   },
   {
    "id": "jyoti",
@@ -996,7 +1005,10 @@
    "kind": "college",
    "city": "Bengaluru",
    "state": "Karnataka",
-   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate"
+   "require": "\\bIPM\\b|IPMAT|integrated programme|integrated program in management|five[- ]year integrated|\\bBBA\\b|undergraduate",
+   "pages": [
+    "https://dbe.iimb.ac.in/admissions"
+   ]
   },
   {
    "id": "jipmat",
