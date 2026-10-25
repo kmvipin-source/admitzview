@@ -28,7 +28,7 @@ export async function onRequestGet({ request, env }) {
       `DTSTART;VALUE=DATE:${ymd(e.start)}`, `DTEND;VALUE=DATE:${ymd(nextDay(e.end || e.start))}`,
       fold(`SUMMARY:${esc(title)}`), fold(`DESCRIPTION:${esc(desc)}`), fold(`URL:${e.url}`), "TRANSP:TRANSPARENT");
     if (["exam", "app", "fee"].includes(e.cat))
-      lines.push("BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${esc(title)}`, "TRIGGER:-P2D", "END:VALARM");
+      for (const t of ["-P7D", "-P1D"]) lines.push("BEGIN:VALARM", "ACTION:DISPLAY", `DESCRIPTION:${esc(title)}`, `TRIGGER:${t}`, "END:VALARM");
     lines.push("END:VEVENT");
   }
   lines.push("END:VCALENDAR");
