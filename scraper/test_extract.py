@@ -70,6 +70,14 @@ def test_junk_is_dropped():
     assert extract(junk, "x", W0, W1) == []
 
 
+def test_card_layout_label_then_date():
+    t = "Phase 1 applications close\n6 Dec 2026\nEntrance tests, Phase 1\n10–11 Dec 2026\nApplication deadline (Phase I)\nSunday, 6 December 2026"
+    evs = extract(t, "x", date(2026, 6, 1), date(2027, 12, 31), admission_page=True)
+    got = {(e["start"], e.get("end"), e["cat"]) for e in evs}
+    assert ("2026-12-06", None, "app") in got and ("2026-12-10", "2026-12-11", "exam") in got, got
+    assert all(e["title"] != "Application" or e["cat"] != "app" for e in evs if e["start"] == "2026-12-06")
+
+
 if __name__ == "__main__":
     for n, f in list(globals().items()):
         if n.startswith("test_"):

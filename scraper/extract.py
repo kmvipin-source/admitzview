@@ -45,7 +45,7 @@ CATEGORIES = [
     ("docs",     ["document verification", "verification of documents", "reporting"]),
     ("fee",      ["fee payment", "pay fee", "payment of fee", "seat acceptance fee"]),
     ("correct",  ["correction"]),
-    ("app",      ["registration", "apply online", "application form", "online application", "last date", "last day", "submission of application", "submitting the application", "applications open", "application available", "application window", "date to apply", "apply by"]),
+    ("app",      ["registration", "apply online", "application form", "online application", "last date", "last day", "submission of application", "submitting the application", "applications open", "application available", "application window", "date to apply", "apply by", "applications close", "application closes", "applications closes", "application deadline", "deadline to apply", "applications open", "application opens"]),
     ("exam",     ["date of exam", "date of examination", "exam date", "examination date", "test date", "computer based test", "cbt", "examination", " exam ", "entrance test", "aptitude test", "interview", "selection process", "skill assessment", "admission test", "written test", "drawing test", "studio test", "session 1", "session 2", "paper 1", "paper 2"]),
 ]
 CAT_TITLE = {
@@ -113,8 +113,22 @@ def find_dates(text):
     return sorted(out, key=lambda x: x[2][0])
 
 
+DATE_ONLY = re.compile(rf"^\s*(?:(?:mon|tues|wednes|thurs|fri|satur|sun)day,?\s*)?(?:{D}\s*(?:(?:-|–|—|to)\s*{D}\s*)?{MON}\.?,?\s*{Y}|{MON}\.?\s*{D},?\s*{Y})\s*$", re.I)
+
+
+def join_cards(text):
+    """Card layouts put the label on one line and the date alone on the next: join them into one sentence."""
+    out = []
+    for line in text.split("\n"):
+        if DATE_ONLY.match(line) and out and out[-1].strip() and not DATE_ONLY.match(out[-1]) and len(out[-1]) < 120:
+            out[-1] = out[-1].rstrip(" :") + ": " + line.strip()
+        else:
+            out.append(line)
+    return "\n".join(out)
+
+
 def sentences(text):
-    text = re.sub(r"[ \t ]+", " ", text)
+    text = join_cards(re.sub(r"[ \t ]+", " ", text))
     for chunk in re.split(r"(?<=[.;!?])\s+|\n+", text):
         chunk = chunk.strip()
         if len(chunk) >= 12:
@@ -217,7 +231,7 @@ def extract(text, source_id, window_from, window_to, admission_page=False):
                 "programme": prog,
                 "evidence": sent[:300],
             }
-            if cat == "app" and ("last date" in low or "last day" in low or "date to apply" in low):
+            if cat == "app" and re.search(r"last date|last day|date to apply|close|deadline|apply by", low):
                 ev["title"] = "Application last date"
             elif cat == "app" and b == a and any(w in low for w in ["open", "start", "commence", "begin", "available"]):
                 ev["title"] = "Application opens"
