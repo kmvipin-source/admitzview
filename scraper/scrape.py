@@ -74,6 +74,7 @@ MAX_PAGES = 10
 STRICT = os.environ.get("ADMITZVIEW_STRICT", "1") != "0"  # on by default
 CYCLE = os.environ.get("ADMITZVIEW_CYCLE", "2027")
 FINGERPRINTS = {}
+PAGE_YEARS = {}
 
 
 def site_of(url):
@@ -161,6 +162,7 @@ def read_source(src, w0, w1):
             found = [e for e in found if req.search(e["evidence"]) or req.search(url)]  # sentence or page address must name the programme
         if STRICT:
             FINGERPRINTS.setdefault(src["id"], []).append(verify.fingerprint(text))
+            PAGE_YEARS.setdefault(src["id"], set()).update(re.findall(r"\b(20[2-3]\d)\b", text))
             if found and not re.search(CYCLE, text):
                 print(f"  {url}: no mention of the {CYCLE} cycle on the page; dates ignored")
                 found = []
@@ -316,6 +318,9 @@ def main():
             fp = "|".join(FINGERPRINTS.get(src["id"], []))
             prev_src = next((x for x in old.get("sources", []) if x["id"] == src["id"]), {})
             s["page_fp"] = fp
+            years = sorted(PAGE_YEARS.get(src["id"], set()))
+            s["page_years"] = years
+            s["cycle_published"] = CYCLE in years
             s["page_changed"] = now if prev_src.get("page_fp") and prev_src.get("page_fp") != fp else prev_src.get("page_changed")
             for e in evs:
                 e.pop("keyword", None)
