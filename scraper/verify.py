@@ -39,12 +39,18 @@ def _ask(prompt):
         for model in MODELS:
             name = model if "github.ai" in endpoint else model.split("/")[-1]
             try:
-                r = requests.post(endpoint, timeout=90,
+                r = requests.post(endpoint, timeout=90, allow_redirects=False,
                                   headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json",
                                            "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"},
                                   json={"model": name, "temperature": 0, "stream": False,
                                         "messages": [{"role": "system", "content": "You extract facts from web pages. Reply with JSON only."},
                                                      {"role": "user", "content": prompt}]})
+                if r.status_code in (301, 302, 303, 307, 308):
+                    loc = r.headers.get("location", "")
+                    errs.append(f"{name}: redirected to {loc[:120]}")
+                    if loc.startswith("https://") and "github" in loc and loc not in ENDPOINTS and len(ENDPOINTS) < 3:
+                        ENDPOINTS.append(loc)
+                    continue
                 ctype = r.headers.get("content-type", "")
                 if r.status_code != 200 or "json" not in ctype:
                     errs.append(f"{name}: HTTP {r.status_code} {ctype} {r.text[:200]!r}")
