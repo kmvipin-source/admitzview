@@ -468,3 +468,5 @@ html,body{overflow-x:hidden}
 .ms .opts{color:var(--ink);font-weight:500}
 .ms .oh b{color:var(--ink);font-weight:700}
 .ms .oh .fine{margin:0;font-weight:400}
+.filters .field,.ms{min-width:0}
+.ms summary{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%;box-sizing:border-box}

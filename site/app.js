@@ -177,7 +177,7 @@ function tray() {
 }
 function multi(key, label, opts, all) {
   const sel = S.f[key], names = opts.filter(([v]) => sel.includes(v)).map(o => o[1]);
-  const summary = !names.length ? all : names.length <= 2 ? names.join(", ") : `${names.slice(0, 2).join(", ")} +${names.length - 2}`;
+  const short = n => n.replace(/\s*\(.*\)$/, ""), summary = !names.length ? all : names.length === 1 ? short(names[0]) : `${short(names[0])} +${names.length - 1}`;
   return `<div class="field"><span>${label}</span><details class="ms ${sel.length ? "has" : ""}" data-ms="${key}" ${S.openMs === key ? "open" : ""}><summary>${esc(summary)}</summary>
     <div class="opts" role="listbox" aria-label="${label}">
       <div class="oh"><b>Choose ${label.toLowerCase()}</b><span class="fine">${sel.length ? `${sel.length} selected` : "Pick one or more"}</span></div>
