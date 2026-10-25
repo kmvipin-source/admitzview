@@ -206,7 +206,7 @@ function viewFind() {
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section class="main">
     <div class="hero"><h1 class="h1">All your admission dates in one view.</h1>
-      <p class="lede">B.Com and IPM/BBA colleges. Dates are read from official websites every morning.</p>${HOW}${note()}</div>
+      <p class="lede">B.Com and IPM/BBA colleges. Dates are read from official websites every morning.</p>${statsLine()}${HOW}${note()}</div>
     <label class="search"><span class="sr">Search</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="fQ" type="search" placeholder="Search a college or exam" value="${esc(S.f.q || "")}" autocomplete="off"></label>
     <div class="filters">
       ${multi("course", "Course", COURSES.filter(c => c.id).map(c => [c.id, c.label]), "All courses")}
@@ -458,10 +458,11 @@ function render() {
   ${DATA.sample ? `<div class="wrap"><p class="banner">Preview with sample dates. These are not real dates.</p></div>` : ""}
   <main>${S.view === "view" ? viewView() : viewFind()}</main>
   <footer class="wrap foot"><p><b>Indicative information only. Accuracy is not guaranteed.</b> ${NOTE_LONG}</p>
-    <p class="maker">Made by <a href="${CONFIG.makerUrl}" target="_blank" rel="noopener">${esc(CONFIG.maker)}</a> for his son's college applications, and shared free in case it helps you too. No sign-up, no tracking; your list stays on this device.</p></footer>
+    <p class="maker">Made by <a href="${CONFIG.makerUrl}" target="_blank" rel="noopener">${esc(CONFIG.maker)}</a> for his son's college applications, and shared free in case it helps you too. No sign-up and no personal data: we only count visits anonymously, and your list stays on this device.</p></footer>
   ${S.open ? sheet(S.open) : ""}`;
 }
-function go(v) { S.view = v === "view" && !S.sel.length ? "find" : v; S.open = null; render(); window.scrollTo(0, 0); }
+function go(v) {
+  if (v === "view" && S.view !== "view") setTimeout(() => hit("plan"), 50); S.view = v === "view" && !S.sel.length ? "find" : v; S.open = null; render(); window.scrollTo(0, 0); }
 function toast(t) { const n = document.createElement("div"); n.className = "toast"; n.textContent = t; document.body.append(n); setTimeout(() => n.remove(), 2200); }
 function toggle(id) {
   const i = S.sel.indexOf(id);
@@ -535,6 +536,18 @@ document.addEventListener("dragover", e => { const t = e.target.closest?.("#tray
 document.addEventListener("dragleave", e => { const t = e.target.closest?.("#tray"); if (t && !t.contains(e.relatedTarget)) t.classList.remove("over"); });
 document.addEventListener("drop", e => { const t = e.target.closest?.("#tray"); if (!t) return; e.preventDefault(); const id = e.dataTransfer.getData("text/plain"); if (id && !S.sel.includes(id)) toggle(id); else render(); });
 
+let STATS = null;
+async function hit(k) {
+  try {
+    const day = new Date().toDateString(), flag = "hit_" + k;
+    const counted = store.get(flag, "") === day;
+    const r = await fetch("/api/stats", counted ? { cache: "no-store" } : { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ k }) });
+    const j = await r.json();
+    if (j.ok) { STATS = j; if (!counted) store.set(flag, day); const el = $("#stats"); if (el) el.outerHTML = statsLine(); }
+  } catch {}
+}
+const nfmt = n => Number(n).toLocaleString("en-IN");
+const statsLine = () => STATS && STATS.visits ? `<p class="statsline" id="stats"><span><b>${nfmt(STATS.visits)}</b> visits</span><span><b>${nfmt(STATS.plans)}</b> date plans made</span><span><b>${nfmt(STATS.today)}</b> today</span></p>` : `<p id="stats" hidden></p>`;
 async function boot() {
   const [data, cfg] = await Promise.all([
     window.ADMITZVIEW_DATA || fetch("data.json", { cache: "no-cache" }).then(r => r.json()).catch(() => null),
@@ -557,5 +570,6 @@ async function boot() {
     history.replaceState(null, "", location.pathname);
   }
   render();
+  hit("visit").then(() => { if (S.view === "view") hit("plan"); });
 }
 boot();

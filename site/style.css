@@ -470,3 +470,6 @@ html,body{overflow-x:hidden}
 .ms .oh .fine{margin:0;font-weight:400}
 .filters .field,.ms{min-width:0}
 .ms summary{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%;box-sizing:border-box}
+.statsline{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 0;font-size:.88rem;color:var(--muted)}
+.statsline span{display:inline-flex;align-items:baseline;gap:5px}
+.statsline b{color:var(--ink);font-size:1rem}
