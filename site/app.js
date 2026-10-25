@@ -206,7 +206,7 @@ function viewFind() {
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section class="main">
     <div class="hero"><h1 class="h1">All your admission dates in one view.</h1>
-      <p class="lede">B.Com and IPM/BBA colleges. Dates are read from official websites every morning.</p>${statsLine()}${HOW}${note()}</div>
+      <p class="lede">Currently covers <b>B.Com</b> and <b>IPM/BBA (IPMAT)</b> only; more courses will be added if students find it useful. Dates are read from official websites every morning.</p>${statsLine()}${HOW}${note()}</div>
     <label class="search"><span class="sr">Search</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="fQ" type="search" placeholder="Search a college or exam" value="${esc(S.f.q || "")}" autocomplete="off"></label>
     <div class="filters">
       ${multi("course", "Course", COURSES.filter(c => c.id).map(c => [c.id, c.label]), "All courses")}
@@ -388,7 +388,7 @@ function viewView() {
         : `<button class="cta full" disabled>Add to my calendar</button><p class="fine">Available on the live site.</p>`}</div>
       <div class="card"><h2 class="h3">Open this list on another phone</h2><p class="fine">One link opens the same colleges for your parent or child. Ticks and your own dates stay on each phone.</p><button class="btn full" id="shareList">Copy my list link</button></div>
       <div class="card"><h2 class="h3">Share with a friend</h2>
-        <a class="btn full" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("All my college admission dates side by side, free and no sign-up: " + location.origin)}">Share on WhatsApp</a></div>
+        <a class="btn full" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("B.Com and IPMAT admission dates from official college websites, side by side, with clash alerts and calendar reminders. Free, no sign-up. (Currently covers B.Com and IPM/BBA only; more courses will be added if students find it useful.) " + location.origin)}">Share on WhatsApp</a></div>
       ${(DATA.changes || []).some(c => S.sel.includes(c.source)) ? `<div class="card"><h2 class="h3">Recently changed</h2>${DATA.changes.filter(c => S.sel.includes(c.source)).slice(0, 5).map(c => `<p class="fine"><b>${esc(srcOf(c.source).name)}</b> ${esc(c.title)}: ${c.from ? `${esc(c.from)} → ` : "new: "}<b>${esc(c.to)}</b></p>`).join("")}</div>` : ""}
     </div></div>`;
 }
