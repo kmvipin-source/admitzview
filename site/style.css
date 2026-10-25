@@ -390,3 +390,56 @@ html,body{overflow-x:hidden}
 .alerts[open] summary u{display:none}
 .alerts .alert{margin:0 8px 8px}
 .notyet li small{display:block;color:var(--muted);font-size:.82rem}
+/* v5 calendar + picker */
+.calbox{margin-top:12px;background:var(--paper);border-radius:18px;box-shadow:var(--shadow);padding:14px}
+.mnav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mnav b{font:400 1.45rem/1.2 var(--serif)}
+.arrow{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);font-size:1.5rem;line-height:1;color:var(--ink);cursor:pointer}
+.arrow:disabled{opacity:.3;cursor:default}
+.mchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:10px 0 4px}
+.mchips::-webkit-scrollbar{display:none}
+.mchips button{flex:none;font:inherit;font-size:.85rem;font-weight:600;border:1.5px solid var(--line);background:var(--paper);color:var(--muted);border-radius:999px;padding:5px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.mchips button i{font-style:normal;background:var(--bg);color:var(--ink);border-radius:999px;padding:0 6px;font-size:.75rem}
+.mchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mchips button.on i{background:rgba(255,255,255,.2);color:#fff}
+.mgrid{display:block;margin-top:10px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.gwk,.gdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.gwk span{text-align:center;font-size:.72rem;font-weight:600;color:var(--muted);padding:6px 0;background:var(--bg);border-bottom:1px solid var(--line)}
+.gwk span.we{color:#9aa0ad}
+.gd{position:relative;min-height:54px;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper);font:inherit;color:var(--ink);padding:4px 5px;display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left}
+.gdays>.gd:nth-child(7n){border-right:0}
+.gd.blank{background:repeating-linear-gradient(135deg,#fafbfd,#fafbfd 4px,#f3f4f8 4px,#f3f4f8 8px)}
+.gd.we{background:#fafbfd}
+.gd b{font-size:.85rem;font-weight:500;line-height:1}
+.gd.past{color:#b6bac4}
+.gd.now b{background:var(--brand);color:#fff;border-radius:999px;padding:3px 6px;margin:-3px -2px}
+.gd.has{cursor:pointer}
+.gd.has b{font-weight:700}
+.gd.has:hover{background:var(--brand-soft)}
+.gd.cl{box-shadow:inset 0 0 0 2px var(--red);background:var(--red-soft)}
+.gd .bars{display:flex;flex-direction:column;gap:2px;width:100%}
+.gd .bars i{display:block;height:5px;border-radius:3px;width:100%}
+.gd small{position:absolute;right:4px;top:3px;font-size:.66rem;color:var(--muted);font-weight:600}
+.t-dl{background:#d43a3a}.t-open{background:#1d8a5b}.t-test{background:#141a2e}.t-admit{background:#d48a00}.t-result{background:#2f4fd8}.t-me{background:#9aa0ad}.t-other{background:#7b3fc4}
+.callegend{margin:12px 0 0;gap:6px 14px}
+.callegend span i{width:14px;height:6px;border-radius:3px}
+.calbox+.agenda{margin-top:10px}
+.tdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+/* picker */
+.mbody{padding:0 14px 14px}
+.mstep{display:flex;align-items:center;gap:8px;margin:8px 0 8px;font-weight:600;font-size:.92rem}
+.mstep b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:.75rem}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.pchip{font:inherit;font-size:.9rem;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;cursor:pointer;color:var(--ink)}
+.pchip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pother{margin-top:8px;width:100%;box-sizing:border-box;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px}
+.mbody .mnav b{font-size:1.15rem}
+.mbody .gd{min-height:44px;align-items:center;justify-content:center;cursor:pointer}
+.mbody .gd:disabled{cursor:default}
+.gd.inr{background:var(--brand-soft)}
+.gd.edge{background:var(--brand);color:#fff}
+.gd.edge b{color:#fff}
+.pickbar{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.pickbar>span{flex:1;min-width:160px}
+.minel{list-style:none;padding:0 14px 14px;margin:0;display:grid;gap:6px}
+.minel li{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:8px 10px}

@@ -299,41 +299,64 @@ function action(e) {
 }
 const keyDate = e => DEADLINE.has(e.cat) && e.end && !/open/i.test(e.title) ? e.end : e.start;
 function onDay(evs, iso) { return evs.filter(e => keyDate(e) === iso || (!DEADLINE.has(e.cat) && e.end && e.start <= iso && iso <= e.end)); }
-function calendar(evs, clashIds) {
-  const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  const todayIso = iso(today);
-  const months = [];
-  for (let k = 0; k < 4; k++) {
-    const first = new Date(today.getFullYear(), today.getMonth() + k, 1), n = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
-    const pad = (first.getDay() + 6) % 7;
-    let cells = "";
-    for (let i = 0; i < pad; i++) cells += `<span class="cd empty"></span>`;
-    for (let d = 1; d <= n; d++) {
-      const di = iso(new Date(first.getFullYear(), first.getMonth(), d)), list = onDay(evs, di);
-      const dl = list.some(e => DEADLINE.has(e.cat)), cl = list.some(e => clashIds.has(e.id)), past = di < todayIso;
-      const dots = [...new Set(list.flatMap(e => e.forList || [e.source]))].slice(0, 4).map(id => `<i style="background:${colorOf(id)}"></i>`).join("");
+const isoOf = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const TYPE = e => e.source === "__me" ? "me" : DEADLINE.has(e.cat) ? (/open/i.test(e.title) && !e.end ? "open" : "dl") : e.cat === "exam" ? "test" : e.cat === "admit" ? "admit" : e.cat === "result" ? "result" : "other";
+const TYPE_NAME = { dl: "Last date", open: "Opens", test: "Test / interview", admit: "Admit card", result: "Result", me: "My dates", other: "Other" };
+/* one month grid; mode "plan" shows events, mode "pick" lets the student tap a date range */
+function monthGrid(off, opts) {
+  const first = new Date(today.getFullYear(), today.getMonth() + off, 1), n = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
+  const pad = (first.getDay() + 6) % 7, todayIso = isoOf(today);
+  let cells = "";
+  for (let k = 0; k < pad; k++) cells += `<span class="gd blank"></span>`;
+  for (let d = 1; d <= n; d++) {
+    const dt = new Date(first.getFullYear(), first.getMonth(), d), di = isoOf(dt), wkend = dt.getDay() === 0 || dt.getDay() === 6, past = di < todayIso;
+    const cls = [wkend && "we", past && "past", di === todayIso && "now"];
+    if (opts.mode === "pick") {
+      const p = S.pick, inR = p.s && di >= p.s && di <= (p.e || p.s), edge = di === p.s || di === p.e;
+      cells += `<button class="gd ${cls.filter(Boolean).join(" ")} ${inR ? "inr" : ""} ${edge ? "edge" : ""}" data-pickday="${di}" ${past ? "disabled" : ""}><b>${d}</b></button>`;
+    } else {
+      const list = onDay(opts.evs, di), cl = list.some(e => opts.clashIds.has(e.id));
+      const types = [...new Set(list.map(TYPE))];
       cells += list.length
-        ? `<button class="cd has ${dl ? "dl" : ""} ${cl ? "cl" : ""} ${di === todayIso ? "now" : ""} ${past ? "past" : ""}" data-day="${di}" aria-label="${fmtY(di)}: ${list.length} date${list.length > 1 ? "s" : ""}"><b>${d}</b><span class="dots">${dots}</span></button>`
-        : `<span class="cd ${di === todayIso ? "now" : ""} ${past ? "past" : ""}"><b>${d}</b></span>`;
+        ? `<button class="gd has ${cls.filter(Boolean).join(" ")} ${cl ? "cl" : ""}" data-day="${di}" aria-label="${fmtY(di)}: ${list.length} date${list.length > 1 ? "s" : ""}"><b>${d}</b><span class="bars">${types.slice(0, 3).map(t => `<i class="t-${t}"></i>`).join("")}</span>${list.length > 1 ? `<small>${list.length}</small>` : ""}</button>`
+        : `<span class="gd ${cls.filter(Boolean).join(" ")}"><b>${d}</b></span>`;
     }
-    months.push(`<div class="mon"><h3>${first.toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</h3>
-      <div class="wk">${["M", "T", "W", "T", "F", "S", "S"].map(x => `<span>${x}</span>`).join("")}</div><div class="days">${cells}</div></div>`);
   }
-  const legend = S.sel.filter(id => evs.some(e => (e.forList || [e.source]).includes(id))).map(id => `<span><i style="background:${colorOf(id)}"></i>${esc(srcOf(id).name)}</span>`).join("");
-  return `<div class="callegend">${legend}<span class="k"><b class="dlk"></b>Deadline</span><span class="k"><b class="clk"></b>Clash</span></div><div class="cal">${months.join("")}</div>`;
+  return `<div class="mgrid"><div class="gwk">${["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((x, k) => `<span class="${k > 4 ? "we" : ""}">${x}</span>`).join("")}</div><div class="gdays">${cells}</div></div>`;
+}
+function monthNav(off, key, max, counts) {
+  const label = k => new Date(today.getFullYear(), today.getMonth() + k, 1).toLocaleDateString("en-IN", { month: "short" });
+  return `<div class="mnav"><button class="arrow" data-${key}="${off - 1}" ${off <= 0 ? "disabled" : ""} aria-label="Previous month">‹</button>
+    <b>${new Date(today.getFullYear(), today.getMonth() + off, 1).toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</b>
+    <button class="arrow" data-${key}="${off + 1}" ${off >= max ? "disabled" : ""} aria-label="Next month">›</button></div>
+    ${counts ? `<div class="mchips">${counts.map((c, k) => `<button data-${key}="${k}" class="${k === off ? "on" : ""}">${label(k)}${c ? `<i>${c}</i>` : ""}</button>`).join("")}</div>` : ""}`;
+}
+function calendar(evs, clashIds) {
+  const MAX = 7, inMonth = k => { const a = new Date(today.getFullYear(), today.getMonth() + k, 1), b = new Date(a.getFullYear(), a.getMonth() + 1, 0); return evs.filter(e => D(keyDate(e)) >= a && D(keyDate(e)) <= b); };
+  const counts = Array.from({ length: MAX + 1 }, (_, k) => inMonth(k).length);
+  let off = Math.min(Math.max(0, S.calM ?? counts.findIndex(c => c > 0)), MAX);
+  if (off < 0) off = 0;
+  const list = inMonth(off).sort((a, b) => keyDate(a).localeCompare(keyDate(b)));
+  const legend = ["dl", "open", "test", "admit", "result", "me"].filter(t => evs.some(e => TYPE(e) === t)).map(t => `<span><i class="t-${t}"></i>${TYPE_NAME[t]}</span>`).join("");
+  return `<div class="calbox">${monthNav(off, "calm", MAX, counts)}${monthGrid(off, { mode: "plan", evs, clashIds })}
+    <div class="callegend">${legend}<span><b class="clk"></b>Clash</span></div></div>
+    <div class="agenda"><h3 class="agm">${list.length ? `${list.length} date${list.length > 1 ? "s" : ""} this month` : "Nothing this month"}</h3>${list.map(e => agItem(e, clashIds)).join("")}</div>`;
+}
+function agItem(e, clashIds) {
+  const k = keyDate(e), d = D(k), n = dayDiff(today, d), when = n === 0 ? "Today" : n === 1 ? "Tomorrow" : n < 0 ? "On now" : `In ${n} days`;
+  const urgent = DEADLINE.has(e.cat) && n <= 7, done = STEP_OF[e.cat] && e.source !== "__me" && (e.forList || [e.source]).every(id => isDone(id, STEP_OF[e.cat]));
+  return `<button class="ag ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}" style="--c:${colorOf((e.forList || [e.source])[0])}">
+      <span class="agd"><b class="num">${d.getDate()}</b><small>${d.toLocaleDateString("en-IN", { weekday: "short" })}</small></span>
+      <span class="agt"><b><i class="tdot t-${TYPE(e)}"></i>${esc(action(e))}</b><small>${esc(whoText(e))}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
+      ${done ? `<span class="st done">✓ Done</span>` : `<span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span>`}</button>`;
 }
 function agenda(evs, clashIds) {
-  const items = evs.map(e => ({ e, k: keyDate(e) })).filter(x => D(x.k) >= today).sort((a, b) => a.k.localeCompare(b.k));
+  const items = evs.filter(e => D(evEnd(e)) >= today).sort((a, b) => keyDate(a).localeCompare(keyDate(b)));
   let out = "", lastMonth = "";
-  items.forEach(({ e, k }) => {
-    const d = D(k), mo = d.toLocaleDateString("en-IN", { month: "long", year: "numeric" }), n = dayDiff(today, d);
+  items.forEach(e => {
+    const mo = D(keyDate(e)).toLocaleDateString("en-IN", { month: "long", year: "numeric" });
     if (mo !== lastMonth) { out += `<h3 class="agm">${mo}</h3>`; lastMonth = mo; }
-    const when = n === 0 ? "Today" : n === 1 ? "Tomorrow" : `In ${n} days`;
-    const urgent = DEADLINE.has(e.cat) && n <= 7;
-    out += `<button class="ag ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}" style="--c:${colorOf((e.forList || [e.source])[0])}">
-      <span class="agd"><b class="num">${d.getDate()}</b><small>${d.toLocaleDateString("en-IN", { weekday: "short" })}</small></span>
-      <span class="agt"><b>${esc(action(e))}</b><small>${esc(whoText(e))}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
-      ${(e.forList || [e.source]).every(id => isDone(id, STEP_OF[e.cat])) && STEP_OF[e.cat] && e.source !== "__me" ? `<span class="st done">✓ Done</span>` : `<span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span>`}</button>`;
+    out += agItem(e, clashIds);
   });
   return `<div class="agenda">${out}<p class="fine">Tap any date to see the proof from the official page.</p></div>`;
 }
@@ -373,14 +396,22 @@ function alerts(cl) {
   const label = [nm && `${nm} possible clash${nm > 1 ? "es" : ""}`, nr && `${nr} thing${nr > 1 ? "s" : ""} to plan around`].filter(Boolean).join(" · ");
   return hard.map(box).join("") + (soft.length ? `<details class="alerts"><summary>⚠ ${label} <u>Show</u></summary>${soft.map(box).join("")}</details>` : "");
 }
+const PRESETS = [["Board exams", 1], ["Pre-board exams", 1], ["Practical exams", 1], ["School exams", 1], ["Family event", 0], ["Other", 1]];
 function mineForm() {
-  const list = (S.mine || []).filter(e => D(evEnd(e)) >= today);
-  return `<details class="mine" ${S.mineOpen ? "open" : ""}><summary>＋ Add my own dates <small>board exams, practicals, family events…</small></summary>
-    <form id="mineForm"><label>What<input name="t" required maxlength="60" placeholder="e.g. Board exams (CBSE)"></label>
-      <div class="two"><label>From<input name="s" type="date" required></label><label>To (optional)<input name="e" type="date"></label></div>
-      <label class="chk"><input type="checkbox" name="x" checked> I can't attend a test on these days (check for clashes)</label>
-      <button class="cta" type="submit">Add</button><p class="fine">Only stored on this phone. Board timetables: check your board's official website.</p></form>
-    ${list.length ? `<ul class="minel">${list.map(e => `<li><b>${esc(e.title)}</b> ${rangeText(e)} <button class="link" data-unmine="${esc(e.id)}">Remove</button></li>`).join("")}</ul>` : ""}</details>`;
+  const list = (S.mine || []).filter(e => D(evEnd(e)) >= today), p = S.pick;
+  const sel = p.s ? (p.e && p.e !== p.s ? `${fmtY(p.s)} – ${fmtY(p.e)}` : fmtY(p.s)) : "";
+  return `<details class="mine" ${S.mineOpen ? "open" : ""}><summary>＋ Add my own dates <small>board exams, practicals, family events</small></summary>
+    <div class="mbody">
+      <p class="mstep"><b>1</b> What is it?</p>
+      <div class="presets">${PRESETS.map(([t]) => `<button class="pchip ${p.t === t ? "on" : ""}" data-preset="${t}">${t}</button>`).join("")}</div>
+      ${p.t === "Other" ? `<input id="pOther" class="pother" maxlength="60" placeholder="Type a name, e.g. Sports meet" value="${esc(p.other || "")}">` : ""}
+      <p class="mstep"><b>2</b> ${p.s && !p.e ? "Now tap the last day (or tap Add for one day)" : "Tap the first day, then the last day"}</p>
+      ${monthNav(p.m || 0, "pickm", 7)}${monthGrid(p.m || 0, { mode: "pick" })}
+      <div class="pickbar"><span>${sel ? `<b>${esc(p.t === "Other" ? (p.other || "My date") : p.t || "My date")}</b> · ${sel}` : `<span class="fine">No days picked yet</span>`}</span>
+        ${p.s ? `<button class="link" data-pickclear>Clear</button>` : ""}<button class="cta" data-pickadd ${p.s && p.t ? "" : "disabled"}>Add</button></div>
+      <p class="fine">Exams you add are checked for clashes with your college tests. Only stored on this phone. Get board timetables from your board's official website.</p>
+    </div>
+    ${list.length ? `<ul class="minel">${list.map(e => `<li><span><b>${esc(e.title)}</b> ${rangeText(e)}</span><button class="link" data-unmine="${esc(e.id)}">Remove</button></li>`).join("")}</ul>` : ""}</details>`;
 }
 function calUrls() {
   const live = /^https?:$/.test(location.protocol) && !DATA.sample && location.hostname !== "localhost";
@@ -441,6 +472,21 @@ document.addEventListener("click", async ev => {
   const card = ev.target.closest("[data-card]");
   if (card && !ev.target.closest("button,a")) { toggle(card.dataset.card); return; }
   const t = ev.target.closest("button,[data-close]"); if (!t) return;
+  if (t.dataset.calm !== undefined) { S.calM = +t.dataset.calm; render(); return; }
+  if (t.dataset.pickm !== undefined) { S.pick.m = +t.dataset.pickm; S.mineOpen = true; render(); return; }
+  if (t.dataset.preset) { S.pick.t = t.dataset.preset; S.mineOpen = true; render(); if (t.dataset.preset === "Other") $("#pOther")?.focus(); return; }
+  if (t.dataset.pickday) {
+    const d = t.dataset.pickday, p = S.pick;
+    if (!p.s || p.e || d < p.s) { p.s = d; p.e = null; } else p.e = d;
+    S.mineOpen = true; render(); return;
+  }
+  if (t.hasAttribute("data-pickclear")) { S.pick.s = S.pick.e = null; S.mineOpen = true; render(); return; }
+  if (t.hasAttribute("data-pickadd")) {
+    const p = S.pick, title = p.t === "Other" ? (p.other || "My date").trim() : p.t;
+    const exam = (PRESETS.find(x => x[0] === p.t) || [0, 1])[1];
+    S.mine.push({ id: "mine-" + Date.now(), title: title.slice(0, 60), start: p.s, end: p.e && p.e !== p.s ? p.e : null, cat: exam ? "exam" : "other" });
+    S.pick = { m: p.m, t: p.t }; S.mineOpen = true; save(); render(); toast("Added to your dates"); return;
+  }
   if (t.dataset.done) { const [id, k] = t.dataset.done.split(":"); S.done[id] = S.done[id] || {}; S.done[id][k] = !S.done[id][k]; save(); render(); return; }
   if (t.dataset.unmine) { S.mine = S.mine.filter(x => x.id !== t.dataset.unmine); S.open = null; S.mineOpen = true; save(); render(); return; }
   if (t.id === "shareList") { const u = location.origin + location.pathname + "?l=" + S.sel.join(","); try { await navigator.clipboard.writeText(u); toast("List link copied"); } catch { toast(u); } return; }
@@ -465,17 +511,10 @@ document.addEventListener("change", e => {
   if (k === "state") { const ok = new Set(DATA.sources.flatMap(s => s.campuses || [{ city: s.city, state: s.state }]).filter(p => !S.f.state.length || S.f.state.includes(p.state)).map(p => p.city)); S.f.city = S.f.city.filter(c => ok.has(c)); }
   S.openMs = k; save(); render();
 });
-document.addEventListener("submit", e => {
-  if (e.target.id !== "mineForm") return;
-  e.preventDefault();
-  const f = new FormData(e.target), st = f.get("s"), en = f.get("e");
-  if (!st) return;
-  S.mine.push({ id: "mine-" + Date.now(), title: String(f.get("t")).trim().slice(0, 60), start: st, end: en && en > st ? en : null, cat: f.get("x") ? "exam" : "other" });
-  S.mineOpen = true; save(); render(); toast("Added to your dates");
-});
-document.addEventListener("toggle", e => { const d = e.target; if (d.matches?.("details.ms")) { if (d.open) { S.openMs = d.dataset.ms; document.querySelectorAll("details.ms[open]").forEach(o => o !== d && (o.open = false)); } else if (S.openMs === d.dataset.ms) S.openMs = null; } }, true);
+document.addEventListener("toggle", e => { const d = e.target; if (d.matches?.("details.mine")) S.mineOpen = d.open; if (d.matches?.("details.ms")) { if (d.open) { S.openMs = d.dataset.ms; document.querySelectorAll("details.ms[open]").forEach(o => o !== d && (o.open = false)); } else if (S.openMs === d.dataset.ms) S.openMs = null; } }, true);
 document.addEventListener("click", e => { if (!e.target.closest("details.ms") && document.querySelector("details.ms[open]")) { S.openMs = null; document.querySelectorAll("details.ms[open]").forEach(o => o.open = false); } }, true);
 document.addEventListener("input", e => {
+  if (e.target.id === "pOther") { S.pick.other = e.target.value; const b = $("[data-pickadd]"); return; }
   if (e.target.id !== "fQ") return;
   S.f.q = e.target.value; const pos = e.target.selectionStart; render();
   const n = $("#fQ"); if (n) { n.focus(); n.setSelectionRange(pos, pos); }
@@ -506,7 +545,7 @@ async function boot() {
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
   S = { sel, f: (() => { const f = Object.assign({ course: [], state: [], city: [], q: "" }, store.get("f", {}));
       ["course", "state", "city"].forEach(k => { if (!Array.isArray(f[k])) f[k] = f[k] ? [f[k]] : []; }); return f; })(), openMs: null, view: sel.length ? "view" : "find", tab: store.get("tab2", "list"), open: null, tsort: store.get("tsort", "soon"),
-    done: store.get("done", {}) || {}, track: store.get("track", {}) || {}, mine: store.get("mine", []) || [] };
+    done: store.get("done", {}) || {}, track: store.get("track", {}) || {}, mine: store.get("mine", []) || [], pick: { m: 0, t: "Board exams" } };
   const shared = new URLSearchParams(location.search).get("l");
   if (shared) {
     const ids = shared.split(",").filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
