@@ -31,7 +31,9 @@ const store = {
   get(k, d) { try { const v = localStorage.getItem("admitzview." + k); return v ? JSON.parse(v) : d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem("admitzview." + k, JSON.stringify(v)); } catch {} },
 };
-const srcOf = id => DATA.sources.find(s => s.id === id) || { name: id, authority: "", stream: [] };
+const ME = { id: "__me", name: "My own dates", authority: "You", stream: [], url: "", kind: "mine" };
+const srcOf = id => id === "__me" ? ME : DATA.sources.find(s => s.id === id) || { name: id, authority: "", stream: [] };
+const nameOf = e => e.source === "__me" ? e.title : srcOf(e.source).name;
 const evEnd = e => e.end || e.start;
 const rangeText = e => e.end ? `${fmt(e.start)} – ${fmt(e.end)}` : fmt(e.start);
 const COURSE_PROG = { Commerce: ["B.Com"], Management: ["BBA"], Arts: ["BA"], Science: ["B.Sc", "BCA"], Engineering: ["B.Tech"], Law: ["Law"], Design: ["Design"] };
@@ -40,7 +42,18 @@ const forCourse = e => {
   const ok = S.f.course.flatMap(c => COURSE_PROG[c] || []);
   return !ok.length || S.f.course.some(c => !COURSE_PROG[c]) || ok.includes(e.programme);
 };
-const ownFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today && forCourse(e));
+/* programme track: some colleges have separate dates for programmes with / without an entrance test */
+const TRACK_RX = { et: /\(programmes without entrance test\)/i, net: /\(programmes with entrance test\)/i };
+const hasTracks = id => DATA.events.some(e => e.source === id && TRACK_RX.et.test(e.title)) && DATA.events.some(e => e.source === id && TRACK_RX.net.test(e.title));
+const forTrack = e => {
+  const t = (S.track || {})[e.source];
+  if (!t) return true;
+  if (TRACK_RX[t].test(e.title)) return false;
+  /* an entrance test or its selection rounds only matter if you chose a programme with an entrance test */
+  if (t === "net" && e.cat === "exam" && /entrance test/i.test(e.evidence || "") && !/non[- ]?entrance|without entrance/i.test((e.evidence || "") + e.title)) return false;
+  return true;
+};
+const ownFor = id => DATA.events.filter(e => e.source === id && D(evEnd(e)) >= today && forCourse(e) && forTrack(e));
 /* a college that admits through a shared exam (IPMAT, JIPMAT, CUET...) gets that exam's dates, marked "via" */
 const upcomingFor = id => {
   const own = ownFor(id), via = (srcOf(id).uses || []).flatMap(x => ownFor(x).map(e => Object.assign({}, e, { via: x, viaFor: id })));
@@ -48,8 +61,9 @@ const upcomingFor = id => {
 };
 /* the same exam seen through several colleges is one event, not several (and never a clash with itself) */
 const examKey = e => e.via || ((srcOf(e.source).uses || [])[0] && e.cat === "exam" ? srcOf(e.source).uses[0] : e.source);
+const mineEvents = () => (S.mine || []).filter(e => D(evEnd(e)) >= today).map(e => Object.assign({ source: "__me", verified: "you", evidence: "Added by you" }, e));
 function planEvents() {
-  const all = S.sel.flatMap(id => upcomingFor(id)), seen = new Map();
+  const all = [...S.sel.flatMap(id => upcomingFor(id)), ...mineEvents()], seen = new Map();
   for (const e of all) {
     const k = [examKey(e), e.cat, e.start, e.end || ""].join("|");
     if (!seen.has(k)) seen.set(k, Object.assign({}, e, { forList: [] }));
@@ -58,7 +72,36 @@ function planEvents() {
   }
   return [...seen.values()].sort((a, b) => a.start.localeCompare(b.start));
 }
-function save() { store.set("sel", S.sel); store.set("f", S.f); }
+function save() { store.set("sel", S.sel); store.set("f", S.f); store.set("done", S.done); store.set("track", S.track); store.set("mine", S.mine); }
+const STEPS = [["applied", "Applied"], ["paid", "Fee paid"], ["admit", "Admit card"], ["test", "Test / interview"], ["result", "Result"]];
+const isDone = (id, k) => !!((S.done || {})[id] || {})[k];
+const STEP_OF = { app: "applied", fee: "paid", correct: "applied", admit: "admit", exam: "test", result: "result" };
+/* what we know about a college's official page, in plain words */
+function statusOf(s) {
+  const n = upcomingFor(s.id).length;
+  if (n) return ["ok", `${n} date${n > 1 ? "s" : ""} found · confirm on official site`];
+  if (s.status === "failed") {
+    if (/bots/i.test(s.reason || "")) return ["warn", "Site blocks our robot · check it yourself"];
+    if (/no official dates page/i.test(s.reason || "")) return ["warn", "Not tracked yet · check official site"];
+    return ["warn", "Couldn't open the site today · check it yourself"];
+  }
+  if (s.status === "ok" && s.page_years && s.page_years.length && !s.cycle_published)
+    return ["warn", `${DATA.cycle || "2027"} dates not published yet (page shows ${s.page_years.filter(y => y < (DATA.cycle || "2027")).slice(-1)[0] || "older dates"})`];
+  if (s.status === "ok") return ["warn", "No clear dates on the official page · check it"];
+  return ["warn", "No dates found yet · check official site"];
+}
+function changedBadge(s) {
+  if (!s.page_changed) return "";
+  const n = dayDiff(D(s.page_changed.slice(0, 10)), today);
+  return n <= 7 ? `<span class="tag new">Official page changed ${n === 0 ? "today" : n === 1 ? "yesterday" : n + " days ago"}</span>` : "";
+}
+/* applications open right now (own dates only, so we never guess) */
+function openInfo(id) {
+  const evs = DATA.events.filter(e => e.source === id && e.cat === "app" && forCourse(e) && forTrack(e));
+  const closes = evs.filter(e => !/open/i.test(e.title) || e.end).map(e => evEnd(e)).filter(d => D(d) >= today).sort()[0];
+  const opened = evs.some(e => D(e.start) <= today);
+  return closes && opened ? closes : null;
+}
 
 /* ---------- clash engine (rules from the product spec) ---------- */
 function minutes(t) { if (!t) return null; const [a, b] = t.split("-"); const m = x => +x.slice(0, 2) * 60 + +x.slice(3, 5); return [m(a), m(b)]; }
@@ -67,7 +110,7 @@ function clashes(events) {
   for (let i = 0; i < events.length; i++) for (let j = i + 1; j < events.length; j++) {
     const a = events[i], b = events[j];
     if (a.source === b.source || examKey(a) === examKey(b) || !(a.start <= evEnd(b) && b.start <= evEnd(a))) continue;
-    const ah = HARD.has(a.cat), bh = HARD.has(b.cat), an = srcOf(a.source).name, bn = srcOf(b.source).name;
+    const ah = HARD.has(a.cat), bh = HARD.has(b.cat), an = nameOf(a), bn = nameOf(b);
     if (ah && bh) {
       const ta = minutes(a.time), tb = minutes(b.time);
       if (ta && tb && !a.end && !b.end) {
@@ -80,8 +123,23 @@ function clashes(events) {
         : `${an} (${rangeText(a)}) and ${bn} (${rangeText(b)}) overlap. Your exact slots may or may not clash.` });
     } else if ((ah && !a.end && DEADLINE.has(b.cat) && !b.end) || (bh && !b.end && DEADLINE.has(a.cat) && !a.end)) {
       const [x, y] = ah ? [a, b] : [b, a];
-      if (y.start === x.start) out.push({ kind: "risk", a: x, b: y, why: `${srcOf(y.source).name} ${y.title.toLowerCase()} falls on your ${srcOf(x.source).name} exam day. Finish it the day before.` });
+      if (y.start === x.start) out.push({ kind: "risk", a: x, b: y, why: `${nameOf(y)} ${y.title.toLowerCase()} falls on your ${nameOf(x)} exam day. Finish it the day before.` });
     }
+  }
+  /* back-to-back tests in different cities */
+  const cityOf = e => e.source === "__me" ? null : srcOf(e.source).city;
+  const tests = events.filter(e => HARD.has(e.cat) && !e.end);
+  for (let i = 0; i < tests.length; i++) for (let j = 0; j < tests.length; j++) {
+    const a = tests[i], b = tests[j];
+    if (a.source === b.source || dayDiff(D(a.start), D(b.start)) !== 1) continue;
+    const ca = cityOf(a), cb = cityOf(b);
+    if (ca && cb && ca !== cb) out.push({ kind: "risk", a, b, why: `${nameOf(a)} test in ${ca} on ${fmt(a.start)}, then ${nameOf(b)} in ${cb} the next day. Plan your travel early.` });
+  }
+  /* too many deadlines in one week */
+  const dls = events.filter(e => DEADLINE.has(e.cat) && !/open/i.test(e.title)).map(e => evEnd(e)).sort();
+  for (let i = 0; i + 2 < dls.length; i++) {
+    const j = dls.findLastIndex(d => dayDiff(D(dls[i]), D(d)) <= 6);
+    if (j - i >= 2) { out.push({ kind: "risk", why: `${j - i + 1} application deadlines between ${fmt(dls[i])} and ${fmt(dls[j])}. Apply early rather than on the last day.` }); break; }
   }
   return out;
 }
@@ -106,7 +164,7 @@ function itemRow(s) {
   const kind = (s.kind || "exam") === "college" ? "" : s.kind === "counselling" ? "Counselling · " : "Entrance exam · ";
   return `<div class="item ${on ? "picked" : ""}" draggable="true" data-drag="${s.id}" data-card="${s.id}" role="button" tabindex="0" aria-pressed="${on}">
     <div class="txt"><b>${esc(s.name)}</b><small>${kind}${esc(where)}</small>
-      ${n ? `<span class="tag ok">${n} date${n > 1 ? "s" : ""} found · confirm on official site</span>` : `<span class="tag warn">No dates found yet · check official site</span>`}</div>
+      <span class="tag ${statusOf(s)[0]}">${esc(statusOf(s)[1])}</span>${changedBadge(s)}</div>
     <button class="add ${on ? "on" : ""}" data-toggle="${s.id}" aria-pressed="${on}" aria-label="${on ? "Remove" : "Add"} ${esc(s.name)}">${on ? "✓" : "+"}</button></div>`;
 }
 function tray() {
@@ -154,10 +212,21 @@ function viewFind() {
       ${sel1("sort", "Sort", SORTS, sortBy)}${sel1("show", "Show", SHOWS, show)}
     </div>
     <p class="count fine">${list.length} result${list.length === 1 ? "" : "s"}${S.f.course.length || S.f.state.length || S.f.city.length || S.f.q ? ` · <button class="link" data-reset>Clear filters</button>` : ""}</p>
+    ${!S.f.q ? openNowStrip(list) : ""}
     ${colleges.length ? `<h2 class="h3">Colleges</h2><div class="results">${colleges.map(itemRow).join("")}</div>` : ""}
     ${exams.length ? `<h2 class="h3">Entrance exams and counselling</h2><div class="results">${exams.map(itemRow).join("")}</div>` : ""}
     ${!list.length ? `<p class="empty">Nothing matches. Try clearing a filter.</p>` : ""}
   </section>${tray()}</div>`;
+}
+
+function openNowStrip(list) {
+  const open = list.map(s => [s, openInfo(s.id)]).filter(x => x[1]).sort((a, b) => a[1].localeCompare(b[1]));
+  if (!open.length) return "";
+  return `<h2 class="h3">Applications open right now</h2><div class="opennow">${open.map(([s, c]) => {
+    const n = dayDiff(today, D(c)), on = S.sel.includes(s.id);
+    return `<div class="oncard ${n <= 7 ? "urgent" : ""}"><b>${esc(s.name)}</b><span>Closes ${fmt(c)} · ${n === 0 ? "today" : `${n} day${n === 1 ? "" : "s"} left`}</span>
+      <button class="add ${on ? "on" : ""}" data-toggle="${s.id}" aria-label="${on ? "Remove" : "Add"} ${esc(s.name)}">${on ? "✓" : "+"}</button></div>`;
+  }).join("")}</div>`;
 }
 
 /* ---------- screen 2: view ---------- */
@@ -205,17 +274,23 @@ function table(withDates, clashIds) {
 function byCollege(withDates, clashIds) {
   return `<div class="colcards">${withDates.map(id => {
     const evs = upcomingFor(id), s = srcOf(id);
-    return `<article class="colcard" style="--c:${colorOf(id)}"><header><b>${esc(s.name)}</b><a href="${esc(s.url)}" target="_blank" rel="noopener">Official site ↗</a></header>
+    const t = (S.track || {})[id] || "";
+    return `<article class="colcard" style="--c:${colorOf(id)}"><header><b>${esc(s.name)}</b><a href="${esc(s.url)}" target="_blank" rel="noopener">Official site ↗</a></header>${changedBadge(s)}
+      ${hasTracks(id) ? `<label class="track">My programme <select data-track="${id}"><option value="">All programmes</option><option value="et" ${t === "et" ? "selected" : ""}>With entrance test</option><option value="net" ${t === "net" ? "selected" : ""}>Without entrance test</option></select></label>` : ""}
+      <div class="steps" aria-label="My progress">${STEPS.map(([k, l]) => `<button class="step ${isDone(id, k) ? "on" : ""}" data-done="${id}:${k}" aria-pressed="${isDone(id, k)}">${isDone(id, k) ? "✓ " : ""}${l}</button>`).join("")}</div>
+      ${evs.length ? "" : `<p class="fine nod">${esc(statusOf(s)[1])}</p>`}
       ${evs.map(e => `<button class="crow ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}"><span class="cw">${esc(action(e))}${e.via ? `<small>via ${esc(srcOf(e.via).name)}</small>` : ""}${e.tentative ? `<small>tentative</small>` : ""}</span><span class="cd2 num">${rangeText(e)}</span>${chip(e)}</button>`).join("")}</article>`;
   }).join("")}</div>`;
 }
 const PALETTE = ["#2f4fd8", "#d43a3a", "#1d8a5b", "#b5650a", "#7b3fc4", "#0f8a9a", "#c2367a", "#5b6b00", "#8a5a2b", "#3d6fb5", "#a33d3d", "#4b4b9a"];
-const colorOf = id => PALETTE[Math.max(0, S.sel.indexOf(id)) % PALETTE.length];
+const colorOf = id => id === "__me" ? "#8a8f9c" : PALETTE[Math.max(0, S.sel.indexOf(id)) % PALETTE.length];
 const whoText = e => {
+  if (e.source === "__me") return "Added by you";
   const name = srcOf(e.via || e.source).name, f = (e.forList || []).filter(x => x !== (e.via || e.source));
   return f.length ? `${name} · for ${f.map(x => srcOf(x).name).join(", ")}` : name;
 };
 function action(e) {
+  if (e.source === "__me") return e.title;
   const q = (e.title.match(/\(([^)]+)\)\s*$/) || [])[1];
   const base = { app: /open/i.test(e.title) ? "Applications open" : "Last date to apply", fee: "Pay fees by", correct: "Correction window",
     admit: "Download admit card", exam: /interview|selection|skill/i.test(e.evidence) && !/entrance test:/i.test(e.evidence) ? "Interview / selection round" : "Entrance test",
@@ -258,7 +333,7 @@ function agenda(evs, clashIds) {
     out += `<button class="ag ${clashIds.has(e.id) ? "cl" : ""}" data-ev="${esc(e.id)}" style="--c:${colorOf((e.forList || [e.source])[0])}">
       <span class="agd"><b class="num">${d.getDate()}</b><small>${d.toLocaleDateString("en-IN", { weekday: "short" })}</small></span>
       <span class="agt"><b>${esc(action(e))}</b><small>${esc(whoText(e))}${e.end && !DEADLINE.has(e.cat) ? ` · ${rangeText(e)}` : ""}${e.end && DEADLINE.has(e.cat) ? ` · open since ${fmt(e.start)}` : ""}${e.tentative ? " · tentative" : ""}</small></span>
-      <span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span></button>`;
+      ${(e.forList || [e.source]).every(id => isDone(id, STEP_OF[e.cat])) && STEP_OF[e.cat] && e.source !== "__me" ? `<span class="st done">✓ Done</span>` : `<span class="st ${urgent ? "urg" : n <= 30 ? "soon" : "later"}">${when}</span>`}</button>`;
   });
   return `<div class="agenda">${out}<p class="fine">Tap any date to see the proof from the official page.</p></div>`;
 }
@@ -270,24 +345,42 @@ function viewView() {
   const cal = calUrls(), tab = ["list", "college", "calendar"].includes(S.tab) ? S.tab : "list";
   const tabBtn = (k, l) => `<button role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}</button>`;
   return `<div class="wrap view">
-    <div class="viewtop"><div><h1 class="h2">My dates</h1><span class="fine">${S.sel.length} college${S.sel.length === 1 ? "" : "s"} · ${evs.length} dates</span></div><button class="btn" data-go="find">Edit list</button></div>
+    <div class="viewtop"><div><h1 class="h2">My dates</h1><span class="fine">${S.sel.length} college${S.sel.length === 1 ? "" : "s"} · ${evs.length} dates · ${S.sel.filter(id => isDone(id, "applied")).length} applied</span></div><button class="btn" data-go="find">Edit list</button></div>
     ${note()}
     ${nextCard(evs)}
-    ${cl.map(c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`).join("")}
+    ${alerts(cl)}
     ${withDates.length ? `<div class="tabs" role="tablist">${tabBtn("list", "Timeline")}${tabBtn("college", "By college")}${tabBtn("calendar", "Calendar")}</div>
-      ${tab === "list" ? agenda(evs, clashIds) : tab === "college" ? `${byCollege(withDates, clashIds)}<div class="panel wide-only">${table(withDates, clashIds)}</div>` : `<div class="panel pad">${calendar(evs, clashIds)}</div>`}` : ""}
+      ${tab === "list" ? agenda(evs, clashIds) : tab === "college" ? `${byCollege(S.sel, clashIds)}<div class="panel wide-only">${table(withDates, clashIds)}</div>` : `<div class="panel pad">${calendar(evs, clashIds)}</div>`}` : ""}
+    ${mineForm()}
     ${sharedNote.length ? `<p class="fine shared">Shared exams are shown once: ${esc(sharedNote.join("; "))}.</p>` : ""}
     ${notYet.length ? `<div class="notyet warnbox"><b>No dates found yet for ${notYet.length} of your picks</b>
       <p>This does <b>not</b> mean applications are closed. The college may not have published them, or our robot missed them. Check today:</p>
-      <ul>${notYet.map(id => `<li><a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">${esc(srcOf(id).name)} ↗</a></li>`).join("")}</ul></div>` : ""}
+      <ul>${notYet.map(id => `<li><a href="${esc(srcOf(id).url)}" target="_blank" rel="noopener">${esc(srcOf(id).name)} ↗</a><small>${esc(statusOf(srcOf(id))[1])}</small></li>`).join("")}</ul></div>` : ""}
     <div class="side">
       <div class="card"><h2 class="h3">Get these dates on your phone</h2>
         ${cal.live ? `<a class="cta full" href="${cal.google}" target="_blank" rel="noopener">Add to Google Calendar</a><a class="btn full" href="${cal.webcal}">iPhone / other calendars</a><button class="btn full" id="copyCal">Copy calendar link</button><p class="fine">New and changed dates appear in your calendar by themselves.</p>`
         : `<button class="cta full" disabled>Add to my calendar</button><p class="fine">Available on the live site.</p>`}</div>
+      <div class="card"><h2 class="h3">Open this list on another phone</h2><p class="fine">One link opens the same colleges for your parent or child. Ticks and your own dates stay on each phone.</p><button class="btn full" id="shareList">Copy my list link</button></div>
       <div class="card"><h2 class="h3">Share with a friend</h2>
         <a class="btn full" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("All my college admission dates side by side, free and no sign-up: " + location.origin)}">Share on WhatsApp</a></div>
       ${(DATA.changes || []).some(c => S.sel.includes(c.source)) ? `<div class="card"><h2 class="h3">Recently changed</h2>${DATA.changes.filter(c => S.sel.includes(c.source)).slice(0, 5).map(c => `<p class="fine"><b>${esc(srcOf(c.source).name)}</b> ${esc(c.title)}: ${c.from ? `${esc(c.from)} → ` : "new: "}<b>${esc(c.to)}</b></p>`).join("")}</div>` : ""}
     </div></div>`;
+}
+function alerts(cl) {
+  const box = c => `<div class="alert ${c.kind}"><b>${c.kind === "clash" ? "Clash" : c.kind === "maybe" ? "Possible clash" : "Plan ahead"}:</b> ${esc(c.why)}</div>`;
+  const hard = cl.filter(c => c.kind === "clash"), soft = cl.filter(c => c.kind !== "clash");
+  const nm = soft.filter(c => c.kind === "maybe").length, nr = soft.length - nm;
+  const label = [nm && `${nm} possible clash${nm > 1 ? "es" : ""}`, nr && `${nr} thing${nr > 1 ? "s" : ""} to plan around`].filter(Boolean).join(" · ");
+  return hard.map(box).join("") + (soft.length ? `<details class="alerts"><summary>⚠ ${label} <u>Show</u></summary>${soft.map(box).join("")}</details>` : "");
+}
+function mineForm() {
+  const list = (S.mine || []).filter(e => D(evEnd(e)) >= today);
+  return `<details class="mine" ${S.mineOpen ? "open" : ""}><summary>＋ Add my own dates <small>board exams, practicals, family events…</small></summary>
+    <form id="mineForm"><label>What<input name="t" required maxlength="60" placeholder="e.g. Board exams (CBSE)"></label>
+      <div class="two"><label>From<input name="s" type="date" required></label><label>To (optional)<input name="e" type="date"></label></div>
+      <label class="chk"><input type="checkbox" name="x" checked> I can't attend a test on these days (check for clashes)</label>
+      <button class="cta" type="submit">Add</button><p class="fine">Only stored on this phone. Board timetables: check your board's official website.</p></form>
+    ${list.length ? `<ul class="minel">${list.map(e => `<li><b>${esc(e.title)}</b> ${rangeText(e)} <button class="link" data-unmine="${esc(e.id)}">Remove</button></li>`).join("")}</ul>` : ""}</details>`;
 }
 function calUrls() {
   const live = /^https?:$/.test(location.protocol) && !DATA.sample && location.hostname !== "localhost";
@@ -306,6 +399,10 @@ function sheet(id) {
       ${list.map(e => `<button class="ag" data-ev="${esc(e.id)}" style="--c:${colorOf((e.forList || [e.source])[0])}"><span class="agt"><b>${esc(action(e))}</b><small>${esc(whoText(e))}</small></span></button>`).join("")}
       ${list.length > 1 && list.filter(e => e.cat === "exam").length > 1 ? `<p class="bad">More than one test or interview on this day. Check the timings on your admit cards.</p>` : ""}</div></div>`;
   }
+  const mine = (S.mine || []).find(x => x.id === id);
+  if (mine) return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="My date"><div class="in"><button class="x" data-close aria-label="Close">×</button>
+    <small class="fine">Added by you</small><h2 class="h2">${esc(mine.title)}</h2><div class="big num">${mine.end ? `${fmtY(mine.start)} – ${fmtY(mine.end)}` : fmtY(mine.start)}</div>
+    <button class="btn full" data-unmine="${esc(mine.id)}">Remove this date</button></div></div>`;
   const e = DATA.events.find(x => x.id === id); if (!e) return "";
   const s = srcOf(e.source);
   return `<div class="scrim" data-close></div><div class="sheet" role="dialog" aria-label="Date details"><div class="in"><button class="x" data-close aria-label="Close">×</button>
@@ -344,6 +441,9 @@ document.addEventListener("click", async ev => {
   const card = ev.target.closest("[data-card]");
   if (card && !ev.target.closest("button,a")) { toggle(card.dataset.card); return; }
   const t = ev.target.closest("button,[data-close]"); if (!t) return;
+  if (t.dataset.done) { const [id, k] = t.dataset.done.split(":"); S.done[id] = S.done[id] || {}; S.done[id][k] = !S.done[id][k]; save(); render(); return; }
+  if (t.dataset.unmine) { S.mine = S.mine.filter(x => x.id !== t.dataset.unmine); S.open = null; S.mineOpen = true; save(); render(); return; }
+  if (t.id === "shareList") { const u = location.origin + location.pathname + "?l=" + S.sel.join(","); try { await navigator.clipboard.writeText(u); toast("List link copied"); } catch { toast(u); } return; }
   if (t.hasAttribute("data-reset")) { Object.assign(S.f, { course: [], state: [], city: [], q: "" }); save(); render(); return; }
   if (t.dataset.clear) { S.f[t.dataset.clear] = []; S.openMs = null; save(); render(); }
   else if (t.dataset.toggle) { ev.stopPropagation(); toggle(t.dataset.toggle); }
@@ -356,6 +456,7 @@ document.addEventListener("click", async ev => {
   else if (t.id === "copyCal") { const u = calUrls().https; try { await navigator.clipboard.writeText(u); toast("Calendar link copied"); } catch { toast(u); } }
 });
 document.addEventListener("change", e => {
+  if (e.target.dataset?.track) { S.track[e.target.dataset.track] = e.target.value; save(); render(); return; }
   const pk = e.target.dataset?.pref;
   if (pk) { if (pk === "tsort") { S.tsort = e.target.value; store.set("tsort", S.tsort); } else { S.f[pk] = e.target.value; save(); } render(); return; }
   const k = e.target.dataset?.f; if (!k) return;
@@ -363,6 +464,14 @@ document.addEventListener("change", e => {
   e.target.checked ? arr.includes(v) || arr.push(v) : arr.splice(arr.indexOf(v), 1);
   if (k === "state") { const ok = new Set(DATA.sources.flatMap(s => s.campuses || [{ city: s.city, state: s.state }]).filter(p => !S.f.state.length || S.f.state.includes(p.state)).map(p => p.city)); S.f.city = S.f.city.filter(c => ok.has(c)); }
   S.openMs = k; save(); render();
+});
+document.addEventListener("submit", e => {
+  if (e.target.id !== "mineForm") return;
+  e.preventDefault();
+  const f = new FormData(e.target), st = f.get("s"), en = f.get("e");
+  if (!st) return;
+  S.mine.push({ id: "mine-" + Date.now(), title: String(f.get("t")).trim().slice(0, 60), start: st, end: en && en > st ? en : null, cat: f.get("x") ? "exam" : "other" });
+  S.mineOpen = true; save(); render(); toast("Added to your dates");
 });
 document.addEventListener("toggle", e => { const d = e.target; if (d.matches?.("details.ms")) { if (d.open) { S.openMs = d.dataset.ms; document.querySelectorAll("details.ms[open]").forEach(o => o !== d && (o.open = false)); } else if (S.openMs === d.dataset.ms) S.openMs = null; } }, true);
 document.addEventListener("click", e => { if (!e.target.closest("details.ms") && document.querySelector("details.ms[open]")) { S.openMs = null; document.querySelectorAll("details.ms[open]").forEach(o => o.open = false); } }, true);
@@ -396,7 +505,14 @@ async function boot() {
   if (!DATA) { $("#app").innerHTML = `<p class="wrap" style="padding-top:40px">Couldn't load the dates. Check your internet connection and reload.</p>`; return; }
   const sel = (store.get("sel", []) || []).filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
   S = { sel, f: (() => { const f = Object.assign({ course: [], state: [], city: [], q: "" }, store.get("f", {}));
-      ["course", "state", "city"].forEach(k => { if (!Array.isArray(f[k])) f[k] = f[k] ? [f[k]] : []; }); return f; })(), openMs: null, view: sel.length ? "view" : "find", tab: store.get("tab2", "list"), open: null, tsort: store.get("tsort", "soon") };
+      ["course", "state", "city"].forEach(k => { if (!Array.isArray(f[k])) f[k] = f[k] ? [f[k]] : []; }); return f; })(), openMs: null, view: sel.length ? "view" : "find", tab: store.get("tab2", "list"), open: null, tsort: store.get("tsort", "soon"),
+    done: store.get("done", {}) || {}, track: store.get("track", {}) || {}, mine: store.get("mine", []) || [] };
+  const shared = new URLSearchParams(location.search).get("l");
+  if (shared) {
+    const ids = shared.split(",").filter(id => DATA.sources.some(s => s.id === id)).slice(0, CONFIG.max);
+    if (ids.length) { S.sel = ids; S.view = "view"; save(); setTimeout(() => toast("Opened a shared list"), 300); }
+    history.replaceState(null, "", location.pathname);
+  }
   render();
 }
 boot();
