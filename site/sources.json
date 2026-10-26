@@ -1272,6 +1272,41 @@
    "pages": [
     "https://www.ladydoakcollege.edu.in/Latest_News.html"
    ]
+  },
+  {
+   "id": "flame",
+   "name": "FLAME University (BBA)",
+   "authority": "FLAME University",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://www.flame.edu.in/",
+   "kind": "college",
+   "state": "Maharashtra",
+   "city": "Pune",
+   "pages": [
+    "https://www.flame.edu.in/admissions/apply",
+    "https://www.flame.edu.in/admissions/ug"
+   ]
+  },
+  {
+   "id": "snu-bms",
+   "name": "Shiv Nadar University (BMS)",
+   "authority": "Shiv Nadar University, Delhi-NCR",
+   "stream": [
+    "Management"
+   ],
+   "url": "https://ugapplications.snu.edu.in/",
+   "kind": "college",
+   "state": "Uttar Pradesh",
+   "city": "Delhi NCR",
+   "uses": [
+    "cuet-ug"
+   ],
+   "pages": [
+    "https://ugapplications.snu.edu.in/"
+   ],
+   "require": "\\bBMS\\b|management|undergraduate|UG "
   }
  ]
 }
