@@ -206,7 +206,7 @@ function viewFind() {
   const colleges = list.filter(s => s.kind === "college"), exams = list.filter(s => s.kind !== "college");
   return `<div class="wrap find"><section class="main">
     <div class="hero"><h1 class="h1">All your admission dates in one view.</h1>
-      <p class="lede">Currently covers <b>B.Com</b> and <b>IPM/BBA (IPMAT)</b> only; more courses will be added if students find it useful. Dates are read from official websites every morning.</p>${statsLine()}${HOW}${note()}</div>
+      <p class="lede">Currently covers <b>B.Com</b> and <b>IPM/BBA (IPMAT)</b> only; more courses will be added if students find it useful. Dates are read from official websites every morning.</p>${statsLine()}${HOW}${note()}${isApp() ? "" : `<p class="fine apphint">Tip: you can install AdmitzView as an app. ${INSTALL ? `<button class="link" id="installBtn">Install now</button>` : isIOS() ? "In Safari tap Share → Add to Home Screen." : "Chrome menu ⋮ → Add to Home screen / Install."}</p>`}</div>
     <label class="search"><span class="sr">Search</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="fQ" type="search" placeholder="Search a college or exam" value="${esc(S.f.q || "")}" autocomplete="off"></label>
     <div class="filters">
       ${multi("course", "Course", COURSES.filter(c => c.id).map(c => [c.id, c.label]), "All courses")}
@@ -387,6 +387,7 @@ function viewView() {
       <div class="card"><h2 class="h3">Get these dates on your phone</h2>
         ${cal.live ? `<a class="cta full" href="${cal.google}" target="_blank" rel="noopener">Add to Google Calendar</a><a class="btn full" href="${cal.webcal}">iPhone / other calendars</a><button class="btn full" id="copyCal">Copy calendar link</button><p class="fine">New and changed dates appear in your calendar by themselves.</p>`
         : `<button class="cta full" disabled>Add to my calendar</button><p class="fine">Available on the live site.</p>`}</div>
+      ${installCard()}
       <div class="card"><h2 class="h3">Open this list on another phone</h2><p class="fine">One link opens the same colleges for your parent or child. Ticks and your own dates stay on each phone.</p><button class="btn full" id="shareList">Copy my list link</button></div>
       <div class="card"><h2 class="h3">Share with a friend</h2>
         <a class="btn full" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent("B.Com and IPMAT admission dates from official college websites, side by side, with clash alerts and calendar reminders. Free, no sign-up. (Currently covers B.Com and IPM/BBA only; more courses will be added if students find it useful.) " + location.origin)}">Share on WhatsApp</a></div>
@@ -496,6 +497,7 @@ document.addEventListener("click", async ev => {
     S.mine.push({ id: "mine-" + Date.now(), title: title.slice(0, 60), start: p.s, end: p.e && p.e !== p.s ? p.e : null, cat: exam ? "exam" : "other" });
     S.pick = { m: p.m, t: p.t }; S.mineOpen = true; save(); render(); toast("Added to your dates"); return;
   }
+  if (t.id === "installBtn" && INSTALL) { INSTALL.prompt(); const r = await INSTALL.userChoice; INSTALL = null; if (r.outcome === "accepted") toast("Installed"); render(); return; }
   if (t.dataset.done) { const [id, k] = t.dataset.done.split(":"); S.done[id] = S.done[id] || {}; S.done[id][k] = !S.done[id][k]; save(); render(); return; }
   if (t.dataset.unmine) { S.mine = S.mine.filter(x => x.id !== t.dataset.unmine); S.open = null; S.mineOpen = true; save(); render(); return; }
   if (t.id === "shareList") { const u = location.origin + location.pathname + "?l=" + S.sel.join(","); try { await navigator.clipboard.writeText(u); toast("List link copied"); } catch { toast(u); } return; }
@@ -541,6 +543,17 @@ document.addEventListener("dragover", e => { const t = e.target.closest?.("#tray
 document.addEventListener("dragleave", e => { const t = e.target.closest?.("#tray"); if (t && !t.contains(e.relatedTarget)) t.classList.remove("over"); });
 document.addEventListener("drop", e => { const t = e.target.closest?.("#tray"); if (!t) return; e.preventDefault(); const id = e.dataTransfer.getData("text/plain"); if (id && !S.sel.includes(id)) toggle(id); else render(); });
 
+let INSTALL = null;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); INSTALL = e; document.querySelectorAll(".installcard").forEach(el => el.outerHTML = installCard()); });
+const isApp = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
+function installCard() {
+  if (isApp()) return `<div class="installcard" hidden></div>`;
+  const how = INSTALL ? `<button class="cta full" id="installBtn">Install AdmitzView</button>`
+    : isIOS() ? `<p class="fine">On iPhone: open this site in <b>Safari</b>, tap the <b>Share</b> button, then <b>Add to Home Screen</b>.</p>`
+    : `<p class="fine">In Chrome: tap the <b>⋮ menu</b> → <b>Add to Home screen</b> (phone) or click the <b>install icon</b> in the address bar (computer).</p>`;
+  return `<div class="card installcard"><h2 class="h3">Install as an app</h2><p class="fine">Opens from your home screen or desktop like an app, and works offline with the last dates you saw.</p>${how}</div>`;
+}
 let STATS = null;
 async function hit(k) {
   try {

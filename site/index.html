@@ -10,10 +10,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Hind:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#141a2e">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="AdmitzView">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2.5' y='5.5' width='27' height='21' rx='5' fill='none' stroke='%2322252d' stroke-width='3'/%3E%3Crect x='8' y='12' width='12' height='3.5' rx='1.75' fill='%2322252d'/%3E%3Ccircle cx='22' cy='19.5' r='3.5' fill='%23c8323c'/%3E%3C/svg%3E">
 </head>
 <body>
 <div id="app"></div>
 <script src="app.js"></script>
+<script>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));</script>
 </body>
 </html>
