@@ -449,7 +449,7 @@ function sheet(id) {
     <a class="cta full" href="${esc(e.url)}" target="_blank" rel="noopener">Open the official page to confirm ↗</a>
     <p class="fine">${e.verified === "2 readers agree" ? "✓ Confirmed by two independent readers of the official page." : "Read from the college's official admission-dates page."} Checked${e.checked ? " " + fmtY(e.checked.slice(0, 10)) : ""}.</p>
     <p class="disclaim sm"><b>Indicative only. Accuracy not guaranteed.</b> Open the official source above and confirm this date before you act.</p>
-    <p class="fine"><a href="${mailto("Wrong date: " + s.name, `${e.title}: ${e.end ? e.start + " to " + e.end : e.start}\nOfficial page: ${e.url}\n\nWhat's wrong:\n`)}">Report a wrong date</a></p></div></div>`;
+    <p class="fine"><a href="${mailto("Date mismatch: " + s.name, `${e.title}: ${e.end ? e.start + " to " + e.end : e.start}\nOfficial page: ${e.url}\n\nWhat's different on the official page:\n`)}">Report a mismatch or missing date</a></p></div></div>`;
 }
 
 function render() {
@@ -465,7 +465,7 @@ function render() {
   ${DATA.sample ? `<div class="wrap"><p class="banner">Preview with sample dates. These are not real dates.</p></div>` : ""}
   <main>${S.view === "view" ? viewView() : viewFind()}</main>
   <footer class="wrap foot">${statsLine()}<p><b>Indicative information only. Accuracy is not guaranteed.</b> ${NOTE_LONG}</p>
-    <p class="feedback">Feedback, or spotted a wrong date? Write to <a href="${mailto("AdmitzView feedback")}">${MAIL}</a>. Please don't include personal details such as phone numbers, address or marks.</p>
+    <p class="feedback">Feedback, or noticed a missing date or a mismatch with the official website? Write to <a href="${mailto("AdmitzView feedback")}">${MAIL}</a>. Please don't include personal details such as phone numbers, address or marks.</p>
     <p class="maker">Made by <a href="${CONFIG.makerUrl}" target="_blank" rel="noopener">${esc(CONFIG.maker)}</a> for his son's college applications, and shared free in case it helps you too. No sign-up and no personal data: we only count visits anonymously, and your list stays on this device.</p></footer>
   ${S.open ? sheet(S.open) : ""}`;
 }
