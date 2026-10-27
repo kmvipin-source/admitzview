@@ -448,7 +448,8 @@ function sheet(id) {
     <p class="fine">What the official page says:</p><blockquote>${esc(e.evidence)}</blockquote>
     <a class="cta full" href="${esc(e.url)}" target="_blank" rel="noopener">Open the official page to confirm ↗</a>
     <p class="fine">${e.verified === "2 readers agree" ? "✓ Confirmed by two independent readers of the official page." : "Read from the college's official admission-dates page."} Checked${e.checked ? " " + fmtY(e.checked.slice(0, 10)) : ""}.</p>
-    <p class="disclaim sm"><b>Indicative only. Accuracy not guaranteed.</b> Open the official source above and confirm this date before you act.</p></div></div>`;
+    <p class="disclaim sm"><b>Indicative only. Accuracy not guaranteed.</b> Open the official source above and confirm this date before you act.</p>
+    <p class="fine"><a href="${mailto("Wrong date: " + s.name, `${e.title}: ${e.end ? e.start + " to " + e.end : e.start}\nOfficial page: ${e.url}\n\nWhat's wrong:\n`)}">Report a wrong date</a></p></div></div>`;
 }
 
 function render() {
@@ -464,6 +465,7 @@ function render() {
   ${DATA.sample ? `<div class="wrap"><p class="banner">Preview with sample dates. These are not real dates.</p></div>` : ""}
   <main>${S.view === "view" ? viewView() : viewFind()}</main>
   <footer class="wrap foot">${statsLine()}<p><b>Indicative information only. Accuracy is not guaranteed.</b> ${NOTE_LONG}</p>
+    <p class="feedback">Feedback, or spotted a wrong date? Write to <a href="${mailto("AdmitzView feedback")}">${MAIL}</a>. Please don't include personal details such as phone numbers, address or marks.</p>
     <p class="maker">Made by <a href="${CONFIG.makerUrl}" target="_blank" rel="noopener">${esc(CONFIG.maker)}</a> for his son's college applications, and shared free in case it helps you too. No sign-up and no personal data: we only count visits anonymously, and your list stays on this device.</p></footer>
   ${S.open ? sheet(S.open) : ""}`;
 }
@@ -554,6 +556,9 @@ function installCard() {
     : `<p class="fine">In Chrome: tap the <b>⋮ menu</b> → <b>Add to Home screen</b> (phone) or click the <b>install icon</b> in the address bar (computer).</p>`;
   return `<div class="card installcard"><h2 class="h3">Install as an app</h2><p class="fine">Opens from your home screen or desktop like an app, and works offline with the last dates you saw.</p>${how}</div>`;
 }
+/* feedback address, put together at runtime so simple spam bots reading the page source don't pick it up */
+const MAIL = ["admitzview", "gmail.com"].join("@");
+const mailto = (subject, body = "") => `mailto:${MAIL}?subject=${encodeURIComponent(subject)}${body ? "&body=" + encodeURIComponent(body) : ""}`;
 let STATS = null;
 async function hit(k) {
   try {

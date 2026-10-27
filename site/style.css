@@ -489,3 +489,4 @@ html,body{overflow-x:hidden}
 @media (max-width:420px){.brand{font-size:1.1rem;gap:6px}.topnav button svg{display:none}}
 .apphint{margin-top:10px;font-size:.85rem}
 .installcard .fine b{color:var(--ink)}
+.foot .feedback a{color:var(--brand)}
