@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11T13:42+05:30",
+ "generated": "2026-11-12T14:15+05:30",
  "cycle": "2027",
  "sample": false,
  "strict": true,
@@ -274,7 +274,7 @@
    "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -289,7 +289,7 @@
    "state": "All India",
    "kind": "exam",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "3b923ccebb225bf3",
@@ -407,7 +407,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 9,
    "ai": false,
    "page_fp": "3eca05d09a4cf4f9",
@@ -433,7 +433,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 12,
    "ai": false,
    "page_fp": "1316d0520c91b66e",
@@ -458,18 +458,10 @@
    "city": "Bengaluru",
    "state": "Karnataka",
    "kind": "college",
-   "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
-   "found": 4,
-   "ai": false,
-   "page_fp": "e9a40e902b543898",
-   "page_years": [
-    "2024",
-    "2026",
-    "2027"
-   ],
-   "cycle_published": true,
-   "page_changed": "2026-11-04T13:24+05:30"
+   "status": "failed",
+   "checked": "2026-11-12T14:15+05:30",
+   "reason": "Couldn't read the official site today",
+   "last_ok": "2026-11-11T13:42+05:30"
   },
   {
    "id": "mcc-blr",
@@ -485,7 +477,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -503,7 +495,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -521,15 +513,15 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
-   "page_fp": "62bc498de48f7b75",
+   "page_fp": "33c67ca958722f93",
    "page_years": [
     "2026"
    ],
    "cycle_published": false,
-   "page_changed": "2026-11-06T13:54+05:30"
+   "page_changed": "2026-11-12T14:15+05:30"
   },
   {
    "id": "jyoti",
@@ -545,7 +537,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -562,7 +554,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -580,7 +572,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 4,
    "ai": false,
    "page_fp": "345e79d19ead115e",
@@ -604,7 +596,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -622,7 +614,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -639,7 +631,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -657,7 +649,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -673,7 +665,7 @@
    "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -690,7 +682,7 @@
    "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -708,7 +700,7 @@
    "state": "Delhi",
    "kind": "counselling",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -724,7 +716,7 @@
    "state": "Delhi",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -740,7 +732,7 @@
    "state": "Delhi",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -756,7 +748,7 @@
    "state": "Delhi",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -772,7 +764,7 @@
    "state": "Delhi",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -788,7 +780,7 @@
    "state": "Delhi",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -804,7 +796,7 @@
    "state": "Delhi",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -822,7 +814,7 @@
    "state": "Maharashtra",
    "kind": "counselling",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -838,7 +830,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -854,7 +846,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -870,7 +862,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -886,7 +878,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -902,7 +894,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -918,7 +910,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -934,7 +926,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -950,7 +942,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -968,7 +960,7 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -984,7 +976,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1000,7 +992,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1016,7 +1008,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1032,7 +1024,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1048,7 +1040,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1064,7 +1056,7 @@
    "state": "West Bengal",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1080,7 +1072,7 @@
    "state": "West Bengal",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1096,7 +1088,7 @@
    "state": "Telangana",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1112,7 +1104,7 @@
    "state": "Telangana",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1128,7 +1120,7 @@
    "state": "Madhya Pradesh",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "3b923ccebb225bf3",
@@ -1151,7 +1143,7 @@
    "state": "Haryana",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -1167,7 +1159,7 @@
    "state": "Jharkhand",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "ca71c39a9fd5bf4c",
@@ -1193,7 +1185,7 @@
    "state": "Meghalaya",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "89ff033d17170fea",
@@ -1216,7 +1208,7 @@
    "state": "Punjab",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "ae5cd85229415811",
@@ -1242,7 +1234,7 @@
    "state": "Bihar",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1258,7 +1250,7 @@
    "state": "Jammu and Kashmir",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": "2026-10-25T01:33+05:30"
   },
@@ -1274,7 +1266,7 @@
    "state": "Karnataka",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "c385b49bce581dc6",
@@ -1297,7 +1289,7 @@
    "state": "All India",
    "kind": "exam",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1313,7 +1305,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1329,7 +1321,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1345,7 +1337,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "0b337e2f3985071d|6800add46826b868",
@@ -1368,7 +1360,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1385,7 +1377,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -1402,7 +1394,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "7cc4a508f8dca853|d4a8c0963fe3d800",
@@ -1427,7 +1419,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -1444,7 +1436,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "4b4c2ac67aa9200d",
@@ -1469,7 +1461,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1485,7 +1477,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1502,7 +1494,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1518,7 +1510,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1534,7 +1526,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   },
@@ -1550,7 +1542,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1566,7 +1558,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "bb8c8372510c3ef2",
@@ -1593,7 +1585,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "No official dates page set up yet",
    "last_ok": null
   },
@@ -1609,7 +1601,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "19682616c9d22d33",
@@ -1633,7 +1625,7 @@
    "state": "Tamil Nadu",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
    "page_fp": "7c82dd6cf66f787d",
@@ -1662,16 +1654,13 @@
    "state": "Maharashtra",
    "kind": "college",
    "status": "ok",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "found": 0,
    "ai": false,
-   "page_fp": "ae439c48d9606459|0308093757d4b3da",
-   "page_years": [
-    "2026",
-    "2027"
-   ],
-   "cycle_published": true,
-   "page_changed": "2026-10-29T13:05+05:30"
+   "page_fp": "",
+   "page_years": [],
+   "cycle_published": false,
+   "page_changed": "2026-11-12T14:15+05:30"
   },
   {
    "id": "snu-bms",
@@ -1685,7 +1674,7 @@
    "state": "Uttar Pradesh",
    "kind": "college",
    "status": "failed",
-   "checked": "2026-11-11T13:42+05:30",
+   "checked": "2026-11-12T14:15+05:30",
    "reason": "Couldn't read the official site today",
    "last_ok": null
   }
@@ -1705,7 +1694,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1721,7 +1710,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1737,7 +1726,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1753,7 +1742,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1769,7 +1758,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1785,7 +1774,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1801,7 +1790,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1817,7 +1806,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "christ",
@@ -1833,7 +1822,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://christuniversity.in/admission/ugpg-selection-process-dates-2027",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1849,7 +1838,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1865,7 +1854,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1881,7 +1870,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1897,7 +1886,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1913,7 +1902,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1929,7 +1918,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1945,7 +1934,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1961,7 +1950,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1977,7 +1966,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -1993,7 +1982,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -2009,7 +1998,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sju",
@@ -2025,7 +2014,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sju.edu.in/important-dates",
    "first_seen": "2026-10-31T12:55+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "sjcc",
@@ -2041,7 +2030,8 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sjcc.edu.in/admission_procedure.php",
    "first_seen": "2026-10-25T18:09+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-11T13:42+05:30",
+   "stale": true
   },
   {
    "source": "sjcc",
@@ -2057,7 +2047,8 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sjcc.edu.in/admission_procedure.php",
    "first_seen": "2026-10-25T18:09+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-11T13:42+05:30",
+   "stale": true
   },
   {
    "source": "sjcc",
@@ -2073,7 +2064,8 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sjcc.edu.in/admission_procedure.php",
    "first_seen": "2026-10-25T18:09+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-11T13:42+05:30",
+   "stale": true
   },
   {
    "source": "sjcc",
@@ -2089,7 +2081,8 @@
    "verified": "1 reader (official dates page)",
    "url": "https://www.sjcc.edu.in/admission_procedure.php",
    "first_seen": "2026-10-25T18:09+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-11T13:42+05:30",
+   "stale": true
   },
   {
    "source": "pes",
@@ -2105,7 +2098,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "pes",
@@ -2121,7 +2114,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "pes",
@@ -2137,7 +2130,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   },
   {
    "source": "pes",
@@ -2153,7 +2146,7 @@
    "verified": "1 reader (official dates page)",
    "url": "https://pes.edu/important-dates/",
    "first_seen": "2026-10-25T01:54+05:30",
-   "checked": "2026-11-11T13:42+05:30"
+   "checked": "2026-11-12T14:15+05:30"
   }
  ],
  "changes": [
